@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>size()</title>
+</head>
+
+
+<body>
+  <h1>Environment: size()</h1>
+
+
+  <script type="text/processing" id="size()-1" debug="transpiled">
+    size(200, 100);
+    background(153);
+    line(0, 0, width, height);
+  </script>
+
+  <script type="text/processing" id="size()-2" debug="transpiled">
+    void setup() {
+      size(320, 240);
+    }
+
+    void draw() {
+      background(153);
+      line(0, 0, width, height);
+    }
+  </script>
+
+  <!-- script type="text/processing" id="size()-3" debug="transpiled">
+    size(150, 200, P3D);  // Specify P3D renderer
+    background(153);
+
+    // With P3D, we can use z (depth) values...
+    line(0, 0, 0, width, height, -100);
+    line(width, 0, 0, width, height, -100);
+    line(0, height, 0, width, height, -100);
+
+    //...and 3D-specific functions, like box()
+    translate(width/2, height/2);
+    rotateX(PI/6);
+    rotateY(PI/6);
+    box(35);
+  </script -->
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

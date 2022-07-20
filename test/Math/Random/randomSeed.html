@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>randomSeed()</title>
+</head>
+
+
+<body>
+  <h1>Math: Random: randomSeed()</h1>
+
+
+  <script type="text/processing" id="randomSeed()" debug="transpiled">
+    randomSeed(0);
+    for (int i=0; i < 100; i++) {
+      float r=random(0, 255);
+      println(r);
+      stroke(r);
+      line(i, 0, i, 100);
+    }
+    </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

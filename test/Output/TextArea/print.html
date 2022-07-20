@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>print()</title>
+</head>
+
+
+<body>
+  <h1>Output: print()</h1>
+
+
+  <script type="text/processing" id="print()-1" debug="transpiled">
+    String s = "The size is ";
+    int w = 1920;
+    int h = 1080;
+    print(s);
+    print(w, "x", h);
+
+    // This program writes to the console:
+    // The size is 1920 x 1080
+  </script>
+
+  <script type="text/processing" id="print()_2" debug="transpiled">
+    print("begin- ");
+    float f = 0.3;
+    int i = 1024;
+    print("f is " + f + " and i is " + 1024);
+    String s = " -end";
+    println(s);
+
+    // This program writes to the console:
+    // "begin- f is 0.3 and i is 1024 -end"
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

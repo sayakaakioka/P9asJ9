@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>splitTokens()</title>
+  </head>
+
+
+  <body>
+    <h1>splitTokens()</h1>
+
+
+    <script type="text/processing" id="splitTokens()-1" debug="transpiled">
+      String t = "a b";
+      String[] q = splitTokens(t);
+      println(q[0]);  // Prints "a"
+      println(q[1]);  // Prints "b"
+    </script>
+
+    <script type="text/processing" id="splitTokens()-2" debug="transpiled">
+      // Despite the bad formatting, the data is parsed correctly.
+      // The ", " as delimiter means to break whenever a comma *or*
+      // a space is found in the String. Unlike the split() function,
+      // multiple adjacent delimiters are treated as a single break.
+      String s = "a, b c ,,d ";
+      String[] q = splitTokens(s, ", ");
+      println(q.length + " values found");  // Prints "4 values found"
+      println(q[0]);  // Prints "a"
+      println(q[1]);  // Prints "b"
+      println(q[2]);  // Prints "c"
+      println(q[3]);  // Prints "d"
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

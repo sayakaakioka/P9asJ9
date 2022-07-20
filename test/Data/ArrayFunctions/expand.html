@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>expand()</title>
+  </head>
+
+
+  <body>
+    <h1>expand()</h1>
+
+
+    <script type="text/processing" id="expand()-1" debug="transpiled">
+      int[] data = {0, 1, 3, 4};
+      println(data.length);  // Prints "4"
+      data = expand(data);
+      println(data.length);  // Prints "8"
+      data = expand(data, 512);
+      println(data.length);  // Prints "512"
+    </script>
+
+     <!-- script type="text/processing" id="expand()-2" debug="transpiled">
+      PImage[] imgs = new PImage[32];
+      println(imgs.length);  // Prints "32"
+      imgs = (PImage[]) expand(imgs);
+      println(imgs.length);  // Prints "64"
+    </script -->
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

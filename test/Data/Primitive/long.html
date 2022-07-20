@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>long</title>
+</head>
+
+
+<body>
+  <h1>Data: Primitive: long</h1>
+
+
+  <script type="text/processing" id="long" debug="transpiled">
+    long a; // Declare variable 'a' of type long and assign a large value:
+    //a = 2147483648; // Error: The literal of type int is out of range
+    a = 2147483648L; // Instead, add an "L" to the number to mark it as a long
+
+    long b = -256; // Declare variable 'b' and assign it the value -256
+    long c = a + b; // Declare variable 'c' and assign it the sum of 'a' and 'b'
+    println(c);
+    int i = (int)c; // Converts the value of 'c' from a long to an int
+    println(i);
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

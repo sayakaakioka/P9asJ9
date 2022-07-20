@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>float</title>
+</head>
+
+
+<body>
+  <h1>Data: Primitive: float</h1>
+
+
+  <script type="text/processing" id="float-1" debug="transpiled">
+    float a; // Declare variable 'a' of type float
+    a = 1.5387; // Assign 'a' the value 1.5387
+    float b = -2.984; // Declare variable 'b' and assign it the value -2.984
+    float c = a + b; // Declare variable 'c' and assign it the sum of 'a' and 'b'
+    println(c);
+  </script>
+
+  <script type="text/processing" id="float-2" debug="transpiled">
+    float f1 = 0.0;
+    for (int i = 0 ; i < 100000; i++) {
+      f1 = f1 + 0.0001;  // Bad idea! See below.
+    }
+    println(f1);
+
+    float f2 = 0.0;
+    for (int i = 0; i < 100000; i++) {
+      // The variable 'f2' will work better here, less affected by rounding
+      f2 = i / 1000.0;  // Count by thousandths
+    }
+    println(f2);
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

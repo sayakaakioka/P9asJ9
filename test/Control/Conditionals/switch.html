@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>switch</title>
+  </head>
+
+
+  <body>
+    <h1>switch</h1>
+
+
+    <script type="text/processing" id="switch-1" debug="transpiled">
+      int num = 1;
+
+      switch(num) {
+        case 0:
+          println("Zero");  // Does not execute
+          break;
+        case 1:
+          println("One");  // Prints "One"
+          break;
+      }
+    </script>
+
+    <script type="text/processing" id="switch-2" debug="transpiled">
+      char letter = 'N';
+
+      switch(letter) {
+        case 'A':
+          println("Alpha");  // Does not execute
+          break;
+        case 'B':
+          println("Bravo");  // Does not execute
+          break;
+        default:             // Default executes if the case names
+          println("None");   // don't match the switch parameter
+          break;
+      }
+    </script>
+
+    <script type="text/processing" id="switch-3" debug="transpiled">
+      // Removing a "break" enables testing
+      // for more than one value at once
+
+      char letter = 'b';
+
+      switch(letter) {
+        case 'a':
+        case 'A':
+          println("Alpha");  // Does not execute
+          break;
+        case 'b':
+        case 'B':
+          println("Bravo");  // Prints "Bravo"
+          break;
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

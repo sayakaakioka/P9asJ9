@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>arc()</title>
+</head>
+
+
+<body>
+  <h1>Shape: 2D Primitives: arc()</h1>
+
+
+  <script type="text/processing" id="arc()-1" debug="transpiled">
+    size(400,400);
+    arc(50, 55, 50, 50, 0, HALF_PI);
+    noFill();
+    arc(50, 55, 60, 60, HALF_PI, PI);
+    arc(50, 55, 70, 70, PI, PI+QUARTER_PI);
+    arc(50, 55, 80, 80, PI+QUARTER_PI, TWO_PI);
+  </script>
+
+
+  <!-- TODO: implement mode
+  <script type="text/processing" id="arc()-2" debug="transpiled">
+    size(400,400);
+    arc(200, 200, 320, 320, 0, PI+QUARTER_PI, OPEN);
+  </script>
+
+  <script type="text/processing" id="arc()-3" debug="transpiled">
+    size(400,400);
+    arc(200, 200, 320, 320, 0, PI+QUARTER_PI, CHORD);
+  </script>
+
+  <script type="text/processing" id="arc()_4" debug="transpiled">
+    size(400,400);
+    arc(200, 200, 320, 320, 0, PI+QUARTER_PI, PIE);
+  </script>
+  -->
+
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>norm()</title>
+  </head>
+
+
+  <body>
+    <h1>norm()</h1>
+
+
+    <script type="text/processing" id="norm()-1" debug="transpiled">
+      float value = 20;
+      float n = norm(value, 0, 50);
+      println(n);  // Prints "0.4"
+    </script>
+
+    <script type="text/processing" id="norm()-2" debug="transpiled">
+      float value = -10;
+      float n = norm(value, 0, 100);
+      println(n);  // Prints "-0.1"
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

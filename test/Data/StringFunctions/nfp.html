@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>nfp()</title>
+  </head>
+
+
+  <body>
+    <h1>nfp()</h1>
+
+
+    <script type="text/processing" id="nfp()" debug="transpiled">
+      int a=200, b=-40, c=90;
+      String sa = nfp(a, 10);
+      println(sa);  // Prints "+0000000200"
+      String sb = nfp(b, 5);
+      println(sb);  // Prints "-00040"
+      String sc = nfp(c, 3);
+      println(sc);  // Prints "+090"
+
+      float d = -200.94, e = 40.2, f = -9.012;
+      String sd = nfp(d, 10, 4);
+      println(sd);  // Prints "-0000000200.9400"
+      String se = nfp(e, 5, 3);
+      println(se);  // Prints "+00040.200"
+      String sf = nfp(f, 3, 5);
+      println(sf);  // Prints "-009.01200"
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

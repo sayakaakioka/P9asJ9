@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>match()</title>
+  </head>
+
+
+  <body>
+    <h1>match()</h1>
+
+
+    <script type="text/processing" id="match()-1" debug="transpiled">
+      String s = "Inside a tag, you will find <tag>content</tag>.";
+      String[] m = match(s, "<tag>(.*?)</tag>");
+      println("Found '" + m[1] + "' inside the tag.");
+      // Prints to the console:
+      // "Found 'content' inside the tag."
+    </script>
+
+    <script type="text/processing" id="match()-2" debug="transpiled">
+      String s1 = "Have you ever heard of a thing called fluoridation. ";
+      s1 += "Fluoridation of water?";
+      String s2 = "Uh? Yes, I-I have heard of that, Jack, yes. Yes.";
+
+      String[] m1 = match(s1, "fluoridation");
+      if (m1 != null) {  // If not null, then a match was found
+        // This will print to the console, since a match was found.
+        println("Found a match in '" + s1 + "'");
+      } else {
+        println("No match found in '" + s1 + "'");
+      }
+
+      String[] m2 = match(s2, "fluoridation");
+      if (m2 != null) {
+        println("Found a match in '" + s2 + "'");
+      } else {
+        // This will print to the console, since no match was found.
+        println("No match found in '" + s2 + "'");
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

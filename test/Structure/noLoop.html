@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>noLoop()-1</title>
+</head>
+
+
+<body>
+  <h1>Structure: noLoop()</h1>
+
+
+  <script type="text/processing" id="noLoop()-1" debug="transpiled">
+    void setup() {
+      size(200, 200);
+      noLoop();
+    }
+
+    void draw() {
+      line(10, 10, 190, 190);
+    }
+  </script>
+
+  <script type="text/processing" id="noLoop()-2" debug="transpiled">
+    void setup() {
+    size(200, 200);
+    }
+
+    float x = 0.0;
+
+    void draw() {
+      background(204);
+      x = x + 0.1;
+      if (x > width) {
+        x = 0;
+      }
+      line(x, 0, x, height);
+    }
+
+    void mousePressed() {
+      noLoop();
+    }
+
+    void mouseReleased() {
+      loop();
+    }
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

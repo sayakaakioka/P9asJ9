@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>operators</title>
+  </head>
+
+
+  <body>
+    <h1>operators</h1>
+
+
+    <script type="text/processing" id="add_assign" debug="transpiled">
+      int a = 50;
+      int b = 23;
+      a += b;  // Sets 'a' to 73
+      println(a);
+    </script>
+
+    <script type="text/processing" id="addition-1" debug="transpiled">
+      int a = 50 + 5;  // Sets 'a' to 55
+      println(a);
+      int b = a + 5;   // Sets 'b' to 60
+      println(b);
+    </script>
+
+    <script type="text/processing" id="addition-2" debug="transpiled">
+      String s1 = "Chernenko";
+      String s2 = "Brezhnev";
+      String sc1 = s1 + s2;
+      String sc2 = s1 + ", Andropov, " + s2;
+      println(sc1);  // Prints "ChernenkoBrezhnev"
+      println(sc2);  // Prints "Chernenko, Andropov, Brezhnev"
+    </script>
+
+    <script type="text/processing" id="addition-3" debug="transpiled">
+      String s1 = "Gorbachev";
+      int i = 1987;
+      String sc1 = s1 + i;
+      println(sc1);  // Prints "Gorbachev1987"
+    </script>
+
+    <script type="text/processing" id="decrement" debug="transpiled">
+      int a = 5;    // Sets 'a' to 5
+      println(a);
+      int b = a--;  // Sets 'b' to 5, then decrements 'a' to 4
+      println(b);
+      int c = a;    // Sets 'c' to 4
+      println(c);
+    </script>
+
+    <script type="text/processing" id="divide" debug="transpiled">
+      int g = 50 / 5;  // Assigns 10 to 'g'
+      println(g);
+      int h = g / 5;   // Assigns 2 to 'h'
+      println(h);
+    </script>
+
+    <script type="text/processing" id="divide-assign" debug="transpiled">
+      int a = 12;
+      int b = 3;
+      a /= b;  // Sets 'a' to 4
+      println(a);
+    </script>
+
+    <script type="text/processing" id="increment" debug="transpiled">
+      int a = 1;   // Sets 'a' to 1
+      println(a);
+      int b = a++; // Sets 'b' to 1, then increments 'a' to 2
+      println(b);
+      int c = a;   // Sets 'c' to 2
+      println(c);
+    </script>
+
+    <script type="text/processing" id="minus-1" debug="transpiled">
+      int c = 50 - 5;  // Sets 'c' to 45
+      println(c);
+      int d = c - 5;   // Sets 'd' to 40
+      println(d);
+      int e = d - 60;  // Sets 'e' to -20
+      println(e);
+    </script>
+
+    <script type="text/processing" id="minus-2" debug="transpiled">
+      int a = 5;         // Sets 'a' to 5
+      println(a);
+      int b = -a;        // Sets 'b' to -5
+      println(b);
+      int c = -(5 + 3);  // Sets 'c' to -8
+      println(c);
+    </script>
+
+    <script type="text/processing" id="modulo-1" debug="transpiled">
+      int a = 5 % 4;            // Sets 'a' to 1
+      println(a);
+      int b = 125 % 100;        // Sets 'b' to 25
+      println(b);
+      float c = 285.5 % 140.0;  // Sets 'c' to 5.5
+      println(c);
+      float d = 30.0 % 33.0;    // Sets 'd' to 30.0
+      println(d);
+    </script>
+
+    <script type="text/processing" id="modulo-2" debug="transpiled">
+      int a = 0;
+      void draw() {
+        background(200);
+        a = (a + 1) % width;  // 'a' increases between 0 and width
+        line(a, 0, a, height);
+      }
+    </script>
+
+    <script type="text/processing" id="multiply" debug="transpiled">
+      int e = 50 * 5;  // Sets 'e' to 250
+      println(e);
+      int f = e * 5;   // Sets 'f' to 1250
+      println(f);
+    </script>
+
+    <script type="text/processing" id="multiply_assign" debug="transpiled">
+      int a = 5;
+      int b = 2;
+      a *= b;  // Sets 'a' to 10
+      println(a);
+    </script>
+
+    <script type="text/processing" id="subtract_assign" debug="transpiled">
+      int a = 50;
+      int b = 23;
+      a -= b;  // Sets 'a' to 27
+      println(a);
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>break</title>
+  </head>
+
+
+  <body>
+    <h1>break</h1>
+
+
+    <script type="text/processing" id="break" debug="transpiled">
+      char letter = 'B';
+
+      switch(letter) {
+        case 'A':
+          println("Alpha");  // Does not execute
+          break;
+        case 'B':
+          println("Bravo");  // Prints "Bravo"
+          break;
+        default:
+          println("Zulu");   // Does not execute
+          break;
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

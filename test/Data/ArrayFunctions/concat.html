@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>concat()</title>
+  </head>
+
+
+  <body>
+    <h1>concat()</h1>
+
+
+    <script type="text/processing" id="concat()" debug="transpiled">
+      String[] sa1 = { "OH", "NY", "CA"};
+      String[] sa2 = { "KY", "IN", "MA"};
+      String[] sa3 = concat(sa1, sa2);
+      println(sa3);
+      // Prints updated array contents to the console:
+      // [0] "OH"
+      // [1] "NY"
+      // [2] "CA"
+      // [3] "KY"
+      // [4] "IN"
+      // [5] "MA"
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

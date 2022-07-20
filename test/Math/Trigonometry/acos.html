@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>acos()</title>
+</head>
+
+
+<body>
+  <h1>Math: Trigonometry: acos()</h1>
+
+
+  <script type="text/processing" id="acos()-1" debug="transpiled">
+    float a = PI;
+    float c = cos(a);
+    float ac = acos(c);
+    // Prints "3.1415927 : -1.0 : 3.1415927"
+    println(a + " : " + c + " : " + ac);
+  </script>
+
+  <script type="text/processing" id="acos()-2" debug="transpiled">
+    float a = PI + PI/4.0;
+    float c = cos(a);
+    float ac = acos(c);
+    // Prints "3.926991 : -0.70710665 : 2.3561943"
+    println(a + " : " + c + " : " +  ac);
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>byte</title>
+</head>
+
+
+<body>
+  <h1>Data: Primitive: byte</h1>
+
+
+  <script type="text/processing" id="byte" debug="transpiled">
+    // Declare variable 'a' of type byte
+    byte a;
+
+    // Assign 23 to 'a'
+    a = 23;
+
+    // Declare variable 'b' and assign it the value -128
+    byte b = -128;
+
+    // Declare variable 'c' and assign it the sum of 'a' and 'b'.
+    // By default, when two bytes are added, they are converted
+    // to an integer. To keep the answer as a byte, cast them
+    // to a byte with the byte() conversion function
+    byte c = byte(a + b);
+    println(c);
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

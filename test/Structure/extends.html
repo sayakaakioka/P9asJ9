@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>extends</title>
+</head>
+
+
+<body>
+  <h1>Structure: extends</h1>
+
+  <script type="text/processing" id="extends" debug="transpiled">
+    DrawDot dd1 = new DrawDot(50, 80);
+
+    void setup() {
+      size(200, 200);
+    }
+
+    void draw() {
+      dd1.display();
+    }
+
+    class Dot {
+      int xpos, ypos;
+    }
+
+    class DrawDot extends Dot {
+      DrawDot(int x, int y) {
+        xpos = x;
+        ypos = y;
+      }
+      void display() {
+        ellipse(xpos, ypos, 200, 200);
+      }
+    }
+    </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

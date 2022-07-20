@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>arrayCopy()</title>
+  </head>
+
+
+  <body>
+    <h1>arrayCopy()</h1>
+
+
+    <script type="text/processing" id="arrayCopy()-1" debug="transpiled">
+      String[] north = { "OH", "IN", "MI"};
+      String[] south = { "GA", "FL", "NC"};
+      arrayCopy(north, 1, south, 0, 2);
+      println(south);
+      // Prints updated array contents to the console:
+      // [0] "IN"
+      // [1] "MI"
+      // [2] "NC"
+    </script>
+
+    <script type="text/processing" id="arrayCopy()-2" debug="transpiled">
+      String[] north = { "OH", "IN", "MI" };
+      String[] south = { "GA", "FL", "NC" };
+      arrayCopy(north, south);
+      println(south);
+      // Prints updated array contents to the console:
+      // [0] "OH"
+      // [1] "IN"
+      // [2] "MI"
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

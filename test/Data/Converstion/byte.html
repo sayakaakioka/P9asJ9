@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>byte()</title>
+  </head>
+
+
+  <body>
+    <h1>byte()</h1>
+
+
+    <script type="text/processing" id="byte()" debug="transpiled">
+      char c = 'E';
+      byte b = byte(c);
+      println(c + " : " + b);  // Prints "E : 69"
+
+      int i = 130;
+      b = byte(i);
+      println(i + " : " + b);  // Prints "130 : -126"
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

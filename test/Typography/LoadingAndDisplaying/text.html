@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>text()</title>
+  </head>
+
+
+  <body>
+    <h1>text()</h1>
+
+    <script type="text/processing" id="text()-1" debug="transpiled">
+      size(400, 400);
+      textSize(128);
+      text("word", 40, 120);
+      fill(0, 408, 612);
+      text("word", 40, 240);
+      fill(0, 408, 612, 204);
+      text("word", 40, 360);
+    </script>
+
+    <!-- script type="text/processing" id="text()-2" debug="transpiled">
+      size(400, 400, P3D);
+      textSize(128);
+      fill(0, 408, 612, 816);
+      text("word", 48, 180, -120);  // Specify a z-axis value
+      text("word", 48, 240);  // Default depth, no z-value specified
+    </script -->
+
+    <script type="text/processing" id="text()-3" debug="transpiled">
+      size(400, 400);
+      String s = "The quick brown fox jumps over the lazy dog.";
+      fill(200);
+      text(s, 40, 40, 280, 320);  // Text wraps within text box
+    </script>
+
+
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

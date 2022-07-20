@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>split()</title>
+  </head>
+
+
+  <body>
+    <h1>split()</h1>
+
+
+    <script type="text/processing" id="split()-1" debug="transpiled">
+      String men = "Chernenko,Andropov,Brezhnev";
+      String[] list = split(men, ',');
+      // list[0] is now "Chernenko", list[1] is "Andropov"...
+      println(list);
+    </script>
+
+    <!-- script type="text/processing" id="split()-2" debug="transpiled">
+      String numbers = "8 67 5 309";
+      int[] nums = int(split(numbers, ' '));
+      // nums[0] is now 8, nums[1] is now 67...
+      println(nums);
+    </script -->
+
+    <script type="text/processing" id="split()-3" debug="transpiled">
+      String men = "Chernenko ] Andropov ] Brezhnev";
+      String[] list = split(men, " ] ");
+      // list[0] is now "Chernenko", list[1] is "Andropov"...
+      println(list);
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

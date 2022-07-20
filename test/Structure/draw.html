@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>draw()</title>
+</head>
+
+<body>
+  <h1>Structure: draw()</h1>
+
+  <script type="text/processing" id="draw()-1" debug="transpiled">
+    float yPos = 0.0;
+
+    void setup() { // setup() runs once
+      size(200, 200);
+      frameRate(30);
+    }
+
+    void draw() { // draw() loops forever, until stopped
+      background(204);
+      yPos = yPos - 1.0;
+      if (yPos < 0) {
+        yPos=height;
+      }
+      line(0, yPos, width, yPos);
+    }
+  </script>
+
+  <script type="text/processing" id="draw()-2" debug="transpiled">
+    void setup() {
+      size(200, 200);
+    }
+
+    // Although empty here, draw() is needed so
+    // the sketch can process user input events
+    // (mouse presses in this case).
+    void draw() { }
+
+    void mousePressed() {
+      line(mouseX, 10, mouseX, 90);
+    }
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

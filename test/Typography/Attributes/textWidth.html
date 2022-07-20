@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>textWidth()</title>
+  </head>
+
+
+  <body>
+    <h1>textWidth()</h1>
+
+
+    <script type="text/processing" id="textWidth()" debug="transpiled">
+      size(400, 400);
+      textSize(112);
+
+      char c = 'T';
+      float cw = textWidth(c);
+      text(c, 0, 160);
+      line(cw, 0, cw, 200);
+
+      String s = "Tokyo";
+      float sw = textWidth(s);
+      text(s, 0, 340);
+      line(sw, 200, sw, 400);
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

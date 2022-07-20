@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>log()</title>
+</head>
+
+
+<body>
+  <h1>Math: Calculation: log()</h1>
+
+
+  <script type="text/processing" id="log()" debug="transpiled">
+    void setup() {
+      int i = 12;
+      println(log(i));
+      println(log10(i));
+    }
+
+    // Calculates the base-10 logarithm of a number
+    float log10 (int x) {
+      return (log(x) / log(10));
+    }
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

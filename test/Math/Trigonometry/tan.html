@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>tan()</title>
+</head>
+
+
+<body>
+  <h1>Math: Trigonometry: tan()</h1>
+
+
+  <script type="text/processing" id="tan()" debug="transpiled">
+    size(400, 400);
+
+    float a = 0.0;
+    float inc = TWO_PI/50.0;
+
+    for (int i = 0; i <= 400; i=i+8) {
+      line(i, 200, i, 200+tan(a)*8.0);
+      a=a + inc;
+    }
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

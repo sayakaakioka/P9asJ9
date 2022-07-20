@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>line()</title>
+</head>
+
+
+<body>
+  <h1>Shape: 2D Primitives: line()</h1>
+
+
+  <script type="text/processing" id="lines()-1" debug="transpiled">
+    size(400, 400);
+    line(120, 80, 340, 300);
+  </script>
+
+  <script type="text/processing" id="line()-2" debug="transpiled">
+    size(400, 400);
+    line(120, 80, 340, 80);
+    stroke(126);
+    line(340, 80, 340, 300);
+    stroke(255);
+    line(340, 300, 120, 300);
+  </script>
+
+  <!-- TODO: test 3D version
+  <script type="text/processing" id="line()-3" debug="transpiled">
+    // Drawing lines in 3D requires P3D
+    // as a parameter to size()
+    size(400, 400, P3D);
+    line(120, 80, 0, 340, 80, 60);
+    stroke(126);
+    line(340, 80, 60, 340, 300, 0);
+    stroke(255);
+    line(340, 300, 0, 120, 300, -200);
+  </script>
+  -->
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

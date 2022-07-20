@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>asin()</title>
+</head>
+
+
+<body>
+  <h1>Math: Trigonometry: asin()</h1>
+
+
+  <script type="text/processing" id="asin()-1" debug="transpiled">
+    float a = PI/3;
+    float s = sin(a);
+    float as = asin(s);
+    // Prints "1.0471976 : 0.86602545 : 1.0471976"
+    println(a + " : " + s + " : " + as);
+  </script>
+
+  <script type="text/processing" id="asin()-2" debug="transpiled">
+    float a = PI + PI/3.0;
+    float s = sin(a);
+    float as = asin(s);
+    // Prints "4.1887903 : -0.86602545 : -1.0471976"
+    println(a + " : " + s + " : " +  as);
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

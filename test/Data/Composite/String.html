@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>String</title>
+</head>
+
+
+<body>
+  <h1>Data: Composite: String</h1>
+
+  <script type="text/processing" id="String-1" debug="transpiled">
+    String str1 = "CCCP";
+    char data[] = {'C', 'C', 'C', 'P'};
+    String str2 = new String(data);
+    println(str1); // Prints "CCCP" to the console
+    println(str2); // Prints "CCCP" to the console
+  </script>
+
+  <script type="text/processing" id="String-2" debug="transpiled">
+    // Comparing String objects, see reference below.
+    String p = "potato";
+    // The correct way to compare two Strings
+    if (p.equals("potato")) {
+      println("Yes, the values are the same.");
+    }
+  </script>
+
+  <script type="text/processing" id="String_3" debug="transpiled">
+    // Use a backslash to include quotes in a String
+    String quoted = "This one has \"quotes\"";
+    println(quoted);  // This one has "quotes"
+  </script>
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

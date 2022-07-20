@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>textAlign()</title>
+  </head>
+
+
+  <body>
+    <h1>textAlign()</h1>
+
+
+    <script type="text/processing" id="textAlign()-1" debug="transpiled">
+      size(400, 400);
+      background(0);
+      textSize(64);
+      textAlign(RIGHT);
+      text("ABCD", 200, 120);
+      textAlign(CENTER);
+      text("EFGH", 200, 200);
+      textAlign(LEFT);
+      text("IJKL", 200, 280);
+    </script>
+
+    <script type="text/processing" id="textAlign()-2" debug="transpiled">
+      size(400, 400);
+      background(0);
+      stroke(153);
+      textSize(44);
+      textAlign(CENTER, BOTTOM);
+      line(0, 120, width, 120);
+      text("CENTER,BOTTOM", 200, 120);
+      textAlign(CENTER, CENTER);
+      line(0, 200, width, 200);
+      text("CENTER,CENTER", 200, 200);
+      textAlign(CENTER, TOP);
+      line(0, 280, width, 280);
+      text("CENTER,TOP", 200, 280);
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>atan2()</title>
+</head>
+
+
+<body>
+  <h1>Math: Trigonometry: atan2()</h1>
+
+
+  <script type="text/processing" id="atan2()" debug="transpiled">
+    void draw() {
+      background(204);
+      translate(width/2, height/2);
+      float a = atan2(mouseY-height/2, mouseX-width/2);
+      rotate(a);
+      rect(-30, -5, 60, 10);
+    }
+  </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

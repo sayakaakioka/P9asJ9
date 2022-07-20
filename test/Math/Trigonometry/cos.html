@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>cos()</title>
+</head>
+
+
+<body>
+  <h1>Math: Trigonometry: cos()</h1>
+
+
+  <script type="text/processing" id="cos()" debug="transpiled">
+    size(400,400);
+    float a = 0.0;
+    float inc = TWO_PI/25.0;
+    for (int i = 0; i < 25; i++) {
+      line(i*16, 200, i*16, 200+cos(a)*160.0);
+      a=a + inc;
+    }
+    </script>
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>logical NOT</title>
+  </head>
+
+
+  <body>
+    <h1>logical NOT</h1>
+
+
+    <script type="text/processing" id="logicalNOT-1" debug="transpiled">
+      size(400, 400);
+      boolean a = false;
+      if (!a) {
+        rect(120, 80, 200, 200);
+      }
+      if (a) {
+        line(80, 40, 360, 320);
+        line(80, 320, 360, 40);
+      }
+    </script>
+
+    <script type="text/processing" id="logicalNOT-2" debug="transpiled">
+      size(400, 400);
+      boolean a = true;
+      if (!a) {
+        rect(120, 80, 200, 200);
+      }
+      if (a) {
+        line(80, 40, 360, 320);
+        line(80, 320, 360, 40);
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>second()</title>
+  </head>
+
+
+  <body>
+    <h1>second()</h1>
+
+
+    <script type="text/processing" id="second()" debug="transpiled">
+      void draw() {
+        background(204);
+        int s = second();  // Values from 0 - 59
+        int m = minute();  // Values from 0 - 59
+        int h = hour();    // Values from 0 - 23
+        line(s, 0, s, 33);
+        line(m, 33, m, 66);
+        line(h, 66, h, 100);
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

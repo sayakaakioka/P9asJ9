@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>conditional</title>
+  </head>
+
+
+  <body>
+    <h1>conditional</h1>
+
+
+    <script type="text/processing" id="conditional" debug="transpiled">
+      int s = 0;
+      for (int i = 5; i < 100; i += 5) {
+        s = (i < 50) ? 0 : 255;
+        stroke(s);
+        line(30, i, 80, i);
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

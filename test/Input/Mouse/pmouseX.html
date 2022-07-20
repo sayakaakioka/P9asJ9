@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>pmouseX</title>
+  </head>
+
+
+  <body>
+    <h1>pmouseX</h1>
+
+
+    <script type="text/processing" id="pmouseX" debug="transpiled">
+      // Move the mouse quickly to see the difference
+      // between the current and previous position
+      void draw() {
+        background(204);
+        line(mouseX, 20, pmouseX, 80);
+        println(mouseX + " : " + pmouseX);
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

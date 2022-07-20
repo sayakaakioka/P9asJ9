@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>else</title>
+  </head>
+
+
+  <body>
+    <h1>else</h1>
+
+
+    <script type="text/processing" id="else-1" debug="transpiled">
+      size(400, 400);
+
+      for (int i = 20; i < 380; i += 20) {
+        if (i < 140) {
+          line(120, i, 320, i);
+        } else {
+          line(80, i, 360, i);
+        }
+      }
+    </script>
+
+    <script type="text/processing" id="else-2" debug="transpiled">
+      size(400, 400);
+
+      for (int i = 20; i < 380; i += 20) {
+        if (i < 140) {
+          line(120, i, 320, i);
+        } else if (i < 260) {
+          line(80, i, 360, i);
+        } else {
+          line(0, i, 400, i);
+        }
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

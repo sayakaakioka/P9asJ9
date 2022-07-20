@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>key</title>
+  </head>
+
+
+  <body>
+    <h1>key</h1>
+
+
+    <script type="text/processing" id="key" debug="transpiled">
+      // Click on the window to give it focus,
+      // and press the 'B' key.
+
+      void draw() {
+        if (keyPressed) {
+          if (key == 'b' || key == 'B') {
+            fill(0);
+          }
+        } else {
+          fill(255);
+        }
+        rect(25, 25, 50, 50);
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

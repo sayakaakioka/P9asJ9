@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>this</title>
+</head>
+
+
+<body>
+  <h1>Structure: this</h1>
+
+
+  <script type="text/processing" id="this-1" debug="transpiled">
+    float ypos = 50;
+
+    void setup() {
+      size(100, 100);
+      noLoop();
+    }
+
+    void draw() {
+      line(0, 0, 100, ypos);
+      // "this" references the Processing sketch,
+      // and is not necessary in this case
+      this.ypos = 100;
+      line(0, 0, 100, ypos);
+    }
+  </script>
+
+  <!-- script type="text/processing" id="this-2" debug="transpiled">
+    import processing.video.*;
+    Movie myMovie;
+
+    void setup() {
+      size(200, 200);
+      background(0);
+      // "this" references the Processing sketch
+      myMovie = new Movie(this, "totoro.mov");
+      myMovie.loop();
+    }
+
+    void draw() {
+      if (myMovie.available()) {
+        myMovie.read();
+      }
+      image(myMovie, 0, 0);
+    }
+  </script -->
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>day()</title>
+  </head>
+
+
+  <body>
+    <h1>day()</h1>
+
+
+    <script type="text/processing" id="day()" debug="transpiled">
+      int d = day();    // Values from 1 - 31
+      int m = month();  // Values from 1 - 12
+      int y = year();   // 2003, 2004, 2005, etc.
+
+      String s = String.valueOf(d);
+      text(s, 10, 28);
+      s = String.valueOf(m);
+      text(s, 10, 56);
+      s = String.valueOf(y);
+      text(s, 10, 84);
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>hex()</title>
+  </head>
+
+
+  <body>
+    <h1>hex()</h1>
+
+
+    <script type="text/processing" id="hex()-1" debug="transpiled">
+      color c = #ffcc00;
+      println(c);          // Prints "-13312"
+      println(hex(c));     // Prints "FFFFCC00"
+      println(hex(c, 6));  // Prints "FFCC00"
+    </script>
+
+    <script type="text/processing" id="hex()-2" debug="transpiled">
+      color c = color(255, 204, 0);
+      println(c);          // Prints "-13312"
+      println(hex(c));     // Prints "FFFFCC00"
+      println(hex(c, 6));  // Prints "FFCC00"
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>super</title>
+</head>
+
+
+<body>
+  <h1>Structure: super</h1>
+
+  <script type="text/processing" id="super" debug="transpiled">
+    // This example is a code fragment;
+    // it will not compile on its own.
+
+    // Create the DragDrop subclass from
+    // the Button class. Button becomes
+    // the superclass of DragDrop.
+    class DragDrop extends Button {
+      int xoff, yoff;
+      DragDrop(int x, int y) {
+      // Runs the superclass' constructor
+      super(x, y);
+    }
+    void press(int mx, int my) {
+      // Runs the superclass' press() method
+      super.press();
+      xoff = mx;
+      yoff = my;
+    }
+  }
+  </script>
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

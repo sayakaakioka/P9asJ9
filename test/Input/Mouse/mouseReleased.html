@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>mouseReleased()</title>
+  </head>
+
+
+  <body>
+    <h1>mouseReleased()</h1>
+
+
+    <script type="text/processing" id="mouseReleased()" debug="transpiled">
+      // Click within the image to change
+      // the value of the rectangle
+
+      int value = 0;
+
+      void draw() {
+        fill(value);
+        rect(25, 25, 50, 50);
+      }
+
+      void mouseReleased() {
+        if (value == 0) {
+          value = 255;
+        } else {
+          value = 0;
+        }
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>return</title>
+</head>
+
+
+<body>
+  <h1>Structure: return</h1>
+
+
+  <script type="text/processing" id="return-1" debug="transpiled">
+    int val = 30;
+
+    void draw() {
+      int t = timestwo(val);
+      println(t);
+    }
+
+    // The first 'int' in the function declaration
+    // specifies the type of data to be returned.
+    int timestwo(int dVal) {
+      dVal = dVal * 2;
+      return dVal; // Returns an int of 60, in this case
+    }
+  </script>
+
+  <script type="text/processing" id="return-2" debug="transpiled">
+    int[] vals = {10, 20, 30};
+
+    void draw() {
+      int[] t = timestwo(vals);
+      println(t);
+      noLoop();
+    }
+
+    int[] timestwo(int[] dVals) {
+      for (int i = 0; i < dVals.length; i++) {
+        dVals[i]=dVals[i] * 2;
+      }
+      return dVals; // Returns an array of 3 ints: 20, 40, 60
+    }
+  </script>
+
+  <script type="text/processing" id="return-3" debug="transpiled">
+    void draw() {
+      background(204);
+      line(0, 0, width, height);
+      if (mousePressed) {
+        return; // Break out of draw(), skipping the line statement below
+      }
+      line(0, height, width, 0); // Executed only if mouse is not pressed
+    }
+  </script>
+
+
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

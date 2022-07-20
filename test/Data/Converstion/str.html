@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>str()</title>
+  </head>
+
+
+  <body>
+    <h1>str()</h1>
+
+
+    <script type="text/processing" id="str()" debug="transpiled">
+      boolean b = false;
+      byte y = -28;
+      char c = 'R';
+      float f = -32.6;
+      int i = 1024;
+
+      String sb = str(b);
+      String sy = str(y);
+      String sc = str(c);
+      String sf = str(f);
+      String si = str(i);
+
+      sb = sb + sy + sc + sf + si;
+
+      println(sb);  // Prints 'false-28R-32.61024'
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

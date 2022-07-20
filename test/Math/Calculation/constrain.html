@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>constrain()</title>
+  </head>
+
+
+  <body>
+    <h1>constrain()</h1>
+
+
+    <script type="text/processing" id="constrain()" debug="transpiled">
+      void draw()
+      {
+        background(204);
+        float mx = constrain(mouseX, 30, 70);
+        rect(mx-10, 40, 20, 20);
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>frameCount</title>
+  </head>
+
+
+  <body>
+    <h1>frameCount</h1>
+
+
+    <script type="text/processing" id="frameCount" debug="transpiled">
+      void setup() {
+        frameRate(30);
+      }
+
+      void draw() {
+        line(0, 0, width, height);
+        println(frameCount);
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

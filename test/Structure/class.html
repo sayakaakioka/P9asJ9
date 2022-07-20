@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>class</title>
+</head>
+
+<body>
+  <h1>Structure: class</h1>
+
+  <script type="text/processing" id="class" debug="transpiled">
+    // Declare and construct two objects (h1, h2) from the class HLine
+    HLine h1 = new HLine(20, 2.0);
+    HLine h2 = new HLine(50, 2.5);
+
+    void setup(){
+      size(200, 200);
+      frameRate(30);
+    }
+
+    void draw() {
+      background(204);
+      h1.update();
+      h2.update();
+    }
+
+    class HLine {
+      //float ypos, speed;
+      float ypos;
+      float speed;
+      HLine (float y, float s) {
+        ypos = y;
+        speed = s;
+      }
+
+      void update() {
+        ypos += speed;
+        if (ypos > height) {
+          ypos = 0;
+        }
+        line(0, ypos, width, ypos);
+      }
+    }
+    </script>
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

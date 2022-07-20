@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>mouseMoved()</title>
+  </head>
+
+
+  <body>
+    <h1>mouseMoved()</h1>
+
+
+    <script type="text/processing" id="mouseMoved()" debug="transpiled">
+      // Move the mouse across the image
+      // to change its value
+
+      int value = 0;
+
+      void draw() {
+        fill(value);
+        rect(25, 25, 50, 50);
+      }
+
+      void mouseMoved() {
+        value = value + 5;
+        if (value > 255) {
+          value = 0;
+        }
+      }
+    </script>
+
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>
