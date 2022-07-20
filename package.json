@@ -8,7 +8,7 @@
     "build": "webpack",
     "watch": "webpack -w",
     "prebuild": "antlr4ts ./src/P9Parser/Processing*.g4",
-    "postbuild": "bash -c 'find ./test -type d -exec cp ./build/P9asJ9-0.1.0.js {}/P9asJ9.js \\;'"
+    "postbuild": "bash -c 'find ./test -type d -exec cp ./build/P9asJ9-${npm_package_version}.js {}/P9asJ9.js \\;'"
   },
   "repository": {
     "type": "git",
