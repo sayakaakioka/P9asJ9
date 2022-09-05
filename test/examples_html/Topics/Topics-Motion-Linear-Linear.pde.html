@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Motion/Linear/Linear.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Motion/Linear/Linear.pde"</h1>
+
+<script type="text/processing" id="Topics/Motion/Linear/Linear.pde" debug="transpiled">
+/**
+ * Linear Motion. 
+ * 
+ * Changing a variable to create a moving line.  
+ * When the line moves off the edge of the window, 
+ * the variable is set to 0, which places the line
+ * back at the bottom of the screen. 
+ */
+ 
+float a;
+
+void setup() {
+  size(640, 360);
+  stroke(255);
+  a = height/2;
+}
+
+void draw() {
+  background(51);
+  line(0, a, width, a);  
+  a = a - 0.5;
+  if (a < 0) { 
+    a = height; 
+  }
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

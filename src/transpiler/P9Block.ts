@@ -1,4 +1,3 @@
-import { P9 } from "P9";
 import { Utils } from "../Utils";
 import { P9Elements } from "./P9Elements";
 import { P9Statement } from "./P9Statement";
@@ -7,7 +6,7 @@ import { P9VarDecl } from "./P9Variable";
 export class P9Block implements P9Elements {
   private _blockStatementList = Array<P9BlockStatement>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9BlockStatement) {
     this._blockStatementList.push(obj);
@@ -31,7 +30,7 @@ export class P9Block implements P9Elements {
 export class P9BlockStatement implements P9Elements {
   private _obj: P9VarDecl | P9Statement | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public set statement(obj: P9Statement) {
     this._obj = obj;
@@ -45,9 +44,8 @@ export class P9BlockStatement implements P9Elements {
     if (this._obj instanceof P9Statement || this._obj instanceof P9VarDecl) {
       return this._obj.getLines();
     } else {
-      Utils.error(
-        "P9BlockStatement: getLines(): BlockStatement expects varDecl or statement.",
-        this._p
+      this._u.error(
+        "P9BlockStatement: getLines(): BlockStatement expects varDecl or statement."
       );
       return new Array<string>();
     }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Simulate/SimpleParticleSystem/ParticleSystem.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Simulate/SimpleParticleSystem/ParticleSystem.pde"</h1>
+
+<script type="text/processing" id="Topics/Simulate/SimpleParticleSystem/ParticleSystem.pde" debug="transpiled">
+// A class to describe a group of Particles
+// An ArrayList is used to manage the list of Particles 
+
+class ParticleSystem {
+  ArrayList<Particle> particles;
+  PVector origin;
+
+  ParticleSystem(PVector position) {
+    origin = position.copy();
+    particles = new ArrayList<Particle>();
+  }
+
+  void addParticle() {
+    particles.add(new Particle(origin));
+  }
+
+  void run() {
+    for (int i = particles.size()-1; i >= 0; i--) {
+      Particle p = particles.get(i);
+      p.run();
+      if (p.isDead()) {
+        particles.remove(i);
+      }
+    }
+  }
+}</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-import { P9 } from "P9";
 import {
   CatchClauseContext,
   StatementContext,
@@ -26,7 +25,7 @@ export class P9Statement implements P9Elements {
 
   constructor(
     private readonly _context: StatementContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set expression(obj: P9Expression) {
@@ -71,24 +70,28 @@ export class P9Statement implements P9Elements {
     if (this._context.IF()) {
       if (this._expression !== undefined && this._statement !== undefined) {
         let lines = new Array<string>(`if (${this._expression.toString()})`);
-        lines = Utils.wrap(lines, this._statement.getLines());
+        lines = this._u.wrap(lines, this._statement.getLines());
         if (this._context.ELSE()) {
           if (this._statement2 !== undefined) {
-            lines.push(`else`);
-            lines = Utils.wrap(lines, this._statement2.getLines());
+            let lines2 = this._statement2.getLines();
+            if (lines2[0].startsWith("if (")) {
+              lines[lines.length - 1] = `${lines[lines.length - 1]} else ${
+                lines2[0]
+              }`;
+              lines = lines.concat(lines2.slice(1, lines2.length));
+            } else {
+              lines[lines.length - 1] = `${lines[lines.length - 1]} else`;
+              lines = this._u.wrap(lines, this._statement2.getLines());
+            }
           } else {
-            Utils.error(
-              "P9Statement: getLines(): Else expects statement.",
-              this._p
-            );
+            this._u.error("P9Statement: getLines(): Else expects statement.");
             return new Array<string>();
           }
         }
         return lines;
       } else {
-        Utils.error(
-          "P9Statement: getLines(): If expects expression and statement.",
-          this._p
+        this._u.error(
+          "P9Statement: getLines(): If expects expression and statement."
         );
         return new Array<string>();
       }
@@ -97,12 +100,11 @@ export class P9Statement implements P9Elements {
     if (this._context.FOR()) {
       if (this._forControl !== undefined && this._statement !== undefined) {
         let lines = new Array<string>(`for (${this._forControl.toString()})`);
-        lines = Utils.wrap(lines, this._statement.getLines());
+        lines = this._u.wrap(lines, this._statement.getLines());
         return lines;
       } else {
-        Utils.error(
-          "P9Statement: getLines(): For expects forControl and statement.",
-          this._p
+        this._u.error(
+          "P9Statement: getLines(): For expects forControl and statement."
         );
         return new Array<string>();
       }
@@ -112,12 +114,11 @@ export class P9Statement implements P9Elements {
       if (this._expression !== undefined && this._statement !== undefined) {
         let lines = new Array<string>(`while (${this._expression.toString()})`);
 
-        lines = Utils.wrap(lines, this._statement.getLines());
+        lines = this._u.wrap(lines, this._statement.getLines());
         return lines;
       } else {
-        Utils.error(
-          "P9Statement: getLines(): While expects expression and statement.",
-          this._p
+        this._u.error(
+          "P9Statement: getLines(): While expects expression and statement."
         );
         return new Array<string>();
       }
@@ -126,15 +127,14 @@ export class P9Statement implements P9Elements {
     if (this._context.DO() && this._context.WHILE()) {
       if (this._statement !== undefined && this._expression !== undefined) {
         let lines = new Array<string>(`do`);
-        lines = Utils.wrap(lines, this._statement.getLines());
+        lines = this._u.wrap(lines, this._statement.getLines());
 
         const idx = lines.length - 1;
         lines[idx] = `${lines[idx]} while(${this._expression.toString()});`;
         return lines;
       } else {
-        Utils.error(
-          "P9Statement: getLines(): Do-while expects statement and expression.",
-          this._p
+        this._u.error(
+          "P9Statement: getLines(): Do-while expects statement and expression."
         );
         return new Array<string>();
       }
@@ -143,7 +143,7 @@ export class P9Statement implements P9Elements {
     if (this._context.TRY()) {
       if (this._block !== undefined) {
         let lines = new Array<string>(`try`);
-        lines = Utils.wrap(lines, this._block.getLines());
+        lines = this._u.wrap(lines, this._block.getLines());
         lines = lines.concat(
           this._catchClauseList.flatMap(function (e) {
             return e.getLines();
@@ -151,7 +151,7 @@ export class P9Statement implements P9Elements {
         );
         return lines;
       } else {
-        Utils.error("P9Statement: getLines(): Try expects block.", this._p);
+        this._u.error("P9Statement: getLines(): Try expects block.");
         return new Array<string>();
       }
     }
@@ -174,10 +174,7 @@ export class P9Statement implements P9Elements {
         lines.push("}");
         return lines;
       } else {
-        Utils.error(
-          "P9Statement: getLines(): Switch expects expression.",
-          this._p
-        );
+        this._u.error("P9Statement: getLines(): Switch expects expression.");
         return new Array<string>();
       }
     }
@@ -194,10 +191,7 @@ export class P9Statement implements P9Elements {
       if (this._expression !== undefined) {
         return new Array<string>(`throw ${this._expression.toString()};`);
       } else {
-        Utils.error(
-          `P9Statement: getLines(): Throw expects expression.`,
-          this._p
-        );
+        this._u.error(`P9Statement: getLines(): Throw expects expression.`);
         return new Array<string>();
       }
     }
@@ -221,10 +215,7 @@ export class P9Statement implements P9Elements {
         );
         return lines.concat(this._statement.getLines());
       } else {
-        Utils.error(
-          `P9Statement: getLines(): Label expects statement.`,
-          this._p
-        );
+        this._u.error(`P9Statement: getLines(): Label expects statement.`);
         return new Array<string>();
       }
     }
@@ -243,7 +234,7 @@ export class P9EnhancedForControl implements P9Elements {
   private _id: P9VariableDeclaratorId | undefined;
   private _expression: P9Expression | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(str: string): void {
     this._modifierList.push(str);
@@ -276,9 +267,8 @@ export class P9EnhancedForControl implements P9Elements {
       }
     }
 
-    Utils.error(
-      `P9EnhancedForControl: toString():enhancedForControl expects variableDeclaratorId and expression.`,
-      this._p
+    this._u.error(
+      `P9EnhancedForControl: toString():enhancedForControl expects variableDeclaratorId and expression.`
     );
     return "";
   }
@@ -290,7 +280,7 @@ export class P9ForInit implements P9Elements {
   private _variableDeclarators: P9VariableDeclarators | undefined;
   private _expressionList: P9ExpressionList | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(str: string): void {
     this._modifierList.push(str);
@@ -327,9 +317,8 @@ export class P9ForInit implements P9Elements {
       }
     }
 
-    Utils.error(
-      "P9ForInit: toString(): ForInit expects variableDeclarators or expressionList.",
-      this._p
+    this._u.error(
+      "P9ForInit: toString(): ForInit expects variableDeclarators or expressionList."
     );
     return "";
   }
@@ -341,7 +330,7 @@ export class P9ForControl implements P9Elements {
   private _expressionList: P9ExpressionList | undefined;
   private _enhancedForControl: P9EnhancedForControl | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public set forInit(obj: P9ForInit) {
     this._forInit = obj;
@@ -395,7 +384,7 @@ export class P9CatchClause implements P9Elements {
 
   constructor(
     private readonly _context: CatchClauseContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public push(str: string): void {
@@ -413,13 +402,12 @@ export class P9CatchClause implements P9Elements {
   public getLines(): Array<string> {
     if (this._context._id !== undefined && this._block !== undefined) {
       let lines = new Array<string>(`catch (${this._context._id.text})`);
-      lines = Utils.wrap(lines, this._block.getLines());
+      lines = this._u.wrap(lines, this._block.getLines());
       return lines;
     }
 
-    Utils.error(
-      "P9CatchClause: getLines(): catchClause expects id and block.",
-      this._p
+    this._u.error(
+      "P9CatchClause: getLines(): catchClause expects id and block."
     );
     return new Array<string>();
   }
@@ -432,7 +420,7 @@ export class P9CatchClause implements P9Elements {
 export class P9CatchType implements P9Elements {
   private _qualifiedNameList = Array<string>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(str: string): void {
     this._qualifiedNameList.push(str);
@@ -453,7 +441,7 @@ export class P9SwitchLabel implements P9Elements {
 
   constructor(
     private readonly _context: SwitchLabelContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set expression(obj: P9Expression) {
@@ -487,9 +475,8 @@ export class P9SwitchLabel implements P9Elements {
       return `default:`;
     }
 
-    Utils.error(
-      "P9SwitchLabel: toString(): SwitchLabel expects case or default.",
-      this._p
+    this._u.error(
+      "P9SwitchLabel: toString(): SwitchLabel expects case or default."
     );
     return "";
   }
@@ -499,7 +486,7 @@ export class P9SwitchBlockStatementGroup implements P9Elements {
   private _labelList = new Array<P9SwitchLabel>();
   private _blockStatementList = Array<P9BlockStatement>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9SwitchLabel | P9BlockStatement): void {
     if (obj instanceof P9SwitchLabel) {

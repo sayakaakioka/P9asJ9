@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Shaders/InfiniteTiles/InfiniteTiles.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Shaders/InfiniteTiles/InfiniteTiles.pde"</h1>
+
+<script type="text/processing" id="Topics/Shaders/InfiniteTiles/InfiniteTiles.pde" debug="transpiled">
+//-------------------------------------------------------------
+// Display endless moving background using a tile texture.
+// Contributed by martiSteiger
+//-------------------------------------------------------------
+
+PImage tileTexture;
+PShader tileShader;
+
+void setup() {
+  size(640, 480, P2D);
+  textureWrap(REPEAT);
+  tileTexture = loadImage("penrose.jpg");
+  loadTileShader();
+}
+
+void loadTileShader() {  
+  tileShader = loadShader("scroller.glsl");
+  tileShader.set("resolution", float(width), float(height));  
+  tileShader.set("tileImage", tileTexture);
+}
+
+void draw() {
+  tileShader.set("time", millis() / 1000.0);
+  shader(tileShader);                    
+  rect(0, 0, width, height);
+}</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

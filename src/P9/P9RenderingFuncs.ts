@@ -1,9 +1,14 @@
-import { P9 } from "../P9";
 import { Utils } from "../Utils";
 
 export class P9RenderingFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+  public utils: Utils;
+
+  constructor(u: Utils) {
+    this.utils = u;
+  }
+
+  registerRenderingFuncs(): void {
+    this.utils.p9FuncList = [
       "blendMode",
       "clip",
       "createGraphics",
@@ -12,38 +17,38 @@ export class P9RenderingFuncs {
       "loadShader",
       "resetShader",
       "shader",
-    ]);
+    ];
   }
 
   public blendMode(): void {
-    Utils.log("blendMode() is not implemented yet.", this._p);
+    this.utils.log("blendMode() is not implemented yet.");
   }
 
   public clip(): void {
-    Utils.log("clip() is not implemented yet.", this._p);
+    this.utils.log("clip() is not implemented yet.");
   }
 
   public createGraphics(): void {
-    Utils.log("createGraphics() is not implemented yet.", this._p);
+    this.utils.log("createGraphics() is not implemented yet.");
   }
 
   public hint(): void {
-    Utils.log("hint() is not implemented yet.", this._p);
+    this.utils.log("hint() is not implemented yet.");
   }
 
   public noClip(): void {
-    Utils.log("noClip() is not implemented yet.", this._p);
+    this.utils.log("noClip() is not implemented yet.");
   }
 
   public loadShader(): void {
-    Utils.log("loadShader() is not implemented yet.", this._p);
+    this.utils.log("loadShader() is not implemented yet.");
   }
 
   public resetShader(): void {
-    Utils.log("resetShader() is not implemented yet.", this._p);
+    this.utils.log("resetShader() is not implemented yet.");
   }
 
   public shader(): void {
-    Utils.log("shader() is not implemented yet.", this._p);
+    this.utils.log("shader() is not implemented yet.");
   }
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics/Form/Primitives3D/Primitives3D.pde"</title>
+</head>
+
+<body>
+<h1>"Basics/Form/Primitives3D/Primitives3D.pde"</h1>
+
+<script type="text/processing" id="Basics/Form/Primitives3D/Primitives3D.pde" debug="transpiled">
+/**
+ * Primitives 3D. 
+ * 
+ * Placing mathematically 3D objects in synthetic space.
+ * The lights() method reveals their imagined dimension.
+ * The box() and sphere() functions each have one parameter
+ * which is used to specify their size. These shapes are
+ * positioned using the translate() function.
+ */
+ 
+size(640, 360, P3D); 
+background(0);
+lights();
+
+noStroke();
+pushMatrix();
+translate(130, height/2, 0);
+rotateY(1.25);
+rotateX(-0.4);
+box(100);
+popMatrix();
+
+noFill();
+stroke(255);
+pushMatrix();
+translate(500, height*0.35, -200);
+sphere(280);
+popMatrix();
+
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

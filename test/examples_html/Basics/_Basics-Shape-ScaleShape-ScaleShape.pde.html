@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics/Shape/ScaleShape/ScaleShape.pde"</title>
+</head>
+
+<body>
+<h1>"Basics/Shape/ScaleShape/ScaleShape.pde"</h1>
+
+<script type="text/processing" id="Basics/Shape/ScaleShape/ScaleShape.pde" debug="transpiled">
+/**
+ * Scale Shape.  
+ * Illustration by George Brower. 
+ * 
+ * Move the mouse left and right to zoom the SVG file.
+ * This shows how, unlike an imported image, the lines
+ * remain smooth at any size.
+ */
+
+PShape bot;
+
+void setup() {
+  size(640, 360);
+  // The file "bot1.svg" must be in the data folder
+  // of the current sketch to load successfully
+  bot = loadShape("bot1.svg");
+} 
+
+void draw() {
+  background(102);
+  translate(width/2, height/2);
+  float zoom = map(mouseX, 0, width, 0.1, 4.5);
+  scale(zoom);
+  shape(bot, -140, -140);
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

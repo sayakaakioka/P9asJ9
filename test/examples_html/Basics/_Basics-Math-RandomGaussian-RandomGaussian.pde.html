@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics/Math/RandomGaussian/RandomGaussian.pde"</title>
+</head>
+
+<body>
+<h1>"Basics/Math/RandomGaussian/RandomGaussian.pde"</h1>
+
+<script type="text/processing" id="Basics/Math/RandomGaussian/RandomGaussian.pde" debug="transpiled">
+/**
+ * Random Gaussian. 
+ * 
+ * This sketch draws ellipses with x and y locations tied to a gaussian distribution of random numbers.
+ */
+
+void setup() {
+  size(640, 360);
+  background(0);
+}
+
+void draw() {
+
+  // Get a gaussian random number w/ mean of 0 and standard deviation of 1.0
+  float val = randomGaussian();
+
+  float sd = 60;                  // Define a standard deviation
+  float mean = width/2;           // Define a mean value (middle of the screen along the x-axis)
+  float x = ( val * sd ) + mean;  // Scale the gaussian random number by standard deviation and mean
+
+  noStroke();
+  fill(255, 10);
+  ellipse(x, height/2, 32, 32);   // Draw an ellipse at our "normal" random location
+}
+
+
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

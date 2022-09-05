@@ -1,9 +1,14 @@
 import { Utils } from "../Utils";
-import { P9 } from "../P9";
 
 export class P9LightsCameraFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+  public utils: Utils;
+
+  constructor(u: Utils) {
+    this.utils = u;
+  }
+
+  registerLightsCameraFuncs(): void {
+    this.utils.p9FuncList = [
       "ambientLight",
       "directionalLight",
       "lightFalloff",
@@ -31,114 +36,114 @@ export class P9LightsCameraFuncs {
       "emissive",
       "shininess",
       "specular",
-    ]);
+    ];
   }
 
   public ambientLight(): void {
-    Utils.log("ambientLight() is not implemented yet.", this._p);
+    this.utils.log("ambientLight() is not implemented yet.");
   }
 
   public directionalLight(): void {
-    Utils.log("directionalLight() is not implemented yet.", this._p);
+    this.utils.log("directionalLight() is not implemented yet.");
   }
 
   public lightFalloff(): void {
-    Utils.log("lightFalloff() is not implemented yet.", this._p);
+    this.utils.log("lightFalloff() is not implemented yet.");
   }
 
   public lightSpecular(): void {
-    Utils.log("lightSpecular() is not implemented yet.", this._p);
+    this.utils.log("lightSpecular() is not implemented yet.");
   }
 
   public lights(): void {
-    Utils.log("lights() is not implemented yet.", this._p);
+    this.utils.log("lights() is not implemented yet.");
   }
 
   public noLights(): void {
-    Utils.log("noLights() is not implemented yet.", this._p);
+    this.utils.log("noLights() is not implemented yet.");
   }
 
   public normal(): void {
-    Utils.log("normal() is not implemented yet.", this._p);
+    this.utils.log("normal() is not implemented yet.");
   }
 
   public pointLight(): void {
-    Utils.log("pointLight() is not implemented yet.", this._p);
+    this.utils.log("pointLight() is not implemented yet.");
   }
 
   public spotLight(): void {
-    Utils.log("spotLight() is not implemented yet.", this._p);
+    this.utils.log("spotLight() is not implemented yet.");
   }
 
   public beginCamera(): void {
-    Utils.log("beginCamera() is not implemented yet.", this._p);
+    this.utils.log("beginCamera() is not implemented yet.");
   }
 
   public camera(): void {
-    Utils.log("camera() is not implemented yet.", this._p);
+    this.utils.log("camera() is not implemented yet.");
   }
 
   public endCamera(): void {
-    Utils.log("endCamera() is not implemented yet.", this._p);
+    this.utils.log("endCamera() is not implemented yet.");
   }
 
   public frustum(): void {
-    Utils.log("frustum() is not implemented yet.", this._p);
+    this.utils.log("frustum() is not implemented yet.");
   }
 
   public ortho(): void {
-    Utils.log("ortho() is not implemented yet.", this._p);
+    this.utils.log("ortho() is not implemented yet.");
   }
 
   public perspective(): void {
-    Utils.log("perspective() is not implemented yet.", this._p);
+    this.utils.log("perspective() is not implemented yet.");
   }
 
   public printCamera(): void {
-    Utils.log("printCamera() is not implemented yet.", this._p);
+    this.utils.log("printCamera() is not implemented yet.");
   }
 
   public printProjection(): void {
-    Utils.log("printProjection() is not implemented yet.", this._p);
+    this.utils.log("printProjection() is not implemented yet.");
   }
 
   public modelX(): void {
-    Utils.log("modelX() is not implemented yet.", this._p);
+    this.utils.log("modelX() is not implemented yet.");
   }
 
   public modelY(): void {
-    Utils.log("modelY() is not implemented yet.", this._p);
+    this.utils.log("modelY() is not implemented yet.");
   }
 
   public modelZ(): void {
-    Utils.log("modelZ() is not implemented yet.", this._p);
+    this.utils.log("modelZ() is not implemented yet.");
   }
 
   public screenX(): void {
-    Utils.log("screenX() is not implemented yet.", this._p);
+    this.utils.log("screenX() is not implemented yet.");
   }
 
   public screenY(): void {
-    Utils.log("screenY() is not implemented yet.", this._p);
+    this.utils.log("screenY() is not implemented yet.");
   }
 
   public screenZ(): void {
-    Utils.log("screenZ() is not implemented yet.", this._p);
+    this.utils.log("screenZ() is not implemented yet.");
   }
 
   public ambient(): void {
-    Utils.log("ambient() is not implemented yet.", this._p);
+    this.utils.log("ambient() is not implemented yet.");
   }
 
   public emissive(): void {
-    Utils.log("emissive() is not implemented yet.", this._p);
+    this.utils.log("emissive() is not implemented yet.");
   }
 
   public shininess(): void {
-    Utils.log("shininess() is not implemented yet.", this._p);
+    this.utils.log("shininess() is not implemented yet.");
   }
 
   public specular(): void {
-    Utils.log("specular() is not implemented yet.", this._p);
+    this.utils.log("specular() is not implemented yet.");
   }
 }

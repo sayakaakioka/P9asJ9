@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Fractals and L-Systems/Pentigree/Pentigree.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Fractals and L-Systems/Pentigree/Pentigree.pde"</h1>
+
+<script type="text/processing" id="Topics/Fractals and L-Systems/Pentigree/Pentigree.pde" debug="transpiled">
+/** 
+ * Pentigree L-System 
+ * by Geraldine Sarmiento. 
+ * 
+ * This example was based on Patrick Dwyer's L-System class. 
+ */
+ 
+
+PentigreeLSystem ps;
+
+void setup() {
+  size(640, 360);
+  ps = new PentigreeLSystem();
+  ps.simulate(3);
+}
+
+void draw() {
+  background(0);
+  ps.render();
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

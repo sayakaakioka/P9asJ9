@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Shaders/BlurFilter/BlurFilter.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Shaders/BlurFilter/BlurFilter.pde"</h1>
+
+<script type="text/processing" id="Topics/Shaders/BlurFilter/BlurFilter.pde" debug="transpiled">
+/**
+ * Blur Filter
+ * 
+ * Change the default shader to apply a simple, custom blur filter.
+ * 
+ * Press the mouse to switch between the custom and default shader.
+ */
+
+PShader blur;
+
+void setup() {
+  size(640, 360, P2D);
+  blur = loadShader("blur.glsl"); 
+  stroke(255, 0, 0);
+  rectMode(CENTER);
+}
+
+void draw() {
+  filter(blur);  
+  rect(mouseX, mouseY, 150, 150); 
+  ellipse(mouseX, mouseY, 100, 100);
+}
+
+
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

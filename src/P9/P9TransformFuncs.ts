@@ -1,9 +1,14 @@
-import { P9 } from "../P9";
 import { Utils } from "../Utils";
 
 export class P9TransformFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+  public utils: Utils;
+
+  constructor(u: Utils) {
+    this.utils = u;
+  }
+
+  public registerTransformFuncs(): void {
+    this.utils.p9FuncList = [
       "applyMatrix",
       "popMatrix",
       "printMatrix",
@@ -17,62 +22,58 @@ export class P9TransformFuncs {
       "shearX",
       "shearY",
       "translate",
-    ]);
+    ];
   }
 
   public applyMatrix(): void {
-    Utils.log("applyMatrix() is not implemented yet.", this._p);
+    this.utils.log("applyMatrix() is not implemented yet.");
   }
 
   public popMatrix(): void {
-    Utils.log("popMatrix() is not implemented yet.", this._p);
+    this.utils.log("popMatrix() is not implemented yet.");
   }
 
   public printMatrix(): void {
-    Utils.log("printMatrix() is not implemented yet.", this._p);
+    this.utils.log("printMatrix() is not implemented yet.");
   }
 
   public pushMatrix(): void {
-    Utils.log("pushMatrix() is not implemented yet.", this._p);
+    this.utils.log("pushMatrix() is not implemented yet.");
   }
 
   public resetMatrix(): void {
-    Utils.log("resetMatrix() is not implemented yet.", this._p);
+    this.utils.log("resetMatrix() is not implemented yet.");
   }
 
   public rotateX(): void {
-    Utils.log("rotateX() is not implemented yet.", this._p);
+    this.utils.log("rotateX() is not implemented yet.");
   }
 
   public rotateY(): void {
-    Utils.log("rotateY() is not implemented yet.", this._p);
+    this.utils.log("rotateY() is not implemented yet.");
   }
 
   public rotateZ(): void {
-    Utils.log("rotateZ() is not implemented yet.", this._p);
+    this.utils.log("rotateZ() is not implemented yet.");
   }
 
   public rotate(): void {
-    Utils.log("rotate() is not implemented yet.", this._p);
+    this.utils.log("rotate() is not implemented yet.");
   }
 
   public scale(): void {
-    Utils.log("scale() is not implemented yet.", this._p);
+    this.utils.log("scale() is not implemented yet.");
   }
 
   public shearX(): void {
-    Utils.log("shearX() is not implemented yet.", this._p);
+    this.utils.log("shearX() is not implemented yet.");
   }
 
   public shearY(): void {
-    Utils.log("shearY() is not implemented yet.", this._p);
+    this.utils.log("shearY() is not implemented yet.");
   }
 
   public translate(): void {
-    Utils.log("translate() is not implemented yet.", this._p);
-  }
-
-  public(): void {
-    Utils.log("() is not implemented yet.", this._p);
+    this.utils.log("translate() is not implemented yet.");
   }
 }

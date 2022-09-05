@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Create Shapes/PathPShape/PathPShape.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Create Shapes/PathPShape/PathPShape.pde"</h1>
+
+<script type="text/processing" id="Topics/Create Shapes/PathPShape/PathPShape.pde" debug="transpiled">
+/**
+ * PathPShape
+ * 
+ * A simple path using PShape
+ */
+
+// A PShape object
+PShape path;
+
+void setup() {
+  size(640, 360, P2D);
+
+  // Create the shape
+  path = createShape();
+  path.beginShape();
+  // Set fill and stroke
+  path.noFill();
+  path.stroke(255);
+  path.strokeWeight(2);
+  
+  float x = 0;
+  // Calculate the path as a sine wave
+  for (float a = 0; a < TWO_PI; a+=0.1) {
+    path.vertex(x,sin(a)*100);
+    x+= 5;
+  }
+  // The path is complete
+  path.endShape();  
+
+}
+
+void draw() {
+  background(51);
+  // Draw the path at the mouse location
+  translate(mouseX, mouseY);
+  shape(path);
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

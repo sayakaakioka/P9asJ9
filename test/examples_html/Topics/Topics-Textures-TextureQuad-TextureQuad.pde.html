@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Textures/TextureQuad/TextureQuad.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Textures/TextureQuad/TextureQuad.pde"</h1>
+
+<script type="text/processing" id="Topics/Textures/TextureQuad/TextureQuad.pde" debug="transpiled">
+/**
+ * Texture Quad. 
+ * 
+ * Load an image and draw it onto a quad. The texture() function sets
+ * the texture image. The vertex() function maps the image to the geometry.
+ */
+
+PImage img;
+
+void setup() {
+  size(640, 360, P3D);
+  img = loadImage("berlin-1.jpg");
+  noStroke();
+}
+
+void draw() {
+  background(0);
+  translate(width / 2, height / 2);
+  rotateY(map(mouseX, 0, width, -PI, PI));
+  rotateZ(PI/6);
+  beginShape();
+  texture(img);
+  vertex(-100, -100, 0, 0, 0);
+  vertex(100, -100, 0, img.width, 0);
+  vertex(100, 100, 0, img.width, img.height);
+  vertex(-100, 100, 0, 0, img.height);
+  endShape();
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

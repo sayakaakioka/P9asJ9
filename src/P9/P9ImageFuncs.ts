@@ -1,9 +1,13 @@
 import { Utils } from "../Utils";
-import { P9 } from "../P9";
+import { P9ColorFuncs } from "./P9ColorFuncs";
 
-export class P9ImageFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+export class P9ImageFuncs extends P9ColorFuncs {
+  constructor(u: Utils, canvas: HTMLCanvasElement) {
+    super(u, canvas);
+  }
+
+  public registerImageFuncs(): void {
+    this.utils.p9FuncList = [
       "createImage",
       "imageMode",
       "image",
@@ -22,75 +26,75 @@ export class P9ImageFuncs {
       "set",
       "updatePixels",
       "get",
-    ]);
+    ];
   }
 
   public createImage(): void {
-    Utils.log("createImage() is not implemented yet.", this._p);
+    this.utils.log("createImage() is not implemented yet.");
   }
 
   public imageMode(): void {
-    Utils.log("imageMode() is not implemented yet.", this._p);
+    this.utils.log("imageMode() is not implemented yet.");
   }
 
   public image(): void {
-    Utils.log("image() is not implemented yet.", this._p);
+    this.utils.log("image() is not implemented yet.");
   }
 
   public loadImage(): void {
-    Utils.log("loadImage() is not implemented yet.", this._p);
+    this.utils.log("loadImage() is not implemented yet.");
   }
 
   public noTint(): void {
-    Utils.log("noTint() is not implemented yet.", this._p);
+    this.utils.log("noTint() is not implemented yet.");
   }
 
   public requestImage(): void {
-    Utils.log("requestImage() is not implemented yet.", this._p);
+    this.utils.log("requestImage() is not implemented yet.");
   }
 
   public tint(): void {
-    Utils.log("tint() is not implemented yet.", this._p);
+    this.utils.log("tint() is not implemented yet.");
   }
 
   public textureMode(): void {
-    Utils.log("textureMode() is not implemented yet.", this._p);
+    this.utils.log("textureMode() is not implemented yet.");
   }
 
   public textureWrap(): void {
-    Utils.log("textureWrap() is not implemented yet.", this._p);
+    this.utils.log("textureWrap() is not implemented yet.");
   }
 
   public texture(): void {
-    Utils.log("texture() is not implemented yet.", this._p);
+    this.utils.log("texture() is not implemented yet.");
   }
 
   public blend(): void {
-    Utils.log("blend() is not implemented yet.", this._p);
+    this.utils.log("blend() is not implemented yet.");
   }
 
   public copy(): void {
-    Utils.log("copy() is not implemented yet.", this._p);
+    this.utils.log("copy() is not implemented yet.");
   }
 
   public filter(): void {
-    Utils.log("filter() is not implemented yet.", this._p);
+    this.utils.log("filter() is not implemented yet.");
   }
 
   public loadPixels(): void {
-    Utils.log("loadPixels() is not implemented yet.", this._p);
+    this.utils.log("loadPixels() is not implemented yet.");
   }
 
   public mask(): void {
-    Utils.log("mask() is not implemented yet.", this._p);
+    this.utils.log("mask() is not implemented yet.");
   }
 
   public set(): void {
-    Utils.log("set() is not implemented yet.", this._p);
+    this.utils.log("set() is not implemented yet.");
   }
 
   public updatePixels(): void {
-    Utils.log("updatePixels() is not implemented yet.", this._p);
+    this.utils.log("updatePixels() is not implemented yet.");
   }
 
   public get(
@@ -101,9 +105,9 @@ export class P9ImageFuncs {
   ): number {
     if (args.length === 2) {
       const [x, y] = args;
-      if (this._p.context !== null) {
-        const d = this._p.context.getImageData(x, y, 1, 1);
-        return this._p.color(d.data[0], d.data[1], d.data[2]);
+      if (this.context !== null) {
+        const d = this.context.getImageData(x, y, 1, 1);
+        return this.color(d.data[0], d.data[1], d.data[2]);
       }
     }
     return 0;

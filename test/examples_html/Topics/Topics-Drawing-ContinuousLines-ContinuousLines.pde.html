@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Drawing/ContinuousLines/ContinuousLines.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Drawing/ContinuousLines/ContinuousLines.pde"</h1>
+
+<script type="text/processing" id="Topics/Drawing/ContinuousLines/ContinuousLines.pde" debug="transpiled">
+/**
+ * Continuous Lines. 
+ * 
+ * Click and drag the mouse to draw a line. 
+ */
+
+void setup() {
+  size(640, 360);
+  background(102);
+}
+
+void draw() {
+  stroke(255);
+  if (mousePressed == true) {
+    line(mouseX, mouseY, pmouseX, pmouseY);
+  }
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

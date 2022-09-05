@@ -1,4 +1,3 @@
-import { P9 } from "P9";
 import {
   TypeContext,
   TypeOrVoidContext,
@@ -15,7 +14,7 @@ export class P9Type implements P9Elements {
 
   constructor(
     private readonly _context: TypeContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set type(str: string | P9ClassType) {
@@ -39,9 +38,8 @@ export class P9Type implements P9Elements {
       return str;
     }
 
-    Utils.error(
-      "P9Type: toString(): type expects classTypes or primitiveTypes.",
-      this._p
+    this._u.error(
+      "P9Type: toString(): type expects classTypes or primitiveTypes."
     );
     return "";
   }
@@ -52,7 +50,7 @@ export class P9TypeOrVoid implements P9Elements {
 
   constructor(
     private readonly _context: TypeOrVoidContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set type(obj: P9Type) {
@@ -72,10 +70,7 @@ export class P9TypeOrVoid implements P9Elements {
       return this._type.toString();
     }
 
-    Utils.error(
-      "P9TypeOrVoid: toString(): typeOrVoid expects type or void.",
-      this._p
-    );
+    this._u.error("P9TypeOrVoid: toString(): typeOrVoid expects type or void.");
     return "";
   }
 }
@@ -85,10 +80,11 @@ export class P9VarDecl implements P9Elements {
   private _type: P9Type | undefined;
   private _variableDeclarators: P9VariableDeclarators | undefined;
   private _classVarList: Array<string> | undefined;
+  private _inFuncDecl = false;
 
   constructor(
     private readonly _context: VarDeclContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public push(str: string): void {
@@ -107,6 +103,10 @@ export class P9VarDecl implements P9Elements {
     this._classVarList = list.slice(0, list.length);
   }
 
+  public set inFuncDecl(x: boolean) {
+    this._inFuncDecl = x;
+  }
+
   public getList(): Array<string> {
     if (this._variableDeclarators !== undefined) {
       return this._variableDeclarators.getList();
@@ -120,7 +120,7 @@ export class P9VarDecl implements P9Elements {
 
   public toString(): string {
     if (this._variableDeclarators !== undefined) {
-      if (this._classVarList !== undefined) {
+      if (this._classVarList !== undefined && !this._inFuncDecl) {
         return `${this._variableDeclarators.list
           .map(function (e) {
             return e.toString();
@@ -133,9 +133,8 @@ export class P9VarDecl implements P9Elements {
       }
     }
 
-    Utils.error(
-      "P9VariableDeclarators: toString(): VarDecl expects variableDeclarators.",
-      this._p
+    this._u.error(
+      "P9VariableDeclarators: toString(): VarDecl expects variableDeclarators."
     );
     return "";
   }
@@ -144,7 +143,7 @@ export class P9VarDecl implements P9Elements {
 export class P9VariableDeclarators implements P9Elements {
   private _list = new Array<P9VariableDeclarator>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9VariableDeclarator): void {
     this._list.push(obj);
@@ -177,7 +176,7 @@ export class P9VariableDeclarator implements P9Elements {
   private _id: P9VariableDeclaratorId | undefined;
   private _variableInitializer: P9VariableInitializer | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public set variableDeclaratorId(obj: P9VariableDeclaratorId) {
     this._id = obj;
@@ -202,14 +201,21 @@ export class P9VariableDeclarator implements P9Elements {
   public toString(): string {
     if (this._id !== undefined) {
       if (this._variableInitializer !== undefined) {
-        return `${this._id.toString()} = ${this._variableInitializer.toString()}`;
+        if (this._variableInitializer.isArrayConstructor) {
+          return this._u.buildArrayConstructor(
+            this._id.toString(),
+            this._variableInitializer.creatorExpressionList,
+            ""
+          );
+        } else {
+          return `${this._id.toString()} = ${this._variableInitializer.toString()}`;
+        }
       }
       return this._id.toString();
     }
 
-    Utils.error(
-      "P9VariableDeclarator: toString(): VariableDeclarator expects ID.",
-      this._p
+    this._u.error(
+      "P9VariableDeclarator: toString(): VariableDeclarator expects ID."
     );
     return "";
   }
@@ -218,7 +224,7 @@ export class P9VariableDeclarator implements P9Elements {
 export class P9VariableDeclaratorId implements P9Elements {
   constructor(
     private readonly _context: VariableDeclaratorIdContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public getLines(): Array<string> {
@@ -230,9 +236,8 @@ export class P9VariableDeclaratorId implements P9Elements {
       return this._context._id.text;
     }
 
-    Utils.error(
-      "P9VariableDeclaratorId: toString(): VariableDeclaratorId expects ID.",
-      this._p
+    this._u.error(
+      "P9VariableDeclaratorId: toString(): VariableDeclaratorId expects ID."
     );
     return "";
   }
@@ -240,11 +245,31 @@ export class P9VariableDeclaratorId implements P9Elements {
 
 export class P9VariableInitializer implements P9Elements {
   private _initializer: P9ArrayInitializer | P9Expression | undefined;
+  private _isArrayConstructor = false;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public set initializer(obj: P9ArrayInitializer | P9Expression) {
     this._initializer = obj;
+
+    if (
+      this._initializer instanceof P9Expression &&
+      this._initializer.isArrayConstructor
+    ) {
+      this._isArrayConstructor = true;
+    }
+  }
+
+  public get isArrayConstructor(): boolean {
+    return this._isArrayConstructor;
+  }
+
+  public get creatorExpressionList(): Array<P9Expression> {
+    if (this._initializer instanceof P9Expression) {
+      return this._initializer.creatorExpressionList;
+    } else {
+      return new Array<P9Expression>();
+    }
   }
 
   public getLines(): Array<string> {
@@ -253,11 +278,17 @@ export class P9VariableInitializer implements P9Elements {
 
   public toString(): string {
     if (this._initializer !== undefined) {
-      return this._initializer.toString();
+      if (
+        this._initializer instanceof P9Expression &&
+        this._initializer.isArrayConstructor
+      ) {
+        return "";
+      } else {
+        return this._initializer.toString();
+      }
     }
-    Utils.error(
-      "P9VariableInitializer: toString(): VariableInitializer expects arrayInitializer or expression.",
-      this._p
+    this._u.error(
+      "P9VariableInitializer: toString(): VariableInitializer expects arrayInitializer or expression."
     );
     return "";
   }
@@ -266,7 +297,7 @@ export class P9VariableInitializer implements P9Elements {
 export class P9ArrayInitializer implements P9Elements {
   private _list = new Array<P9VariableInitializer>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9VariableInitializer): void {
     this._list.push(obj);

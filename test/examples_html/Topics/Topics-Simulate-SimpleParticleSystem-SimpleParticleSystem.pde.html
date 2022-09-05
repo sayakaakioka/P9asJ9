@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Simulate/SimpleParticleSystem/SimpleParticleSystem.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Simulate/SimpleParticleSystem/SimpleParticleSystem.pde"</h1>
+
+<script type="text/processing" id="Topics/Simulate/SimpleParticleSystem/SimpleParticleSystem.pde" debug="transpiled">
+/**
+ * Simple Particle System
+ * by Daniel Shiffman.  
+ * 
+ * Particles are generated each cycle through draw(),
+ * fall with gravity, and fade out over time.
+ * A ParticleSystem object manages a variable size (ArrayList) 
+ * list of particles. 
+ */
+
+ParticleSystem ps;
+
+void setup() {
+  size(640, 360);
+  ps = new ParticleSystem(new PVector(width/2, 50));
+}
+
+void draw() {
+  background(0);
+  ps.addParticle();
+  ps.run();
+}</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

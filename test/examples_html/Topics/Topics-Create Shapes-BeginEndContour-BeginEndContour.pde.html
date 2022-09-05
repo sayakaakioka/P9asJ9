@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Create Shapes/BeginEndContour/BeginEndContour.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Create Shapes/BeginEndContour/BeginEndContour.pde"</h1>
+
+<script type="text/processing" id="Topics/Create Shapes/BeginEndContour/BeginEndContour.pde" debug="transpiled">
+/**
+ * BeginEndContour
+ * 
+ * How to cut a shape out of another using beginContour() and endContour()
+ */
+ 
+PShape s;
+
+void setup() {
+  size(640, 360, P2D);
+
+  // Make a shape
+  s = createShape();
+  s.beginShape();
+  s.fill(0);
+  s.stroke(255);
+  s.strokeWeight(2);
+  // Exterior part of shape
+  s.vertex(-100,-100);
+  s.vertex(100,-100);
+  s.vertex(100,100);
+  s.vertex(-100,100);
+  
+  // Interior part of shape
+  s.beginContour();
+  s.vertex(-10,-10);
+  s.vertex(-10,10);
+  s.vertex(10,10);
+  s.vertex(10,-10);
+  s.endContour();
+  
+  // Finishing off shape
+  s.endShape(CLOSE);
+}
+
+void draw() {
+  background(52);
+  // Display shape
+  translate(width/2, height/2);
+  // Shapes can be rotated
+  s.rotate(0.01);
+  shape(s);
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

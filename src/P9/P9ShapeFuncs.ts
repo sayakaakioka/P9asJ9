@@ -1,9 +1,31 @@
 import { Utils } from "../Utils";
-import { P9 } from "../P9";
+import { P9ColorFuncs } from "./P9ColorFuncs";
+import { P9ImageFuncs } from "./P9ImageFuncs";
+import { P9OutputFuncs } from "./P9OutputFuncs";
+import { P9TypographyFuncs } from "./P9TypographyFuncs";
 
-export class P9ShapeFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+export interface P9ShapeFuncs
+  extends P9OutputFuncs,
+    P9ImageFuncs,
+    P9TypographyFuncs {}
+export class P9ShapeFuncs extends P9ColorFuncs {
+  public readonly CORNER = 1;
+  public readonly CORNERS = 2;
+  public readonly RADIUS = 3;
+  public readonly PROJECT = "butt";
+  public readonly ROUND = "round";
+  public readonly SQUARE = "square";
+
+  private _currentLineWidth = 4;
+  private _currentLineCap: CanvasLineCap = this.ROUND;
+  private _currentRectMode = this.CORNER;
+
+  constructor(util: Utils, canvas: HTMLCanvasElement) {
+    super(util, canvas);
+  }
+
+  public registerShapeFuncs(): void {
+    this.utils.p9FuncList = [
       "createShape",
       "loadShape",
       "bezierDetail",
@@ -42,111 +64,130 @@ export class P9ShapeFuncs {
       "box",
       "sphereDetail",
       "sphere",
-    ]);
+    ];
+    this.utils.p9ConstList = [
+      "CORNER",
+      "CORNERS",
+      "RADIUS",
+      "PROJECT",
+      "ROUND",
+      "SQUARE",
+    ];
+
+    this.registerColorFuncs();
+    this.registerInputFuncs();
+  }
+
+  protected set currentLineWidth(w: number) {
+    this._currentLineWidth = w;
+  }
+
+  protected set currentLineCap(str: CanvasLineCap) {
+    this._currentLineCap = str;
   }
 
   public createShape(): void {
-    Utils.log("createShape() is not implemented yet.", this._p);
+    this.utils.log("createShape() is not implemented yet.");
   }
 
   public loadShape(): void {
-    Utils.log("loadShape() is not implemented yet.", this._p);
+    this.utils.log("loadShape() is not implemented yet.");
   }
 
   public bezierDetail(): void {
-    Utils.log("bezierDetail() is not implemented yet.", this._p);
+    this.utils.log("bezierDetail() is not implemented yet.");
   }
 
   public bezierPoint(): void {
-    Utils.log("bezierPoint() is not implemented yet.", this._p);
+    this.utils.log("bezierPoint() is not implemented yet.");
   }
 
   public bezierTangent(): void {
-    Utils.log("bezierTangent() is not implemented yet.", this._p);
+    this.utils.log("bezierTangent() is not implemented yet.");
   }
 
   public bezier(): void {
-    Utils.log("bezier() is not implemented yet.", this._p);
+    this.utils.log("bezier() is not implemented yet.");
   }
 
   public curveDetail(): void {
-    Utils.log("curveDetail() is not implemented yet.", this._p);
+    this.utils.log("curveDetail() is not implemented yet.");
   }
 
   public curvePoint(): void {
-    Utils.log("curvePoint() is not implemented yet.", this._p);
+    this.utils.log("curvePoint() is not implemented yet.");
   }
 
   public curveTangent(): void {
-    Utils.log("curveTangent() is not implemented yet.", this._p);
+    this.utils.log("curveTangent() is not implemented yet.");
   }
 
   public curveTightness(): void {
-    Utils.log("curveTightness() is not implemented yet.", this._p);
+    this.utils.log("curveTightness() is not implemented yet.");
   }
 
   public curve(): void {
-    Utils.log("curve() is not implemented yet.", this._p);
+    this.utils.log("curve() is not implemented yet.");
   }
 
   public ellipseMode(): void {
-    Utils.log("ellipseMode() is not implemented yet.", this._p);
+    this.utils.log("ellipseMode() is not implemented yet.");
   }
 
-  public rectMode(): void {
-    Utils.log("rectMode() is not implemented yet.", this._p);
+  public rectMode(x: number): void {
+    this._currentRectMode = x;
   }
 
-  public strokeCap(): void {
-    Utils.log("strokeCap() is not implemented yet.", this._p);
+  public strokeCap(str: CanvasLineCap): void {
+    this._currentLineCap = str;
   }
 
   public strokeJoin(): void {
-    Utils.log("strokeJoin() is not implemented yet.", this._p);
+    this.utils.log("strokeJoin() is not implemented yet.");
   }
 
   public strokeWeight(w: number): void {
-    this._p.currentLineWidth = w;
+    this._currentLineWidth = w;
   }
 
   public beginContour(): void {
-    Utils.log("beginContour() is not implemented yet.", this._p);
+    this.utils.log("beginContour() is not implemented yet.");
   }
 
   public beginShape(): void {
-    Utils.log("beginShape() is not implemented yet.", this._p);
+    this.utils.log("beginShape() is not implemented yet.");
   }
 
   public bezierVertex(): void {
-    Utils.log("bezierVertex() is not implemented yet.", this._p);
+    this.utils.log("bezierVertex() is not implemented yet.");
   }
 
   public curveVertex(): void {
-    Utils.log("curveVertex() is not implemented yet.", this._p);
+    this.utils.log("curveVertex() is not implemented yet.");
   }
 
   public endContour(): void {
-    Utils.log("endCountour() is not implemented yet.", this._p);
+    this.utils.log("endCountour() is not implemented yet.");
   }
 
   public endShape(): void {
-    Utils.log("endShape() is not implemented yet.", this._p);
+    this.utils.log("endShape() is not implemented yet.");
   }
 
   public quadraticVertex(): void {
-    Utils.log("quadraticVertex() is not implemented yet.", this._p);
+    this.utils.log("quadraticVertex() is not implemented yet.");
   }
 
   public vertex(): void {
-    Utils.log("vertex() is not implemented yet.", this._p);
+    this.utils.log("vertex() is not implemented yet.");
   }
 
   public shapeMode(): void {
-    Utils.log("shapeMode() is not implemented yet.", this._p);
+    this.utils.log("shapeMode() is not implemented yet.");
   }
 
   public shape(): void {
-    Utils.log("shape() is not implemented yet.", this._p);
+    this.utils.log("shape() is not implemented yet.");
   }
 
   public arc(
@@ -158,57 +199,59 @@ export class P9ShapeFuncs {
     stop: number,
     mode?: any
   ): void {
-    if (this._p.context === null) {
-      Utils.log("arc(): context is null", this._p);
+    if (this.context === null) {
+      this.utils.log("arc(): context is null");
       return;
     }
 
-    if (this._p.doFill) {
-      this._p.context.fillStyle = this._p.currentFillColor;
+    if (this.doFill) {
+      this.context.fillStyle = this.currentFillColor;
 
-      this._p.context.beginPath();
-      this._p.context.moveTo(x, y);
-      this._p.context.ellipse(x, y, w / 2, h / 2, 0, start, stop);
-      this._p.context.closePath();
-      this._p.context.fill();
+      this.context.beginPath();
+      this.context.moveTo(x, y);
+      this.context.ellipse(x, y, w / 2, h / 2, 0, start, stop);
+      this.context.closePath();
+      this.context.fill();
     }
 
-    if (this._p.doStroke) {
-      this._p.context.strokeStyle = this._p.currentStrokeColor;
-      this._p.context.lineWidth = this._p.currentLineWidth;
-      this._p.context.beginPath();
-      this._p.context.ellipse(x, y, w / 2, h / 2, 0, start, stop);
-      this._p.context.stroke();
+    if (this.doStroke) {
+      this.context.strokeStyle = this.currentStrokeColor;
+      this.context.lineWidth = this._currentLineWidth;
+      this.context.lineCap = this._currentLineCap;
+      this.context.beginPath();
+      this.context.ellipse(x, y, w / 2, h / 2, 0, start, stop);
+      this.context.stroke();
     }
   }
 
   public circle(x: number, y: number, e: number): void {
-    if (this._p.context === null) {
-      Utils.log("circle(): context is null", this._p);
+    if (this.context === null) {
+      this.utils.log("circle(): context is null");
       return;
     }
     this.ellipse(x, y, e, e);
   }
 
   public ellipse(x: number, y: number, w: number, h: number): void {
-    if (this._p.context === null) {
-      Utils.log("ellipse(): context is null", this._p);
+    if (this.context === null) {
+      this.utils.log("ellipse(): context is null");
       return;
     }
 
-    this._p.context.beginPath();
-    this._p.context.ellipse(x, y, w / 2, h / 2, 0, 0, Math.PI * 2);
-    this._p.context.closePath();
+    this.context.beginPath();
+    this.context.ellipse(x, y, w / 2, h / 2, 0, 0, Math.PI * 2);
+    this.context.closePath();
 
-    if (this._p.doFill) {
-      this._p.context.fillStyle = this._p.currentFillColor;
-      this._p.context.fill();
+    if (this.doFill) {
+      this.context.fillStyle = this.currentFillColor;
+      this.context.fill();
     }
 
-    if (this._p.doStroke) {
-      this._p.context.strokeStyle = this._p.currentStrokeColor;
-      this._p.context.lineWidth = this._p.currentLineWidth;
-      this._p.context.stroke();
+    if (this.doStroke) {
+      this.context.strokeStyle = this.currentStrokeColor;
+      this.context.lineWidth = this._currentLineWidth;
+      this.context.lineCap = this._currentLineCap;
+      this.context.stroke();
     }
   }
 
@@ -220,27 +263,36 @@ export class P9ShapeFuncs {
     e?: number | string,
     f?: number | string
   ): void {
-    if (this._p.context === null) {
-      Utils.error("line(): context is null", this._p);
+    if (this.context === null) {
+      this.utils.error("line(): context is null");
       return;
     }
 
-    if (!this._p.doStroke) {
+    if (!this.doStroke) {
       return;
     }
-
-    this._p.context.beginPath();
-    this._p.context.strokeStyle = this._p.currentStrokeColor;
-    this._p.context.lineWidth = this._p.currentLineWidth;
-    this._p.context.lineCap = "round";
-    this._p.context.moveTo(Number(a), Number(b));
-    this._p.context.lineTo(Number(c), Number(d));
-    this._p.context.closePath();
-    this._p.context.stroke();
+    this.context.beginPath();
+    this.context.strokeStyle = this.currentStrokeColor;
+    this.context.lineWidth = this._currentLineWidth;
+    this.context.lineCap = this._currentLineCap;
+    this.context.moveTo(Number(a), Number(b));
+    this.context.lineTo(Number(c), Number(d));
+    this.context.closePath();
+    this.context.stroke();
   }
 
   public point(x: number, y: number, z?: number): void {
-    this.circle(x, y, 0.5);
+    if (this.context === null) {
+      this.utils.error("point(): context is null");
+      return;
+    }
+
+    this.context.beginPath();
+    this.context.arc(x, y, this._currentLineWidth / 2, 0, Math.PI * 2, true);
+    const currentFillStyle = this.context.fillStyle;
+    this.context.fillStyle = this.currentStrokeColor;
+    this.context.fill();
+    this.context.fillStyle = currentFillStyle;
   }
 
   public quad(
@@ -253,29 +305,30 @@ export class P9ShapeFuncs {
     x4: number,
     y4: number
   ): void {
-    if (this._p.context === null) {
-      Utils.error("quad(): context is null", this._p);
+    if (this.context === null) {
+      this.utils.error("quad(): context is null");
       return;
     }
 
-    this._p.context.beginPath();
-    this._p.context.moveTo(Number(x1), Number(y1));
-    this._p.context.lineTo(Number(x2), Number(y2));
-    this._p.context.lineTo(Number(x3), Number(y3));
-    this._p.context.lineTo(Number(x4), Number(y4));
-    this._p.context.lineTo(Number(x1), Number(y1));
-    this._p.context.closePath();
+    this.context.beginPath();
+    this.context.moveTo(Number(x1), Number(y1));
+    this.context.lineTo(Number(x2), Number(y2));
+    this.context.lineTo(Number(x3), Number(y3));
+    this.context.lineTo(Number(x4), Number(y4));
+    this.context.lineTo(Number(x1), Number(y1));
+    this.context.closePath();
 
-    if (this._p.doFill) {
-      this._p.context.strokeStyle = this._p.currentStrokeColor;
-      this._p.context.fillStyle = this._p.currentFillColor;
-      this._p.context.fill();
+    if (this.doFill) {
+      this.context.strokeStyle = this.currentStrokeColor;
+      this.context.fillStyle = this.currentFillColor;
+      this.context.fill();
     }
 
-    if (this._p.doStroke) {
-      this._p.context.strokeStyle = this._p.currentStrokeColor;
-      this._p.context.lineWidth = this._p.currentLineWidth;
-      this._p.context.stroke();
+    if (this.doStroke) {
+      this.context.strokeStyle = this.currentStrokeColor;
+      this.context.lineWidth = this._currentLineWidth;
+      this.context.lineCap = this._currentLineCap;
+      this.context.stroke();
     }
   }
 
@@ -289,20 +342,45 @@ export class P9ShapeFuncs {
     cr?: number,
     dr?: number
   ): void {
-    if (this._p.context === null) {
-      Utils.log("rect(): context is null", this._p);
+    if (this.context === null) {
+      this.utils.log("rect(): context is null");
       return;
     }
 
-    if (this._p.doFill) {
-      this._p.context.fillStyle = this._p.currentFillColor;
-      this._p.context.fillRect(a, b, c, d);
+    let x, y, w, h;
+    if (this._currentRectMode === this.CORNERS) {
+      x = Math.min(a, c);
+      y = Math.min(b, d);
+      w = Math.abs(a - c);
+      h = Math.abs(b - d);
+    } else if (this._currentRectMode === this.CENTER) {
+      x = a - c / 2;
+      y = b - d / 2;
+      w = c;
+      h = d;
+    } else if (this._currentRectMode === this.RADIUS) {
+      x = a - c;
+      y = b - d;
+      w = 2 * c;
+      h = 2 * d;
+    } else {
+      // rectMode is CORNER, which is default
+      x = a;
+      y = b;
+      w = c;
+      h = d;
     }
 
-    if (this._p.doStroke) {
-      this._p.context.strokeStyle = this._p.currentStrokeColor;
-      this._p.context.lineWidth = this._p.currentLineWidth;
-      this._p.context.strokeRect(a, b, c, d);
+    if (this.doFill) {
+      this.context.fillStyle = this.currentFillColor;
+      this.context.fillRect(x, y, w, h);
+    }
+
+    if (this.doStroke) {
+      this.context.strokeStyle = this.currentStrokeColor;
+      this.context.lineWidth = this._currentLineWidth;
+      this.context.lineCap = this._currentLineCap;
+      this.context.strokeRect(x, y, w, h);
     }
   }
 
@@ -318,39 +396,40 @@ export class P9ShapeFuncs {
     x3: number,
     y3: number
   ): void {
-    if (this._p.context === null) {
-      Utils.error("triangle(): context is null", this._p);
+    if (this.context === null) {
+      this.utils.error("triangle(): context is null");
       return;
     }
 
-    this._p.context.beginPath();
-    this._p.context.moveTo(Number(x1), Number(y1));
-    this._p.context.lineTo(Number(x2), Number(y2));
-    this._p.context.lineTo(Number(x3), Number(y3));
-    this._p.context.lineTo(Number(x1), Number(y1));
-    this._p.context.closePath();
+    this.context.beginPath();
+    this.context.moveTo(Number(x1), Number(y1));
+    this.context.lineTo(Number(x2), Number(y2));
+    this.context.lineTo(Number(x3), Number(y3));
+    this.context.lineTo(Number(x1), Number(y1));
+    this.context.closePath();
 
-    if (this._p.doFill) {
-      this._p.context.fillStyle = this._p.currentFillColor;
-      this._p.context.fill();
+    if (this.doFill) {
+      this.context.fillStyle = this.currentFillColor;
+      this.context.fill();
     }
 
-    if (this._p.doStroke) {
-      this._p.context.strokeStyle = this._p.currentStrokeColor;
-      this._p.context.lineWidth = this._p.currentLineWidth;
-      this._p.context.stroke();
+    if (this.doStroke) {
+      this.context.strokeStyle = this.currentStrokeColor;
+      this.context.lineWidth = this._currentLineWidth;
+      this.context.lineCap = this._currentLineCap;
+      this.context.stroke();
     }
   }
 
   public box(): void {
-    Utils.log("box() is not implemented yet.", this._p);
+    this.utils.log("box() is not implemented yet.");
   }
 
   public sphereDetail(): void {
-    Utils.log("sphereDetail() is not implemented yet.", this._p);
+    this.utils.log("sphereDetail() is not implemented yet.");
   }
 
   public sphere(): void {
-    Utils.log("sphere() is not implemented yet.", this._p);
+    this.utils.log("sphere() is not implemented yet.");
   }
 }

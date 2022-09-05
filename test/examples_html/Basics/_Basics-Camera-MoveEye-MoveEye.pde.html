@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics/Camera/MoveEye/MoveEye.pde"</title>
+</head>
+
+<body>
+<h1>"Basics/Camera/MoveEye/MoveEye.pde"</h1>
+
+<script type="text/processing" id="Basics/Camera/MoveEye/MoveEye.pde" debug="transpiled">
+/**
+ * Move Eye. 
+ * by Simon Greenwold.
+ * 
+ * The camera lifts up (controlled by mouseY) while looking at the same point.
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  fill(204);
+}
+
+void draw() {
+  lights();
+  background(0);
+  
+  // Change height of the camera with mouseY
+  camera(30.0, mouseY, 220.0, // eyeX, eyeY, eyeZ
+         0.0, 0.0, 0.0, // centerX, centerY, centerZ
+         0.0, 1.0, 0.0); // upX, upY, upZ
+  
+  noStroke();
+  box(90);
+  stroke(255);
+  line(-100, 0, 0, 100, 0, 0);
+  line(0, -100, 0, 0, 100, 0);
+  line(0, 0, -100, 0, 0, 100);
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

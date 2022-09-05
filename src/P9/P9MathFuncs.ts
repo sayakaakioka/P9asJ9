@@ -1,5 +1,8 @@
 import { Utils } from "../Utils";
-import { P9 } from "../P9";
+import { P9DataFuncs } from "./P9DataFuncs";
+import { P9LightsCameraFuncs } from "./P9LightsCameraFuncs";
+import { P9RenderingFuncs } from "./P9RenderingFuncs";
+import { P9TransformFuncs } from "./P9TransformFuncs";
 
 class SeedSettableRandom {
   private x: number;
@@ -27,11 +30,32 @@ class SeedSettableRandom {
   }
 }
 
+export interface P9MathFuncs
+  extends P9DataFuncs,
+    P9TransformFuncs,
+    P9RenderingFuncs,
+    P9LightsCameraFuncs {}
 export class P9MathFuncs {
-  private randomGenerator: SeedSettableRandom | undefined;
+  // P9 related constants
+  public readonly PI = Math.PI;
+  public readonly HALF_PI = Math.PI / 2;
+  public readonly QUARTER_PI = Math.PI / 4;
+  public readonly TWO_PI = 2 * Math.PI;
+  public readonly TAU = this.TWO_PI;
+  public readonly CENTER = 4;
+  public readonly LEFT = 37;
+  public readonly RIGHT = 39;
+  public startTime = 0;
 
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+  private randomGenerator: SeedSettableRandom | undefined;
+  public utils: Utils;
+
+  constructor(u: Utils) {
+    this.utils = u;
+  }
+
+  public registerMathFuncs(): void {
+    this.utils.p9FuncList = [
       "abs",
       "ceil",
       "constrain",
@@ -64,7 +88,17 @@ export class P9MathFuncs {
       "randomGaussian",
       "randomSeed",
       "random",
-    ]);
+    ];
+    this.utils.p9ConstList = [
+      "PI",
+      "HALF_PI",
+      "QUARTER_PI",
+      "TWO_PI",
+      "TAU",
+      "CENTER",
+      "LEFT",
+      "RIGHT",
+    ];
   }
 
   public abs(x: number): number {
@@ -136,7 +170,7 @@ export class P9MathFuncs {
     x2: number,
     y2: number
   ): number {
-    return x2 + (v * (y2 - x2)) / (y1 - x1);
+    return x2 + ((v - x1) * (y2 - x2)) / (y1 - x1);
   }
 
   public max(
@@ -216,11 +250,11 @@ export class P9MathFuncs {
   }
 
   public degrees(x: number): number {
-    return (180 * x) / this._p.PI;
+    return (180 * x) / this.PI;
   }
 
   public radians(x: number): number {
-    return (this._p.PI * x) / 180;
+    return (this.PI * x) / 180;
   }
 
   public sin(x: number): number {
@@ -232,19 +266,19 @@ export class P9MathFuncs {
   }
 
   public noiseDetail(): void {
-    Utils.log("noiseDetail() is not implemented yet.", this._p);
+    this.utils.log("noiseDetail() is not implemented yet.");
   }
 
   public noiseSeed(): void {
-    Utils.log("noiseSeed() is not implemented yet.", this._p);
+    this.utils.log("noiseSeed() is not implemented yet.");
   }
 
   public noise(): void {
-    Utils.log("noise() is not implemented yet.", this._p);
+    this.utils.log("noise() is not implemented yet.");
   }
 
   public randomGaussian(): void {
-    Utils.log("randomGaussian() is not implemented yet.", this._p);
+    this.utils.log("randomGaussian() is not implemented yet.");
   }
 
   public randomSeed(s: number): void {

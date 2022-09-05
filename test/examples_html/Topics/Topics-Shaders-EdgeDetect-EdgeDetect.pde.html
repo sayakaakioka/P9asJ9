@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Shaders/EdgeDetect/EdgeDetect.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Shaders/EdgeDetect/EdgeDetect.pde"</h1>
+
+<script type="text/processing" id="Topics/Shaders/EdgeDetect/EdgeDetect.pde" debug="transpiled">
+/**
+ * Edge Detection
+ * 
+ * Change the default shader to apply a simple, custom edge detection filter.
+ * 
+ * Press the mouse to switch between the custom and default shader.
+ */
+
+PShader edges;  
+PImage img;
+boolean enabled = true;
+    
+void setup() {
+  size(640, 360, P2D);
+  img = loadImage("leaves.jpg");      
+  edges = loadShader("edges.glsl");
+}
+
+void draw() {
+  if (enabled == true) {
+    shader(edges);
+  }
+  image(img, 0, 0);
+}
+    
+void mousePressed() {
+  enabled = !enabled;
+  if (!enabled == true) {
+    resetShader();
+  }
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Done: "Basics/Structure/WidthHeight/WidthHeight.pde"</title>
+</head>
+
+<body>
+<h1>Done: "Basics/Structure/WidthHeight/WidthHeight.pde"</h1>
+
+<script type="text/processing" id="Basics/Structure/WidthHeight/WidthHeight.pde" debug="transpiled">
+/**
+ * Width and Height.
+ *
+ * The 'width' and 'height' variables contain the width and height
+ * of the display window as defined in the size() function.
+ */
+
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  background(127);
+  noStroke();
+  for (int i = 0; i < height; i += 20) {
+    fill(129, 206, 15);
+    rect(0, i, width, 10);
+    fill(255);
+    rect(i, 0, 10, height);
+  }
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

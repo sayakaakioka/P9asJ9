@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Vectors/AccelerationWithVectors/AccelerationWithVectors.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Vectors/AccelerationWithVectors/AccelerationWithVectors.pde"</h1>
+
+<script type="text/processing" id="Topics/Vectors/AccelerationWithVectors/AccelerationWithVectors.pde" debug="transpiled">
+/**
+ * Acceleration with Vectors 
+ * by Daniel Shiffman.  
+ * 
+ * Demonstration of the basics of motion with vector.
+ * A "Mover" object stores location, velocity, and 
+ * acceleration as vectors. The motion is controlled by 
+ * affecting the acceleration (in this case towards the mouse).
+ */
+
+// A Mover object
+Mover mover;
+
+void setup() {
+  size(640,360);
+  mover = new Mover(); 
+}
+
+void draw() {
+  background(0);
+  
+  // Update the location
+  mover.update();
+  // Display the Mover
+  mover.display(); 
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

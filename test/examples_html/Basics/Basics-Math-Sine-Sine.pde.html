@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Done:"Basics/Math/Sine/Sine.pde"</title>
+</head>
+
+<body>
+<h1>Done: "Basics/Math/Sine/Sine.pde"</h1>
+
+<script type="text/processing" id="Basics/Math/Sine/Sine.pde" debug="transpiled">
+/**
+ * Sine.
+ *
+ * Smoothly scaling size with the sin() function.
+ */
+
+float diameter;
+float angle = 0;
+
+void setup() {
+  size(640, 360);
+  diameter = height - 10;
+  noStroke();
+  fill(255, 204, 0);
+}
+
+void draw() {
+
+  background(0);
+
+  float d1 = 10 + (sin(angle) * diameter/2) + diameter/2;
+  float d2 = 10 + (sin(angle + PI/2) * diameter/2) + diameter/2;
+  float d3 = 10 + (sin(angle + PI) * diameter/2) + diameter/2;
+
+  ellipse(0, height/2, d1, d1);
+  ellipse(width/2, height/2, d2, d2);
+  ellipse(width, height/2, d3, d3);
+
+  angle += 0.02;
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

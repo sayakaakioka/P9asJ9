@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Done: "Basics/Math/DoubleRandom/DoubleRandom.pde"</title>
+</head>
+
+<body>
+<h1>Done: "Basics/Math/DoubleRandom/DoubleRandom.pde"</h1>
+
+<script type="text/processing" id="Basics/Math/DoubleRandom/DoubleRandom.pde" debug="transpiled">
+/**
+ * Double Random
+ * by Ira Greenberg.
+ *
+ * Using two random() calls and the point() function
+ * to create an irregular sawtooth line.
+ */
+
+int totalPts = 300;
+float steps = totalPts + 1;
+
+void setup() {
+  size(640, 360);
+  stroke(255);
+  frameRate(1);
+}
+
+void draw() {
+  background(0);
+  float rand = 0;
+  for  (int i = 1; i < steps; i++) {
+    point( (width/steps) * i, (height/2) + random(-rand, rand) );
+    rand += random(-5, 5);
+  }
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Create Shapes/WigglePShape/WigglePShape.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Create Shapes/WigglePShape/WigglePShape.pde"</h1>
+
+<script type="text/processing" id="Topics/Create Shapes/WigglePShape/WigglePShape.pde" debug="transpiled">
+/**
+ * WigglePShape. 
+ * 
+ * How to move the individual vertices of a PShape
+ */
+
+
+// A "Wiggler" object
+Wiggler w;
+
+void setup() {
+  size(640, 360, P2D);
+  w = new Wiggler();
+}
+
+void draw() {
+  background(255);
+  w.display();
+  w.wiggle();
+}
+
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

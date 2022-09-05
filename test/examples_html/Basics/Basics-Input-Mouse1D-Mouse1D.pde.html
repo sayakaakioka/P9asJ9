@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Done: "Basics/Input/Mouse1D/Mouse1D.pde"</title>
+  </head>
+
+  <body>
+    <h1>Done: "Basics/Input/Mouse1D/Mouse1D.pde"</h1>
+
+    <script
+      type="text/processing"
+      id="Basics/Input/Mouse1D/Mouse1D.pde"
+      debug="transpiled"
+    >
+      /**
+       * Mouse 1D.
+       *
+       * Move the mouse left and right to shift the balance.
+       * The "mouseX" variable is used to control both the
+       * size and color of the rectangles.
+       */
+
+      void setup() {
+        size(640, 360);
+        noStroke();
+        colorMode(RGB, height, height, height);
+        rectMode(CENTER);
+      }
+
+      void draw() {
+        background(0.0);
+
+        float r1 = map(mouseX, 0, width, 0, height);
+        float r2 = height-r1;
+
+        fill(r1);
+        rect(width/2 + r1/2, height/2, r1, r1);
+
+        fill(r2);
+        rect(width/2 - r2/2, height/2, r2, r2);
+      }
+    </script>
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

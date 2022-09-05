@@ -1,9 +1,13 @@
-import { Utils } from "../Utils";
-import { P9 } from "../P9";
+import { Utils } from "Utils";
+import { P9ColorFuncs } from "./P9ColorFuncs";
 
-export class P9OutputFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+export class P9OutputFuncs extends P9ColorFuncs {
+  constructor(u: Utils, canvas: HTMLCanvasElement) {
+    super(u, canvas);
+  }
+
+  public registerOutputFuncs(): void {
+    this.utils.p9FuncList = [
       "printArray",
       "print",
       "println",
@@ -23,7 +27,7 @@ export class P9OutputFuncs {
       "saveTable",
       "saveXML",
       "selectOutput",
-    ]);
+    ];
   }
 
   public printArray(list: Array<object>): void {
@@ -45,7 +49,7 @@ export class P9OutputFuncs {
       if (typeof e === "string") {
         if (e.startsWith("#")) {
           return String(
-            this._p.color(
+            this.color(
               parseInt(e.substring(1, 3), 16),
               parseInt(e.substring(3, 5), 16),
               parseInt(e.substring(5), 16)
@@ -65,70 +69,70 @@ export class P9OutputFuncs {
 
       return e.toString();
     });
-    console.log(`[${this._p.id}]: ${str.join("")}`);
+    console.log(`[${this.utils.id}]: ${str.join("")}`);
   }
 
   public saveFrame(): void {
-    Utils.log("saveFrame() is not implemented yet.", this._p);
+    this.utils.log("saveFrame() is not implemented yet.");
   }
 
   public save(): void {
-    Utils.log("save() is not implemented yet.", this._p);
+    this.utils.log("save() is not implemented yet.");
   }
 
   public beginRaw(): void {
-    Utils.log("beginRaw() is not implemented yet.", this._p);
+    this.utils.log("beginRaw() is not implemented yet.");
   }
 
   public beginRecord(): void {
-    Utils.log("beginRecord() is not implemented yet.", this._p);
+    this.utils.log("beginRecord() is not implemented yet.");
   }
 
   public createOutput(): void {
-    Utils.log("createOutput() is not implemented yet.", this._p);
+    this.utils.log("createOutput() is not implemented yet.");
   }
 
   public createWriter(): void {
-    Utils.log("createWriter() is not implemented yet.", this._p);
+    this.utils.log("createWriter() is not implemented yet.");
   }
 
   public endRaw(): void {
-    Utils.log("endRaw() is not implemented yet.", this._p);
+    this.utils.log("endRaw() is not implemented yet.");
   }
 
   public endRecord(): void {
-    Utils.log("endRecord() is not implemented yet.", this._p);
+    this.utils.log("endRecord() is not implemented yet.");
   }
 
   public saveBytes(): void {
-    Utils.log("saveBytes() is not implemented yet.", this._p);
+    this.utils.log("saveBytes() is not implemented yet.");
   }
 
   public saveJSONArray(): void {
-    Utils.log("saveJSONArray() is not implemented yet.", this._p);
+    this.utils.log("saveJSONArray() is not implemented yet.");
   }
 
   public saveJSONObject(): void {
-    Utils.log("saveJSONObject() is not implemented yet.", this._p);
+    this.utils.log("saveJSONObject() is not implemented yet.");
   }
 
   public saveStream(): void {
-    Utils.log("saveStream() is not implemented yet.", this._p);
+    this.utils.log("saveStream() is not implemented yet.");
   }
 
   public saveStrings(): void {
-    Utils.log("saveString() is not implemented yet.", this._p);
+    this.utils.log("saveString() is not implemented yet.");
   }
 
   public saveTable(): void {
-    Utils.log("saveTable() is not implemented yet.", this._p);
+    this.utils.log("saveTable() is not implemented yet.");
   }
 
   public saveXML(): void {
-    Utils.log("saveXML() is not implemented yet.", this._p);
+    this.utils.log("saveXML() is not implemented yet.");
   }
 
   public selectOutput(): void {
-    Utils.log("selectOutput() is not implemented yet.", this._p);
+    this.utils.log("selectOutput() is not implemented yet.");
   }
 }

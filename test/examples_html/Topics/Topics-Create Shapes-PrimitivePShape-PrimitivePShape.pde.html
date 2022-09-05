@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Create Shapes/PrimitivePShape/PrimitivePShape.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Create Shapes/PrimitivePShape/PrimitivePShape.pde"</h1>
+
+<script type="text/processing" id="Topics/Create Shapes/PrimitivePShape/PrimitivePShape.pde" debug="transpiled">
+/**
+ * PrimitivePShape. 
+ * 
+ * Using a PShape to display a primitive shape (in this case, ellipse). 
+ */
+
+
+// The PShape object
+PShape circle;
+
+void setup() {  
+  size(640, 360, P2D);
+  // Creating the PShape as an ellipse
+  circle = createShape(ELLIPSE, 0, 0, 100, 50);
+}
+
+void draw() {
+  background(51);
+  // We can dynamically set the stroke and fill of the shape
+  circle.setStroke(color(255));  
+  circle.setStrokeWeight(4);
+  circle.setFill(color(map(mouseX, 0, width, 0, 255)));
+  // We can use translate to move the PShape
+  translate(mouseX, mouseY);
+  // Drawing the PShape
+  shape(circle);
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-import { P9 } from "P9";
 import {
   FuncCallContext,
   FuncDeclContext,
@@ -21,7 +20,7 @@ export class P9FuncDecl implements P9Elements {
 
   constructor(
     private readonly _context: FuncDeclContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public push(str: string): void {
@@ -66,15 +65,14 @@ export class P9FuncDecl implements P9Elements {
         if (this._qualifedNameList !== undefined) {
           lines = lines.concat(`throws ${this._qualifedNameList.getLines()}`);
         } else {
-          Utils.error(
-            "P9FuncDecl: getLines(): funcDecl expects qualifiedNameList.",
-            this._p
+          this._u.error(
+            "P9FuncDecl: getLines(): funcDecl expects qualifiedNameList."
           );
         }
       }
 
       if (this._block !== undefined) {
-        lines = Utils.wrap(lines, this._block.getLines());
+        lines = this._u.wrap(lines, this._block.getLines());
       } else {
         lines.push(";");
       }
@@ -87,7 +85,7 @@ export class P9FuncDecl implements P9Elements {
       return lines;
     }
 
-    Utils.error("P9FuncDecl: getLines(): funcDecl expects funcId.", this._p);
+    this._u.error("P9FuncDecl: getLines(): funcDecl expects funcId.");
     return new Array<string>("");
   }
 
@@ -101,7 +99,7 @@ export class P9FuncCall implements P9Elements {
 
   constructor(
     private readonly _context: FuncCallContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set expressionList(obj: P9ExpressionList) {
@@ -116,10 +114,10 @@ export class P9FuncCall implements P9Elements {
     str = str.concat(")");
 
     if (this._context._id !== undefined) {
-      if (this._p.p9FuncList.includes(`${this._context._id.text}`)) {
-        return `$p9obj.${this._context._id.text} ${str}`;
+      if (this._u.p9FuncList.includes(`${this._context._id.text}`)) {
+        return `$p9obj.${this._context._id.text}${str}`;
       } else {
-        return `${this._context._id.text} ${str}`;
+        return `${this._context._id.text}${str}`;
       }
     }
 
@@ -155,7 +153,7 @@ export class P9FuncCall implements P9Elements {
       return `$p9obj.color${str}`;
     }
 
-    Utils.error("P9FuncCall: toString(): Unknown grammar.", this._p);
+    this._u.error("P9FuncCall: toString(): Unknown grammar.");
     return "";
   }
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics/Math/Noise1D/Noise1D.pde"</title>
+</head>
+
+<body>
+<h1>"Basics/Math/Noise1D/Noise1D.pde"</h1>
+
+<script type="text/processing" id="Basics/Math/Noise1D/Noise1D.pde" debug="transpiled">
+/**
+ * Noise1D. 
+ * 
+ * Using 1D Perlin Noise to assign location. 
+ */
+ 
+float xoff = 0.0;
+float xincrement = 0.01; 
+
+void setup() {
+  size(640, 360);
+  background(0);
+  noStroke();
+}
+
+void draw() {
+  // Create an alpha blended background
+  fill(0, 10);
+  rect(0,0,width,height);
+  
+  //float n = random(0,width);  // Try this line instead of noise
+  
+  // Get a noise value based on xoff and scale it according to the window's width
+  float n = noise(xoff)*width;
+  
+  // With each cycle, increment xoff
+  xoff += xincrement;
+  
+  // Draw the ellipse at the value produced by perlin noise
+  fill(200);
+  ellipse(n,height/2, 64, 64);
+}</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

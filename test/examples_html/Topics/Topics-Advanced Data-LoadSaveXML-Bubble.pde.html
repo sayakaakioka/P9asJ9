@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Advanced Data/LoadSaveXML/Bubble.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Advanced Data/LoadSaveXML/Bubble.pde"</h1>
+
+<script type="text/processing" id="Topics/Advanced Data/LoadSaveXML/Bubble.pde" debug="transpiled">
+// A Bubble class
+
+class Bubble {
+  float x,y;
+  float diameter;
+  String name;
+  
+  boolean over = false;
+  
+  // Create  the Bubble
+  Bubble(float x_, float y_, float diameter_, String s) {
+    x = x_;
+    y = y_;
+    diameter = diameter_;
+    name = s;
+  }
+  
+  // CHecking if mouse is over the Bubble
+  void rollover(float px, float py) {
+    float d = dist(px,py,x,y);
+    if (d < diameter/2) {
+      over = true; 
+    } else {
+      over = false;
+    }
+  }
+  
+  // Display the Bubble
+  void display() {
+    stroke(0);
+    strokeWeight(2);
+    noFill();
+    ellipse(x,y,diameter,diameter);
+    if (over) {
+      fill(0);
+      textAlign(CENTER);
+      text(name,x,y+diameter/2+20);
+    }
+  }
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Done: "Basics/Input/Mouse2D/Mouse2D.pde"</title>
+  </head>
+
+  <body>
+    <h1>Done: "Basics/Input/Mouse2D/Mouse2D.pde"</h1>
+
+    <script
+      type="text/processing"
+      id="Basics/Input/Mouse2D/Mouse2D.pde"
+      debug="transpiled"
+    >
+      /**
+       * Mouse 2D.
+       *
+       * Moving the mouse changes the position and size of each box.
+       */
+
+      void setup() {
+        size(640, 360);
+        noStroke();
+        rectMode(CENTER);
+      }
+
+      void draw() {
+        background(51);
+        fill(255, 204);
+        rect(mouseX, height/2, mouseY/2+10, mouseY/2+10);
+        fill(255, 204);
+        int inverseX = width-mouseX;
+        int inverseY = height-mouseY;
+        rect(inverseX, height/2, (inverseY/2)+10, (inverseY/2)+10);
+      }
+    </script>
+
+    <!-- P9asJ9.js should be placed in the last of the document -->
+    <script type="text/javascript" src="P9asJ9.js"></script>
+  </body>
+</html>

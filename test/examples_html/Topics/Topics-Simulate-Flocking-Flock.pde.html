@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Simulate/Flocking/Flock.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Simulate/Flocking/Flock.pde"</h1>
+
+<script type="text/processing" id="Topics/Simulate/Flocking/Flock.pde" debug="transpiled">
+// The Flock (a list of Boid objects)
+
+class Flock {
+  ArrayList<Boid> boids; // An ArrayList for all the boids
+
+  Flock() {
+    boids = new ArrayList<Boid>(); // Initialize the ArrayList
+  }
+
+  void run() {
+    for (Boid b : boids) {
+      b.run(boids);  // Passing the entire list of boids to each boid individually
+    }
+  }
+
+  void addBoid(Boid b) {
+    boids.add(b);
+  }
+
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

@@ -1,14 +1,33 @@
-import { P9 } from "../P9";
 import { Utils } from "../Utils";
+import { P9EnvironmentFuncs } from "./P9EnvironmentFuncs";
 
-export class P9StructureFuncs {
+export class P9StructureFuncs extends P9EnvironmentFuncs {
+  public draw: Function | undefined;
+  public setup: Function | undefined;
+  public frameCount = 0;
+
   private _framesSinceLastFPS = 0;
   private _timeSinceLastFPS = 0;
   private _pmouseXLastFrame = 0;
   private _pmouseYLastFrame = 0;
+  private _intervalID = 0;
+  private _loopStarted = false;
+  private _noLoopCalled = false;
 
-  constructor(private readonly _p: P9, private readonly _window: Window) {
-    _p.addP9Funcs([
+  public pmouseX = 0;
+  public pmouseY = 0;
+  public mouseX = 0;
+  public mouseY = 0;
+
+  private _fRate = 60;
+
+  constructor(
+    util: Utils,
+    canvas: HTMLCanvasElement,
+    private readonly _window: Window
+  ) {
+    super(util, canvas);
+    this.utils.p9FuncList = [
       "exit",
       "loop",
       "noLoop",
@@ -21,56 +40,68 @@ export class P9StructureFuncs {
       "setResizable",
       "setTitle",
       "thread",
-    ]);
+    ];
+    this.utils.p9ConstList = [
+      "mouseX",
+      "mouseY",
+      "pmouseX",
+      "pmouseY",
+      "frameCount",
+      "frameRate",
+    ];
+  }
+
+  protected get noLoopCalled(): boolean {
+    return this._noLoopCalled;
   }
 
   public exit(): void {
-    this._window.clearInterval(this._p.intervalID);
+    this._window.clearInterval(this._intervalID);
     // detach libraries and clean up all event handling
   }
 
   public loop(): void {
-    if (this._p.loopStarted) {
+    if (this._loopStarted) {
       return;
     }
 
     this._timeSinceLastFPS = Date.now();
     this._framesSinceLastFPS = 0;
 
-    this._p.intervalID = this._window.setInterval(() => {
+    this._intervalID = this._window.setInterval(() => {
       try {
-        if (this._p.redraw !== undefined) {
-          this._p.redraw();
+        if (this.redraw !== undefined) {
+          this.redraw();
         }
       } catch (e) {
-        this._window.clearInterval(this._p.intervalID);
+        this._window.clearInterval(this._intervalID);
         throw e;
       }
-    }, 1000 / this._p.currentFrameRate);
-    this._p.noLoopCalled = false;
-    this._p.loopStarted = true;
+    }, 1000 / this.currentFrameRate);
+    this._noLoopCalled = false;
+    this._loopStarted = true;
   }
 
   public noLoop(): void {
-    this._p.noLoopCalled = true;
-    this._p.loopStarted = false;
-    clearInterval(this._p.intervalID);
+    this._noLoopCalled = true;
+    this._loopStarted = false;
+    clearInterval(this._intervalID);
   }
 
   public popStyle(): void {
-    Utils.log("popStyle() is not implemented yet.", this._p);
+    this.utils.log("popStyle() is not implemented yet.");
   }
 
   public pop(): void {
-    Utils.log("pop() is not implemented yet.", this._p);
+    this.utils.log("pop() is not implemented yet.");
   }
 
   public pushStyle(): void {
-    Utils.log("pushStyle() is not implemented yet.", this._p);
+    this.utils.log("pushStyle() is not implemented yet.");
   }
 
   public push(): void {
-    Utils.log("push() is not implemented yet.", this._p);
+    this.utils.log("push() is not implemented yet.");
   }
 
   public redraw(): void {
@@ -82,44 +113,44 @@ export class P9StructureFuncs {
     if (sec > 0.5) {
       this._timeSinceLastFPS = Date.now();
       this._framesSinceLastFPS = 0;
-      this._p.fRate = fps;
+      this._fRate = fps;
     }
 
-    this._p.frameCount++;
+    this.frameCount++;
 
-    const pmouseXLastEvent = this._p.pmouseX;
-    const pmouseYLastEvent = this._p.pmouseY;
-    this._p.pmouseX = this._pmouseXLastFrame;
-    this._p.pmouseY = this._pmouseYLastFrame;
+    const pmouseXLastEvent = this.pmouseX;
+    const pmouseYLastEvent = this.pmouseY;
+    this.pmouseX = this._pmouseXLastFrame;
+    this.pmouseY = this._pmouseYLastFrame;
 
-    if (this._p.context === null) {
-      Utils.log("P9: redraw(): Failed to get context.", this._p);
+    if (this.context === null) {
+      this.utils.log("P9StructureFuncs: redraw(): Failed to get context.");
       return;
     }
 
-    if (this._p.draw !== undefined) {
-      this._p.draw();
+    if (this.draw !== undefined) {
+      this.draw();
     }
 
-    this._pmouseXLastFrame = this._p.mouseX;
-    this._pmouseYLastFrame = this._p.mouseY;
-    this._p.pmouseX = pmouseXLastEvent;
-    this._p.pmouseY = pmouseYLastEvent;
+    this._pmouseXLastFrame = this.mouseX;
+    this._pmouseYLastFrame = this.mouseY;
+    this.pmouseX = pmouseXLastEvent;
+    this.pmouseY = pmouseYLastEvent;
   }
 
   public setLocation(x: number, y: number): void {
-    Utils.log("surface.setLocation(x, y) is not implemented yet.", this._p);
+    this.utils.log("surface.setLocation(x, y) is not implemented yet.");
   }
 
   public setResizable(resizable: boolean): void {
-    Utils.log("surface.setResizable() is not implemented yet.", this._p);
+    this.utils.log("surface.setResizable() is not implemented yet.");
   }
 
   public setTitle(title: string): void {
-    Utils.log("surface.setTitle is not implemented yet.", this._p);
+    this.utils.log("surface.setTitle is not implemented yet.");
   }
 
   public thread(): void {
-    Utils.log("thread() is not implemented yet.", this._p);
+    this.utils.log("thread() is not implemented yet.");
   }
 }

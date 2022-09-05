@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Done: "Basics/Math/IncrementDecrement/IncrementDecrement.pde"</title>
+</head>
+
+<body>
+<h1>Done: "Basics/Math/IncrementDecrement/IncrementDecrement.pde"</h1>
+
+<script type="text/processing" id="Basics/Math/IncrementDecrement/IncrementDecrement.pde" debug="transpiled">
+/**
+ * Increment Decrement.
+ *
+ * Writing "a++" is equivalent to "a = a + 1".
+ * Writing "a--" is equivalent to "a = a - 1".
+ */
+
+int a;
+int b;
+boolean direction;
+
+void setup() {
+  size(640, 360);
+  colorMode(RGB, width);
+  a = 0;
+  b = width;
+  direction = true;
+  frameRate(30);
+}
+
+void draw() {
+  a++;
+  if(a > width) {
+    a = 0;
+    direction = !direction;
+  }
+  if(direction == true){
+    stroke(a);
+  } else {
+    stroke(width-a);
+  }
+  line(a, 0, a, height/2);
+
+  b--;
+  if(b < 0) {
+    b = width;
+  }
+  if(direction == true) {
+    stroke(width-b);
+  } else {
+    stroke(b);
+  }
+  line(b, height/2+1, b, height);
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

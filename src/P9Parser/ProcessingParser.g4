@@ -176,9 +176,8 @@ switchLabel:
 
 expression:
 	primary
-    | expression bop = (
-		MUL | DIV | MOD | ADD | SUB | L_SHIFT | R_SHIFT | LE | GE | GT | LT | EQUAL | NOTEQUAL | BITAND | BITOR | AND | OR
-	) expression
+	| LPAREN typeBound RPAREN expression
+	| expression LBRACK expression RBRACK
 	| expression bop = DOT (
 		id = IDENTIFIER
 		| funcCall
@@ -187,17 +186,27 @@ expression:
 		| EQUALS LPAREN expressionList? RPAREN
 		| nonWildcardTypeArguments explicitGenericInvocationSuffix
 	)
-	| expression LBRACK expression RBRACK
 	| funcCall
 	| NEW creator
-	| LPAREN typeBound RPAREN expression
 	| expression postfix = (INC | DEC)
 	| prefix = (ADD | SUB | INC | DEC | BANG) expression
+	| expression bop = (MUL | DIV | MOD) expression
+	| expression bop = (ADD | SUB) expression
+	| expression bop = (L_SHIFT | R_SHIFT) expression
+    | expression bop = (
+		LE | GE | GT | LT
+	) expression
 	| expression bop = INSTANCEOF type
+	| expression bop = (EQUAL | NOTEQUAL) expression
+	| expression bop = BITAND expression
+	| expression bop = BITOR expression
+	| expression bop = AND expression
+	| expression bop = OR expression
 	| <assoc = right> expression bop = QUESTION expression COLON expression
 	| <assoc = right> expression bop = (
 		ASSIGN | ADD_ASSIGN | SUB_ASSIGN | MUL_ASSIGN | DIV_ASSIGN
-	) expression;
+	) expression
+	;
 
 primary:
 	LPAREN expression RPAREN

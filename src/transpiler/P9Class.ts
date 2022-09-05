@@ -1,4 +1,3 @@
-import { P9 } from "P9";
 import {
   AbstractMethodDeclarationContext,
   ClassBodyDeclarationContext,
@@ -17,7 +16,7 @@ import { P9FuncDecl } from "./P9Function";
 import { P9Type, P9TypeOrVoid, P9VarDecl } from "./P9Variable";
 
 export class P9ImportDeclaration implements P9Elements {
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public getLines(): Array<string> {
     return new Array<string>();
@@ -31,7 +30,7 @@ export class P9ImportDeclaration implements P9Elements {
 export class P9QualifiedNameList implements P9Elements {
   private _qualifiedNameList = new Array<string>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(str: string): void {
     this._qualifiedNameList.push(str);
@@ -52,7 +51,7 @@ export class P9ClassType implements P9Elements {
 
   constructor(
     private readonly _context: ClassTypeContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set typeArguments(obj: P9TypeArguments) {
@@ -80,10 +79,7 @@ export class P9ClassType implements P9Elements {
       return `${this._qualifiedName}`;
     }
 
-    Utils.error(
-      "P9TypeArguments: toString(): typeArguments expects id.",
-      this._p
-    );
+    this._u.error("P9TypeArguments: toString(): typeArguments expects id.");
     return "";
   }
 }
@@ -91,7 +87,7 @@ export class P9ClassType implements P9Elements {
 export class P9TypeArguments implements P9Elements {
   private _typeList = new Array<P9Type>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9Type): void {
     this._typeList.push(obj);
@@ -119,7 +115,7 @@ export class P9ClassDecl implements P9Elements {
 
   constructor(
     private readonly _context: ClassDeclContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public push(obj: P9ClassModifier): void {
@@ -159,10 +155,7 @@ export class P9ClassDecl implements P9Elements {
         if (this._type !== undefined) {
           lines.push(`extends ${this._type.toString()}`);
         } else {
-          Utils.error(
-            "P9ClassDecl: getLines(): classDecl expects type.",
-            this._p
-          );
+          this._u.error("P9ClassDecl: getLines(): classDecl expects type.");
         }
       }
 
@@ -170,20 +163,16 @@ export class P9ClassDecl implements P9Elements {
         if (this._typeList !== undefined) {
           lines.push(`implements ${this._typeList.toString()}`);
         } else {
-          Utils.error(
-            "P9ClassDecl: getLines(): classDecl expects typeList.",
-            this._p
-          );
+          this._u.error("P9ClassDecl: getLines(): classDecl expects typeList.");
         }
       }
 
-      lines = Utils.wrap(lines, this._classBody.getLines());
+      lines = this._u.wrap(lines, this._classBody.getLines());
       return lines;
     }
 
-    Utils.error(
-      "P9ClassDecl: getLines(): classDecl expects id and classBody.",
-      this._p
+    this._u.error(
+      "P9ClassDecl: getLines(): classDecl expects id and classBody."
     );
     return new Array<string>("");
   }
@@ -198,7 +187,7 @@ export class P9ClassModifier implements P9Elements {
 
   constructor(
     private readonly _context: ClassModifierContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set modifier(str: string) {
@@ -221,7 +210,7 @@ export class P9ClassModifier implements P9Elements {
 export class P9TypeParameters implements P9Elements {
   private _list = new Array<P9TypeParameter>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9TypeParameter): void {
     this._list.push(obj);
@@ -245,7 +234,7 @@ export class P9TypeParameter implements P9Elements {
 
   constructor(
     private readonly _context: TypeParameterContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set typeBound(obj: P9TypeBound) {
@@ -264,19 +253,15 @@ export class P9TypeParameter implements P9Elements {
         if (this._typeBound !== undefined) {
           return `${id} extends ${this._typeBound.toString()}`;
         } else {
-          Utils.error(
-            "P9TypeParameter: getLines(): typeParameter expects typeBound.",
-            this._p
+          this._u.error(
+            "P9TypeParameter: getLines(): typeParameter expects typeBound."
           );
         }
       }
       return id;
     }
 
-    Utils.error(
-      "P9TypeParameter: getLines(): typeParameter expects id.",
-      this._p
-    );
+    this._u.error("P9TypeParameter: getLines(): typeParameter expects id.");
     return "";
   }
 }
@@ -284,7 +269,7 @@ export class P9TypeParameter implements P9Elements {
 export class P9TypeBound implements P9Elements {
   private _typeList = Array<P9Type>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9Type): void {
     this._typeList.push(obj);
@@ -306,7 +291,7 @@ export class P9TypeBound implements P9Elements {
 export class P9TypeList implements P9Elements {
   private _typeList = Array<P9Type>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9Type): void {
     this._typeList.push(obj);
@@ -328,7 +313,7 @@ export class P9TypeList implements P9Elements {
 export class P9ClassBody implements P9Elements {
   private _classBodyDeclarationList = new Array<P9ClassBodyDeclaration>();
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public push(obj: P9ClassBodyDeclaration): void {
     this._classBodyDeclarationList.push(obj);
@@ -358,7 +343,7 @@ export class P9ClassBodyDeclaration implements P9Elements {
 
   constructor(
     private readonly _context: ClassBodyDeclarationContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set block(obj: P9Block) {
@@ -385,16 +370,16 @@ export class P9ClassBodyDeclaration implements P9Elements {
     if (this._block !== undefined) {
       if (this._context.STATIC()) {
         let lines = new Array<string>("static");
-        lines = Utils.wrap(lines, this._block.getLines());
+        lines = this._u.wrap(lines, this._block.getLines());
         return lines;
       } else {
-        return Utils.wrap(undefined, this._block.getLines());
+        return this._u.wrap(undefined, this._block.getLines());
       }
     }
 
     if (this._memberDeclaration !== undefined) {
       let ret = this._memberDeclaration.getLines();
-      ret[0] = `static ${ret[0]}`;
+      //ret[0] = `static ${ret[0]}`;
       return ret;
     }
 
@@ -402,9 +387,8 @@ export class P9ClassBodyDeclaration implements P9Elements {
       return this._abstractMethodDeclaration.getLines();
     }
 
-    Utils.error(
-      "P9ClassBodyDeclaration: getLines(): classBodyDeclaration expects block, memberDeclaration, or abstractMethodDeclaration.",
-      this._p
+    this._u.error(
+      "P9ClassBodyDeclaration: getLines(): classBodyDeclaration expects block, memberDeclaration, or abstractMethodDeclaration."
     );
     return new Array<string>();
   }
@@ -423,7 +407,7 @@ export class P9AbstractMethodDeclaration implements P9Elements {
 
   constructor(
     private readonly _context: AbstractMethodDeclarationContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public push(obj: P9ClassModifier | string): void {
@@ -465,17 +449,15 @@ export class P9AbstractMethodDeclaration implements P9Elements {
           return lines;
         }
 
-        Utils.error(
-          "P9AbstractMethodDeclaration: getLines(): abstractMethodDeclaration expects qualifiedNameList.",
-          this._p
+        this._u.error(
+          "P9AbstractMethodDeclaration: getLines(): abstractMethodDeclaration expects qualifiedNameList."
         );
         return new Array<string>();
       }
     }
 
-    Utils.error(
-      "P9AbstractMethodDeclaration: getLines(): abstractMethodDeclaration expects id and formalParameters.",
-      this._p
+    this._u.error(
+      "P9AbstractMethodDeclaration: getLines(): abstractMethodDeclaration expects id and formalParameters."
     );
     return new Array<string>();
   }
@@ -494,7 +476,7 @@ export class P9MemberDeclaration implements P9Elements {
     | P9GenericConstructorDeclaration
     | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public set funcDecl(obj: P9FuncDecl) {
     this._funcDecl = obj;
@@ -539,9 +521,8 @@ export class P9MemberDeclaration implements P9Elements {
       return this._genericConstructorDeclaration.getLines();
     }
 
-    Utils.error(
-      "P9MemberDeclaration: getLines(): memberDeclaration expects funcDecl, genericMethodDeclaration, fieldDeclaration, constructorDeclaration, or genericConstructorDeclaration.",
-      this._p
+    this._u.error(
+      "P9MemberDeclaration: getLines(): memberDeclaration expects funcDecl, genericMethodDeclaration, fieldDeclaration, constructorDeclaration, or genericConstructorDeclaration."
     );
     return new Array<string>();
   }
@@ -555,7 +536,7 @@ export class P9GenericMethodDeclaration implements P9Elements {
   private _typeParameters: P9TypeParameters | undefined;
   private _funcDecl: P9FuncDecl | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public set typeParameters(obj: P9TypeParameters) {
     this._typeParameters = obj;
@@ -572,9 +553,8 @@ export class P9GenericMethodDeclaration implements P9Elements {
       return lines;
     }
 
-    Utils.error(
-      "P9GenericMethodDeclaration: getLines(): genericMethodDeclaration expects typeParameters and funcDecl.",
-      this._p
+    this._u.error(
+      "P9GenericMethodDeclaration: getLines(): genericMethodDeclaration expects typeParameters and funcDecl."
     );
     return new Array<string>();
   }
@@ -591,7 +571,7 @@ export class P9ConstructorDeclaration implements P9Elements {
 
   constructor(
     private readonly _context: ConstructorDeclarationContext,
-    private readonly _p: P9
+    private readonly _u: Utils
   ) {}
 
   public set formalParameters(obj: P9FormalParameters) {
@@ -616,20 +596,18 @@ export class P9ConstructorDeclaration implements P9Elements {
         if (this._qualifiedNameList !== undefined) {
           lines.push(`throws ${this._qualifiedNameList.toString()}`);
         } else {
-          Utils.error(
-            "P9ConstructorDeclaration: getLines(): constructorDeclaration expects qualifiedNameList.",
-            this._p
+          this._u.error(
+            "P9ConstructorDeclaration: getLines(): constructorDeclaration expects qualifiedNameList."
           );
         }
       }
 
-      lines = Utils.wrap(lines, this._block.getLines());
+      lines = this._u.wrap(lines, this._block.getLines());
       return lines;
     }
 
-    Utils.error(
-      "P9ConstructorDeclaration: getLines(): constructorDeclaration expects id, formalParameters, and block.",
-      this._p
+    this._u.error(
+      "P9ConstructorDeclaration: getLines(): constructorDeclaration expects id, formalParameters, and block."
     );
     return new Array<string>();
   }
@@ -643,7 +621,7 @@ export class P9GenericConstructorDeclaration implements P9Elements {
   private _typeParameters: P9TypeParameters | undefined;
   private _constructorDeclaration: P9ConstructorDeclaration | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public set typeParameters(obj: P9TypeParameters) {
     this._typeParameters = obj;
@@ -662,9 +640,8 @@ export class P9GenericConstructorDeclaration implements P9Elements {
       return lines.concat(this._constructorDeclaration.getLines());
     }
 
-    Utils.error(
-      "P9GenericConstructorDeclaration: getLines(): genericConstructorDeclaration expects typeParameters and constructorDeclaration.",
-      this._p
+    this._u.error(
+      "P9GenericConstructorDeclaration: getLines(): genericConstructorDeclaration expects typeParameters and constructorDeclaration."
     );
     return new Array<string>();
   }
@@ -678,7 +655,7 @@ export class P9ClassCreatorRest implements P9Elements {
   private _arguments: P9Arguments | undefined;
   private _classBody: P9ClassBody | undefined;
 
-  constructor(private readonly _p: P9) {}
+  constructor(private readonly _u: Utils) {}
 
   public set arguments(obj: P9Arguments) {
     this._arguments = obj;
@@ -693,12 +670,12 @@ export class P9ClassCreatorRest implements P9Elements {
       let lines = this._arguments.getLines();
 
       if (this._classBody !== undefined) {
-        lines = Utils.wrap(lines, this._classBody.getLines());
+        lines = this._u.wrap(lines, this._classBody.getLines());
       }
       return lines;
     }
 
-    Utils.error("P9Class: getLines(): class expects arguments.", this._p);
+    this._u.error("P9Class: getLines(): class expects arguments.");
     return new Array<string>();
   }
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics/Image/Alphamask/Alphamask.pde"</title>
+</head>
+
+<body>
+<h1>"Basics/Image/Alphamask/Alphamask.pde"</h1>
+
+<script type="text/processing" id="Basics/Image/Alphamask/Alphamask.pde" debug="transpiled">
+/**
+ * Alpha Mask. 
+ * 
+ * Loads a "mask" for an image to specify the transparency 
+ * in different parts of the image. The two images are blended
+ * together using the mask() method of PImage. 
+ */
+
+PImage img;
+PImage imgMask;
+
+void setup() {
+  size(640, 360);
+  img = loadImage("moonwalk.jpg");
+  imgMask = loadImage("mask.jpg");
+  img.mask(imgMask);
+  imageMode(CENTER);
+}
+
+void draw() {
+  background(0, 102, 153);
+  image(img, width/2, height/2);
+  image(img, mouseX, mouseY);
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

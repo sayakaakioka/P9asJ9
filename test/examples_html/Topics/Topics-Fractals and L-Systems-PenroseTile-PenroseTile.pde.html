@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Fractals and L-Systems/PenroseTile/PenroseTile.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Fractals and L-Systems/PenroseTile/PenroseTile.pde"</h1>
+
+<script type="text/processing" id="Topics/Fractals and L-Systems/PenroseTile/PenroseTile.pde" debug="transpiled">
+/** 
+ * Penrose Tile L-System 
+ * by Geraldine Sarmiento.
+ *  
+ * This example was based on Patrick Dwyer's L-System class. 
+ */
+
+PenroseLSystem ds;
+
+void setup() {
+  size(640, 360);
+  ds = new PenroseLSystem();
+  ds.simulate(4);
+}
+
+void draw() {
+  background(0);
+  ds.render();
+}
+
+
+
+
+
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

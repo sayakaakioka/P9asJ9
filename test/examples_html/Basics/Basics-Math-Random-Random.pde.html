@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Done: "Basics/Math/Random/Random.pde"</title>
+</head>
+
+<body>
+<h1>Done: "Basics/Math/Random/Random.pde"</h1>
+
+<script type="text/processing" id="Basics/Math/Random/Random.pde" debug="transpiled">
+/**
+ * Random.
+ *
+ * Random numbers create the basis of this image.
+ * Each time the program is loaded the result is different.
+ */
+
+void setup() {
+  size(640, 360);
+  background(0);
+  strokeWeight(20);
+  frameRate(2);
+}
+
+void draw() {
+  for (int i = 0; i < width; i++) {
+    float r = random(255);
+    stroke(r);
+    line(i, 0, i, height);
+  }
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

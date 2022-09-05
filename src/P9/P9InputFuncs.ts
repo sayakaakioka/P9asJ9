@@ -1,18 +1,13 @@
 import { Utils } from "../Utils";
-import { P9 } from "../P9";
+import { P9MathFuncs } from "./P9MathFuncs";
 
-export class P9InputFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
-      "mouseClicked",
-      "mouseDragged",
-      "mouseMoved",
-      "mousePressed",
-      "mouseReleased",
-      "mouseWheel",
-      "keyPressed",
-      "keyReleased",
-      "keyTyped",
+export class P9InputFuncs extends P9MathFuncs {
+  constructor(u: Utils, c: HTMLCanvasElement) {
+    super(u);
+  }
+
+  public registerInputFuncs(): void {
+    this.utils.p9FuncList = [
       "createInput",
       "createReader",
       "launch",
@@ -34,63 +29,63 @@ export class P9InputFuncs {
       "month",
       "second",
       "year",
-    ]);
+    ];
   }
 
   public createInput(): void {
-    Utils.log("createInput() is not implemented yet.", this._p);
+    this.utils.log("createInput() is not implemented yet.");
   }
 
   public createReader(): void {
-    Utils.log("createReader() is not implemented yet.", this._p);
+    this.utils.log("createReader() is not implemented yet.");
   }
 
   public launch(): void {
-    Utils.log("launch() is not implemented yet.", this._p);
+    this.utils.log("launch() is not implemented yet.");
   }
 
   public loadBytes(): void {
-    Utils.log("loadBytes() is not implemented yet.", this._p);
+    this.utils.log("loadBytes() is not implemented yet.");
   }
 
   public loadJSONArray(): void {
-    Utils.log("loadJSONArray() is not implemented yet.", this._p);
+    this.utils.log("loadJSONArray() is not implemented yet.");
   }
 
   public loadJSONObject(): void {
-    Utils.log("loadJSONObject() is not implemented yet.", this._p);
+    this.utils.log("loadJSONObject() is not implemented yet.");
   }
 
   public loadStrings(): void {
-    Utils.log("loadStrings() is not implemented yet.", this._p);
+    this.utils.log("loadStrings() is not implemented yet.");
   }
 
   public loadTable(): void {
-    Utils.log("loadTable() is not implemented yet.", this._p);
+    this.utils.log("loadTable() is not implemented yet.");
   }
 
   public loadXML(): void {
-    Utils.log("loadXML() is not implemented yet.", this._p);
+    this.utils.log("loadXML() is not implemented yet.");
   }
 
   public parseJSONArray(): void {
-    Utils.log("parseJSONArray() is not implemented yet.", this._p);
+    this.utils.log("parseJSONArray() is not implemented yet.");
   }
 
   public parseJSONObject(): void {
-    Utils.log("parseJSONObject() is not implemented yet.", this._p);
+    this.utils.log("parseJSONObject() is not implemented yet.");
   }
 
   public parseXML(): void {
-    Utils.log("parseXML() is not implemented yet.", this._p);
+    this.utils.log("parseXML() is not implemented yet.");
   }
 
   public selectFolder(): void {
-    Utils.log("selectFolder() is not implemented yet.", this._p);
+    this.utils.log("selectFolder() is not implemented yet.");
   }
 
   public selectInput(): void {
-    Utils.log("selectInput() is not implemented yet.", this._p);
+    this.utils.log("selectInput() is not implemented yet.");
   }
 
   public day(): number {
@@ -102,7 +97,7 @@ export class P9InputFuncs {
   }
 
   public millis(): number {
-    return Date.now() - this._p.startTime;
+    return Date.now() - this.startTime;
   }
 
   public minute(): number {

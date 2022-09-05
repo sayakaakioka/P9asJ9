@@ -59,7 +59,7 @@ FLOAT: 'float';
 INT: 'int';
 LONG: 'long';
 
-// String functions
+// String comparison
 EQUALS: 'equals';
 
 // Control Relational Operators

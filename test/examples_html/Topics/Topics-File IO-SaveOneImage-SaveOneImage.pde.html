@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/File IO/SaveOneImage/SaveOneImage.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/File IO/SaveOneImage/SaveOneImage.pde"</h1>
+
+<script type="text/processing" id="Topics/File IO/SaveOneImage/SaveOneImage.pde" debug="transpiled">
+/**
+ * Save One Image
+ * 
+ * The save() function allows you to save an image from the 
+ * display window. In this example, save() is run when a mouse
+ * button is pressed. The image "line.tif" is saved to the 
+ * same folder as the sketch's program file.
+ */
+
+void setup() {
+  size(200, 200);
+}
+
+void draw() {
+  background(204);
+  line(0, 0, mouseX, height);
+  line(width, 0, 0, mouseY);
+}
+
+void mousePressed() {
+  save("line.tif");
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

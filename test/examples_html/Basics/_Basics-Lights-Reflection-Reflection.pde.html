@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics/Lights/Reflection/Reflection.pde"</title>
+</head>
+
+<body>
+<h1>"Basics/Lights/Reflection/Reflection.pde"</h1>
+
+<script type="text/processing" id="Basics/Lights/Reflection/Reflection.pde" debug="transpiled">
+/**
+ * Reflection 
+ * by Simon Greenwold. 
+ * 
+ * Vary the specular reflection component of a material
+ * with the horizontal position of the mouse. 
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+  colorMode(RGB, 1);
+  fill(0.4);
+}
+
+void draw() {
+  background(0);
+  translate(width / 2, height / 2);
+  // Set the specular color of lights that follow
+  lightSpecular(1, 1, 1);
+  directionalLight(0.8, 0.8, 0.8, 0, 0, -1);
+  float s = mouseX / float(width);
+  specular(s, s, s);
+  sphere(120);
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Create Shapes/PolygonPShapeOOP/PolygonPShapeOOP.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Create Shapes/PolygonPShapeOOP/PolygonPShapeOOP.pde"</h1>
+
+<script type="text/processing" id="Topics/Create Shapes/PolygonPShapeOOP/PolygonPShapeOOP.pde" debug="transpiled">
+/**
+ * PolygonPShapeOOP. 
+ * 
+ * Wrapping a PShape inside a custom class 
+ */
+
+
+// A Star object
+Star s1, s2;
+
+void setup() {
+  size(640, 360, P2D);
+
+  // Make a new Star
+  s1 = new Star();
+  s2 = new Star();
+
+}
+
+void draw() {
+  background(51);
+ 
+  s1.display();  // Display the first star
+  s1.move();  // Move the first star
+  
+  s2.display();  // Display the second star
+  s2.move();  // Move the second star
+
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

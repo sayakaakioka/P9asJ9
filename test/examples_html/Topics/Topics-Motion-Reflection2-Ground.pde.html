@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Topics/Motion/Reflection2/Ground.pde"</title>
+</head>
+
+<body>
+<h1>"Topics/Motion/Reflection2/Ground.pde"</h1>
+
+<script type="text/processing" id="Topics/Motion/Reflection2/Ground.pde" debug="transpiled">
+class Ground {
+  float x1, y1, x2, y2;  
+  float x, y, len, rot;
+
+  // Constructor
+  Ground(float x1, float y1, float x2, float y2) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+    x = (x1+x2)/2;
+    y = (y1+y2)/2;
+    len = dist(x1, y1, x2, y2);
+    rot = atan2((y2-y1), (x2-x1));
+  }
+}
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

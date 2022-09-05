@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics/Web/LoadingImages/LoadingImages.pde"</title>
+</head>
+
+<body>
+<h1>"Basics/Web/LoadingImages/LoadingImages.pde"</h1>
+
+<script type="text/processing" id="Basics/Web/LoadingImages/LoadingImages.pde" debug="transpiled">
+/**
+ * Loading Images. 
+ * 
+ * Processing applications can load images from the network. 
+ */
+
+PImage img;
+
+void setup() {
+  size(640, 360);
+  img = loadImage("https://processingfoundation.org/content/1-home/processing-web.png");
+  noLoop();
+}
+
+void draw() {
+  background(0);
+  if (img != null) {
+    for (int i = 0; i < 5; i++) {
+      image(img, 0, img.height * i);
+    }
+  }
+}
+
+</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>

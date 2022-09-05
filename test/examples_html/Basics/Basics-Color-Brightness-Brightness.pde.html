@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Done: "Basics/Color/Brightness/Brightness.pde"</title>
+</head>
+
+<body>
+  <h1>Done: "Basics/Color/Brightness/Brightness.pde"</h1>
+
+  <script type="text/processing" id="Basics/Color/Brightness/Brightness.pde" debug="transpiled">
+    /**
+ * Brightness
+ * by Rusty Robison.
+ *
+ * Brightness is the relative lightness or darkness of a color.
+ * Move the cursor vertically over each bar to alter its brightness.
+ */
+
+int barWidth = 20;
+int lastBar = -1;
+
+void setup() {
+  size(640, 360);
+  colorMode(HSB, width, 100, height);
+  noStroke();
+  background(0);
+}
+
+void draw() {
+  int whichBar = mouseX / barWidth;
+  if (whichBar != lastBar) {
+    int barX = whichBar * barWidth;
+    fill(barX, 100, mouseY);
+    rect(barX, 0, barWidth, height);
+    lastBar = whichBar;
+  }
+}
+</script>
+
+  <!-- P9asJ9.js should be placed in the last of the document -->
+  <script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+
+</html>

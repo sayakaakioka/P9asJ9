@@ -1,9 +1,14 @@
 import { Utils } from "../Utils";
-import { P9 } from "../P9";
+import { P9ShapeFuncs } from "./P9ShapeFuncs";
 
-export class P9EnvironmentFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+export class P9EnvironmentFuncs extends P9ShapeFuncs {
+  public settings: Function | undefined;
+
+  private _currentFrameRate = 60;
+
+  constructor(util: Utils, canvas: HTMLCanvasElement) {
+    super(util, canvas);
+    this.utils.p9FuncList = [
       "cursor",
       "delay",
       "displayDensity",
@@ -14,56 +19,71 @@ export class P9EnvironmentFuncs {
       "pixelDensity",
       "size",
       "smooth",
-    ]);
+    ];
+
+    this.registerImageFuncs();
+    this.registerTypographyFuncs();
+    this.registerOutputFuncs();
+    this.registerShapeFuncs();
+  }
+
+  public registerEnviromnetFuncs(): void {}
+
+  protected set currentFrameRate(n: number) {
+    this._currentFrameRate = n;
+  }
+
+  protected get currentFrameRate(): number {
+    return this._currentFrameRate;
   }
 
   public cursor(): void {
-    Utils.log("cursor() is not implemented yet.", this._p);
+    this.utils.log("cursor() is not implemented yet.");
   }
 
   public delay(): void {
-    Utils.log("delay() is not implemented yet.", this._p);
+    this.utils.log("delay() is not implemented yet.");
   }
 
   public displayDensity(): void {
-    Utils.log("displayDensity() is not implemented yet.", this._p);
+    this.utils.log("displayDensity() is not implemented yet.");
   }
 
   public frameRate(fps: number): void {
-    this._p.currentFrameRate = fps;
+    this._currentFrameRate = fps;
   }
 
   public fullScreen(): void {
-    Utils.log("fullScreen() is not implemented yet.", this._p);
+    this.utils.log("fullScreen() is not implemented yet.");
   }
 
   public noCursor(): void {
-    Utils.log("noCursor() is not implemented yet.", this._p);
+    this.utils.log("noCursor() is not implemented yet.");
   }
 
   public noSmooth(): void {
-    Utils.log("noSmooth() is not implemented yet.", this._p);
+    this.utils.log("noSmooth() is not implemented yet.");
   }
 
   public pixelDensity(): void {
-    Utils.log("pixelDensity() is not implemented yet.", this._p);
+    this.utils.log("pixelDensity() is not implemented yet.");
   }
 
   public size(width: number, height: number, renderer?: any) {
-    if (this._p.context === null) {
-      Utils.error("size(): context is null", this._p);
+    if (this.context === null) {
+      this.utils.error("size(): context is null");
       return;
     }
 
-    this._p.canvas.width = width;
-    this._p.canvas.height = height;
-    this._p.width = this._p.canvas.width;
-    this._p.height = this._p.canvas.height;
-    this._p.setBackground("rgb(220, 220, 220)");
-    this._p.context.lineWidth = this._p.currentLineWidth;
+    this.canvas.width = width;
+    this.canvas.height = height;
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
+    super.setBackground(super.initialBackground);
+    this.context.lineWidth = super.currentLineWidth;
   }
 
   public smooth(): void {
-    Utils.log("smooth() is not implemented yet.", this._p);
+    this.utils.log("smooth() is not implemented yet.");
   }
 }

@@ -1,8 +1,13 @@
-import { P9 } from "../P9";
-
+import { Utils } from "Utils";
 export class P9DataFuncs {
-  constructor(private readonly _p: P9) {
-    _p.addP9Funcs([
+  public utils: Utils;
+
+  constructor(u: Utils) {
+    this.utils = u;
+  }
+
+  public registerDataFuncs(): void {
+    this.utils.p9FuncList = [
       "binary",
       "boolean",
       "byte",
@@ -32,7 +37,7 @@ export class P9DataFuncs {
       "sort",
       "splice",
       "subset",
-    ]);
+    ];
   }
 
   private convert(x: number | string, n: number, d?: number): string {
@@ -93,9 +98,9 @@ export class P9DataFuncs {
     } else if (typeof x === "number") {
       const val = x % 256;
       if (val < 128) {
-        return val;
+        return Math.floor(val);
       } else {
-        return val - 256;
+        return Math.floor(val - 256);
       }
     } else if (typeof x === "string") {
       return x.charCodeAt(0);
@@ -127,10 +132,12 @@ export class P9DataFuncs {
       return x.map((e) => {
         this.float(e);
       });
-    } else if (typeof x === "number") {
-      return x + 0.0;
-    } else {
+    } else if (!Number.isNaN(Number.parseInt(x))) {
+      return Number.parseInt(x) + 0.0;
+    } else if (!Number.isNaN(Number.parseFloat(x))) {
       return Number(x);
+    } else {
+      return x.charCodeAt(x) + 0.0;
     }
   }
 
@@ -149,18 +156,12 @@ export class P9DataFuncs {
       return x.map((e) => {
         return this.int(e);
       });
-    } else if (typeof x === "string") {
-      if (Number.isFinite(x)) {
-        return Math.round(Number(x));
-      } else if (Number.isInteger(x)) {
-        return Number(x);
-      } else {
-        return x.charCodeAt(0);
-      }
-    } else if (typeof x === "number") {
-      return Math.floor(x);
+    } else if (!Number.isNaN(Number.parseInt(x))) {
+      return Number.parseInt(x);
+    } else if (!Number.isNaN(Number.parseFloat(x))) {
+      return Math.round(Number(x));
     } else {
-      return Number(x);
+      return x.charCodeAt(x);
     }
   }
 

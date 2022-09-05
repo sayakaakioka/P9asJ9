@@ -1,0 +1,4698 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>"Basics"</title>
+</head>
+
+<body>
+<h1>"Basics"</h1>
+
+<h2>"Basics/Form/RegularPolygon/RegularPolygon.pde"</h2>
+<script type="text/processing" id="Basics/Form/RegularPolygon/RegularPolygon.pde" debug="transpiled">
+/**
+ * Regular Polygon
+ * 
+ * What is your favorite? Pentagon? Hexagon? Heptagon? 
+ * No? What about the icosagon? The polygon() function 
+ * created for this example is capable of drawing any 
+ * regular polygon. Try placing different numbers into the 
+ * polygon() function calls within draw() to explore. 
+ */
+
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  background(102);
+  
+  pushMatrix();
+  translate(width*0.2, height*0.5);
+  rotate(frameCount / 200.0);
+  polygon(0, 0, 82, 3);  // Triangle
+  popMatrix();
+  
+  pushMatrix();
+  translate(width*0.5, height*0.5);
+  rotate(frameCount / 50.0);
+  polygon(0, 0, 80, 20);  // Icosagon
+  popMatrix();
+  
+  pushMatrix();
+  translate(width*0.8, height*0.5);
+  rotate(frameCount / -100.0);
+  polygon(0, 0, 70, 7);  // Heptagon
+  popMatrix();
+}
+
+void polygon(float x, float y, float radius, int npoints) {
+  float angle = TWO_PI / npoints;
+  beginShape();
+  for (float a = 0; a < TWO_PI; a += angle) {
+    float sx = x + cos(a) * radius;
+    float sy = y + sin(a) * radius;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}</script>
+
+<h2>"Basics/Form/Bezier/Bezier.pde"</h2>
+<script type="text/processing" id="Basics/Form/Bezier/Bezier.pde" debug="transpiled">
+/**
+ * Bezier. 
+ * 
+ * The first two parameters for the bezier() function specify the 
+ * first point in the curve and the last two parameters specify 
+ * the last point. The middle parameters set the control points
+ * that define the shape of the curve. 
+ */
+
+void setup() {
+  size(640, 360); 
+  stroke(255);
+  noFill();
+}
+
+void draw() {
+  background(0);
+  for (int i = 0; i < 200; i += 20) {
+    bezier(mouseX-(i/2.0), 40+i, 410, 20, 440, 300, 240-(i/16.0), 300+(i/8.0));
+  }
+}
+
+</script>
+
+<h2>"Basics/Form/TriangleStrip/TriangleStrip.pde"</h2>
+<script type="text/processing" id="Basics/Form/TriangleStrip/TriangleStrip.pde" debug="transpiled">
+/**
+ * Triangle Strip 
+ * by Ira Greenberg. 
+ * 
+ * Generate a closed ring using the vertex() function and 
+ * beginShape(TRIANGLE_STRIP) mode. The outsideRadius and insideRadius 
+ * variables control ring's radii respectively.
+ */
+
+int x;
+int y;
+float outsideRadius = 150;
+float insideRadius = 100;
+
+void setup() {
+  size(640, 360);
+  background(204);
+  x = width/2;
+  y = height/2;
+}
+
+void draw() {
+  background(204);
+  
+  int numPoints = int(map(mouseX, 0, width, 6, 60));
+  float angle = 0;
+  float angleStep = 180.0/numPoints;
+    
+  beginShape(TRIANGLE_STRIP); 
+  for (int i = 0; i <= numPoints; i++) {
+    float px = x + cos(radians(angle)) * outsideRadius;
+    float py = y + sin(radians(angle)) * outsideRadius;
+    angle += angleStep;
+    vertex(px, py);
+    px = x + cos(radians(angle)) * insideRadius;
+    py = y + sin(radians(angle)) * insideRadius;
+    vertex(px, py); 
+    angle += angleStep;
+  }
+  endShape();
+}
+
+</script>
+
+<h2>"Basics/Form/PieChart/PieChart.pde"</h2>
+<script type="text/processing" id="Basics/Form/PieChart/PieChart.pde" debug="transpiled">
+/**
+ * Pie Chart  
+ * 
+ * Uses the arc() function to generate a pie chart from the data
+ * stored in an array. 
+ */
+
+int[] angles = { 30, 10, 45, 35, 60, 38, 75, 67 };
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  noLoop();  // Run once and stop
+}
+
+void draw() {
+  background(100);
+  pieChart(300, angles);
+}
+
+void pieChart(float diameter, int[] data) {
+  float lastAngle = 0;
+  for (int i = 0; i < data.length; i++) {
+    float gray = map(i, 0, data.length, 0, 255);
+    fill(gray);
+    arc(width/2, height/2, diameter, diameter, lastAngle, lastAngle+radians(data[i]));
+    lastAngle += radians(data[i]);
+  }
+}
+
+</script>
+
+<h2>"Basics/Form/Star/Star.pde"</h2>
+<script type="text/processing" id="Basics/Form/Star/Star.pde" debug="transpiled">
+/**
+ * Star
+ * 
+ * The star() function created for this example is capable of drawing a
+ * wide range of different forms. Try placing different numbers into the 
+ * star() function calls within draw() to explore. 
+ */
+
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  background(102);
+  
+  pushMatrix();
+  translate(width*0.2, height*0.5);
+  rotate(frameCount / 200.0);
+  star(0, 0, 5, 70, 3); 
+  popMatrix();
+  
+  pushMatrix();
+  translate(width*0.5, height*0.5);
+  rotate(frameCount / 400.0);
+  star(0, 0, 80, 100, 40); 
+  popMatrix();
+  
+  pushMatrix();
+  translate(width*0.8, height*0.5);
+  rotate(frameCount / -100.0);
+  star(0, 0, 30, 70, 5); 
+  popMatrix();
+}
+
+void star(float x, float y, float radius1, float radius2, int npoints) {
+  float angle = TWO_PI / npoints;
+  float halfAngle = angle/2.0;
+  beginShape();
+  for (float a = 0; a < TWO_PI; a += angle) {
+    float sx = x + cos(a) * radius2;
+    float sy = y + sin(a) * radius2;
+    vertex(sx, sy);
+    sx = x + cos(a+halfAngle) * radius1;
+    sy = y + sin(a+halfAngle) * radius1;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}</script>
+
+<h2>"Basics/Form/PointsLines/PointsLines.pde"</h2>
+<script type="text/processing" id="Basics/Form/PointsLines/PointsLines.pde" debug="transpiled">
+/**
+ * Points and Lines. 
+ * 
+ * Points and lines can be used to draw basic geometry.
+ * Change the value of the variable 'd' to scale the form.
+ * The four variables set the positions based on the value of 'd'. 
+ */
+ 
+int d = 70;
+int p1 = d;
+int p2 = p1+d;
+int p3 = p2+d;
+int p4 = p3+d;
+
+size(640, 360);
+noSmooth();
+background(0);
+translate(140, 0);
+
+// Draw gray box
+stroke(153);
+line(p3, p3, p2, p3);
+line(p2, p3, p2, p2);
+line(p2, p2, p3, p2);
+line(p3, p2, p3, p3);
+
+// Draw white points
+stroke(255);
+point(p1, p1);
+point(p1, p3); 
+point(p2, p4);
+point(p3, p1); 
+point(p4, p2);
+point(p4, p4);
+</script>
+
+<h2>"Basics/Form/ShapePrimitives/ShapePrimitives.pde"</h2>
+<script type="text/processing" id="Basics/Form/ShapePrimitives/ShapePrimitives.pde" debug="transpiled">
+/**
+ * Shape Primitives. 
+ * 
+ * The basic shape primitive functions are triangle(),
+ * rect(), quad(), ellipse(), and arc(). Squares are made
+ * with rect() and circles are made with ellipse(). Each 
+ * of these functions requires a number of parameters to 
+ * determine the shape's position and size. 
+ */
+
+size(640, 360);
+background(0);
+noStroke();
+
+fill(204);
+triangle(18, 18, 18, 360, 81, 360);
+
+fill(102);
+rect(81, 81, 63, 63);
+
+fill(204);
+quad(189, 18, 216, 18, 216, 360, 144, 360);
+
+fill(255);
+ellipse(252, 144, 72, 72);
+
+fill(204);
+triangle(288, 18, 351, 360, 288, 360); 
+
+fill(255);
+arc(479, 300, 280, 280, PI, TWO_PI);
+
+</script>
+
+<h2>"Basics/Form/Primitives3D/Primitives3D.pde"</h2>
+<script type="text/processing" id="Basics/Form/Primitives3D/Primitives3D.pde" debug="transpiled">
+/**
+ * Primitives 3D. 
+ * 
+ * Placing mathematically 3D objects in synthetic space.
+ * The lights() method reveals their imagined dimension.
+ * The box() and sphere() functions each have one parameter
+ * which is used to specify their size. These shapes are
+ * positioned using the translate() function.
+ */
+ 
+size(640, 360, P3D); 
+background(0);
+lights();
+
+noStroke();
+pushMatrix();
+translate(130, height/2, 0);
+rotateY(1.25);
+rotateX(-0.4);
+box(100);
+popMatrix();
+
+noFill();
+stroke(255);
+pushMatrix();
+translate(500, height*0.35, -200);
+sphere(280);
+popMatrix();
+
+
+</script>
+
+<h2>"Basics/Shape/GetChild/GetChild.pde"</h2>
+<script type="text/processing" id="Basics/Shape/GetChild/GetChild.pde" debug="transpiled">
+/**
+ * Get Child. 
+ * 
+ * SVG files can be made of many individual shapes. 
+ * Each of these shapes (called a "child") has its own name 
+ * that can be used to extract it from the "parent" file.
+ * This example loads a map of the United States and creates
+ * two new PShape objects by extracting the data from two states.
+ */
+
+PShape usa;
+PShape michigan;
+PShape ohio;
+
+void setup() {
+  size(640, 360);  
+  usa = loadShape("usa-wikipedia.svg");
+  michigan = usa.getChild("MI");
+  ohio = usa.getChild("OH");
+}
+
+void draw() {
+  background(255);
+  
+  // Draw the full map
+  shape(usa, -600, -180);
+  
+  // Disable the colors found in the SVG file
+  michigan.disableStyle();
+  // Set our own coloring
+  fill(0, 51, 102);
+  noStroke();
+  // Draw a single state
+  shape(michigan, -600, -180); // Wolverines!
+  
+  // Disable the colors found in the SVG file
+  ohio.disableStyle();
+  // Set our own coloring
+  fill(153, 0, 0);
+  noStroke();
+  // Draw a single state
+  shape(ohio, -600, -180);  // Buckeyes!
+}
+</script>
+
+<h2>"Basics/Shape/DisableStyle/DisableStyle.pde"</h2>
+<script type="text/processing" id="Basics/Shape/DisableStyle/DisableStyle.pde" debug="transpiled">
+/**
+ * Disable Style 
+ * by George Brower.
+ * 
+ * Shapes are loaded with style information that tells them how
+ * to draw (e.g. color, stroke weight). The disableStyle() 
+ * method of PShape turns off this information so functions like
+ * stroke() and fill() change the SVGs color. The enableStyle()
+ * method turns the file's original styles back on.
+ */
+
+PShape bot;
+
+void setup() {
+  size(640, 360);
+  // The file "bot1.svg" must be in the data folder
+  // of the current sketch to load successfully
+  bot = loadShape("bot1.svg");
+  noLoop();
+} 
+
+void draw() {
+  background(102);
+  
+  // Draw left bot
+  bot.disableStyle();  // Ignore the colors in the SVG
+  fill(0, 102, 153);  // Set the SVG fill to blue
+  stroke(255);  // Set the SVG fill to white
+  shape(bot, 20, 25, 300, 300);
+
+  // Draw right bot
+  bot.enableStyle();
+  shape(bot, 320, 25, 300, 300);
+}
+</script>
+
+<h2>"Basics/Shape/LoadDisplaySVG/LoadDisplaySVG.pde"</h2>
+<script type="text/processing" id="Basics/Shape/LoadDisplaySVG/LoadDisplaySVG.pde" debug="transpiled">
+/**
+ * Load and Display a Shape. 
+ * Illustration by George Brower. 
+ * 
+ * The loadShape() command is used to read simple SVG (Scalable Vector Graphics)
+ * files and OBJ (Object) files into a Processing sketch. This example loads an
+ * SVG file of a monster robot face and displays it to the screen. 
+ */
+
+PShape bot;
+
+void setup() {
+  size(640, 360);
+  // The file "bot1.svg" must be in the data folder
+  // of the current sketch to load successfully
+  bot = loadShape("bot1.svg");
+} 
+
+void draw(){
+  background(102);
+  shape(bot, 110, 90, 100, 100);  // Draw at coordinate (110, 90) at size 100 x 100
+  shape(bot, 280, 40);            // Draw at coordinate (280, 40) at the default size
+}
+</script>
+
+<h2>"Basics/Shape/LoadDisplayOBJ/LoadDisplayOBJ.pde"</h2>
+<script type="text/processing" id="Basics/Shape/LoadDisplayOBJ/LoadDisplayOBJ.pde" debug="transpiled">
+/**
+ * Load and Display an OBJ Shape. 
+ * 
+ * The loadShape() command is used to read simple SVG (Scalable Vector Graphics)
+ * files and OBJ (Object) files into a Processing sketch. This example loads an
+ * OBJ file of a rocket and displays it to the screen. 
+ */
+
+
+PShape rocket;
+
+float ry;
+  
+public void setup() {
+  size(640, 360, P3D);
+    
+  rocket = loadShape("rocket.obj");
+}
+
+public void draw() {
+  background(0);
+  lights();
+  
+  translate(width/2, height/2 + 100, -200);
+  rotateZ(PI);
+  rotateY(ry);
+  shape(rocket);
+  
+  ry += 0.02;
+}
+</script>
+
+<h2>"Basics/Shape/ShapeVertices/ShapeVertices.pde"</h2>
+<script type="text/processing" id="Basics/Shape/ShapeVertices/ShapeVertices.pde" debug="transpiled">
+/**
+ * Shape Vertices. 
+ * 
+ * How to iterate over the vertices of a shape.
+ * When loading an obj or SVG, getVertexCount() 
+ * will typically return 0 since all the vertices 
+ * are in the child shapes. 
+ *
+ * You should iterate through the children and then
+ * iterate through their vertices.
+ */
+
+// The shape
+PShape uk;
+
+void setup() {
+  size(640, 360);
+  // Load the shape
+  uk = loadShape("uk.svg");
+}
+
+void draw() {
+  background(51);
+  // Center where we will draw all the vertices
+  translate(width/2 - uk.width/2, height/2- uk.height/2);
+  
+  // Iterate over the children
+  int children = uk.getChildCount();
+  for (int i = 0; i < children; i++) {
+    PShape child = uk.getChild(i);
+    int total = child.getVertexCount();
+    
+    // Now we can actually get the vertices from each child
+    for (int j = 0; j < total; j++) {
+      PVector v = child.getVertex(j);
+      // Cycling brightness for each vertex
+      stroke((frameCount + (i+1)*j) % 255);
+      // Just a dot for each one
+      point(v.x, v.y);
+    }
+  }
+}
+</script>
+
+<h2>"Basics/Shape/ScaleShape/ScaleShape.pde"</h2>
+<script type="text/processing" id="Basics/Shape/ScaleShape/ScaleShape.pde" debug="transpiled">
+/**
+ * Scale Shape.  
+ * Illustration by George Brower. 
+ * 
+ * Move the mouse left and right to zoom the SVG file.
+ * This shows how, unlike an imported image, the lines
+ * remain smooth at any size.
+ */
+
+PShape bot;
+
+void setup() {
+  size(640, 360);
+  // The file "bot1.svg" must be in the data folder
+  // of the current sketch to load successfully
+  bot = loadShape("bot1.svg");
+} 
+
+void draw() {
+  background(102);
+  translate(width/2, height/2);
+  float zoom = map(mouseX, 0, width, 0.1, 4.5);
+  scale(zoom);
+  shape(bot, -140, -140);
+}
+</script>
+
+<h2>"Basics/Input/Easing/Easing.pde"</h2>
+<script type="text/processing" id="Basics/Input/Easing/Easing.pde" debug="transpiled">
+/**
+ * Easing. 
+ * 
+ * Move the mouse across the screen and the symbol will follow.  
+ * Between drawing each frame of the animation, the program
+ * calculates the difference between the position of the 
+ * symbol and the cursor. If the distance is larger than
+ * 1 pixel, the symbol moves part of the distance (0.05) from its
+ * current position toward the cursor. 
+ */
+ 
+float x;
+float y;
+float easing = 0.05;
+
+void setup() {
+  size(640, 360); 
+  noStroke();  
+}
+
+void draw() { 
+  background(51);
+  
+  float targetX = mouseX;
+  float dx = targetX - x;
+  x += dx * easing;
+  
+  float targetY = mouseY;
+  float dy = targetY - y;
+  y += dy * easing;
+  
+  ellipse(x, y, 66, 66);
+}</script>
+
+<h2>"Basics/Input/KeyboardFunctions/KeyboardFunctions.pde"</h2>
+<script type="text/processing" id="Basics/Input/KeyboardFunctions/KeyboardFunctions.pde" debug="transpiled">
+/**
+ * Keyboard Functions 
+ * by Martin Gomez 
+ * 
+ * Click on the window to give it focus and press the letter keys to type colors. 
+ * The keyboard function keyPressed() is called whenever
+ * a key is pressed. keyReleased() is another keyboard
+ * function that is called when a key is released.
+ * 
+ * Original 'Color Typewriter' concept by John Maeda. 
+ */
+ 
+int maxHeight = 40;
+int minHeight = 20;
+int letterHeight = maxHeight; // Height of the letters
+int letterWidth = 20;          // Width of the letter
+
+int x = -letterWidth;          // X position of the letters
+int y = 0;                      // Y position of the letters
+
+boolean newletter;              
+
+int numChars = 26;      // There are 26 characters in the alphabet
+color[] colors = new color[numChars];
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  colorMode(HSB, numChars);
+  background(numChars/2);
+  // Set a hue value for each key
+  for(int i = 0; i < numChars; i++) {
+    colors[i] = color(i, numChars, numChars);    
+  }
+}
+
+void draw() {
+  if(newletter == true) {
+    // Draw the "letter"
+    int y_pos;
+    if (letterHeight == maxHeight) {
+      y_pos = y;
+      rect( x, y_pos, letterWidth, letterHeight );
+    } else {
+      y_pos = y + minHeight;
+      rect( x, y_pos, letterWidth, letterHeight );
+      fill(numChars/2);
+      rect( x, y_pos-minHeight, letterWidth, letterHeight );
+    }
+    newletter = false;
+  }
+}
+
+void keyPressed()
+{
+  // If the key is between 'A'(65) to 'Z' and 'a' to 'z'(122)
+  if((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
+    int keyIndex;
+    if(key <= 'Z') {
+      keyIndex = key-'A';
+      letterHeight = maxHeight;
+      fill(colors[keyIndex]);
+    } else {
+      keyIndex = key-'a';
+      letterHeight = minHeight;
+      fill(colors[keyIndex]);
+    }
+  } else {
+    fill(0);
+    letterHeight = 10;
+  }
+
+  newletter = true;
+
+  // Update the "letter" position
+  x = ( x + letterWidth ); 
+
+  // Wrap horizontally
+  if (x > width - letterWidth) {
+    x = 0;
+    y+= maxHeight;
+  }
+
+  // Wrap vertically
+  if( y > height - letterHeight) {
+    y = 0;      // reset y to 0
+  }
+}
+</script>
+
+<h2>"Basics/Input/MousePress/MousePress.pde"</h2>
+<script type="text/processing" id="Basics/Input/MousePress/MousePress.pde" debug="transpiled">
+/**
+ * Mouse Press. 
+ * 
+ * Move the mouse to position the shape. 
+ * Press the mouse button to invert the color. 
+ */
+
+
+void setup() {
+  size(640, 360);
+  noSmooth();
+  fill(126);
+  background(102);
+}
+
+void draw() {
+  if (mousePressed) {
+    stroke(255);
+  } else {
+    stroke(0);
+  }
+  line(mouseX-66, mouseY, mouseX+66, mouseY);
+  line(mouseX, mouseY-66, mouseX, mouseY+66); 
+}
+</script>
+
+<h2>"Basics/Input/Mouse1D/Mouse1D.pde"</h2>
+<script type="text/processing" id="Basics/Input/Mouse1D/Mouse1D.pde" debug="transpiled">
+/**
+ * Mouse 1D. 
+ * 
+ * Move the mouse left and right to shift the balance. 
+ * The "mouseX" variable is used to control both the 
+ * size and color of the rectangles. 
+ */
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  colorMode(RGB, height, height, height);
+  rectMode(CENTER);
+}
+
+void draw() {
+  background(0.0);
+
+  float r1 = map(mouseX, 0, width, 0, height);
+  float r2 = height-r1;
+  
+  fill(r1);
+  rect(width/2 + r1/2, height/2, r1, r1);
+  
+  fill(r2);
+  rect(width/2 - r2/2, height/2, r2, r2);
+}</script>
+
+<h2>"Basics/Input/Constrain/Constrain.pde"</h2>
+<script type="text/processing" id="Basics/Input/Constrain/Constrain.pde" debug="transpiled">
+/**
+ * Constrain. 
+ * 
+ * Move the mouse across the screen to move the circle. 
+ * The program constrains the circle to its box. 
+ */
+ 
+float mx;
+float my;
+float easing = 0.05;
+int radius = 24;
+int edge = 100;
+int inner = edge + radius;
+
+void setup() {
+  size(640, 360);
+  noStroke(); 
+  ellipseMode(RADIUS);
+  rectMode(CORNERS);
+}
+
+void draw() { 
+  background(51);
+  
+  if (abs(mouseX - mx) > 0.1) {
+    mx = mx + (mouseX - mx) * easing;
+  }
+  if (abs(mouseY - my) > 0.1) {
+    my = my + (mouseY- my) * easing;
+  }
+  
+  mx = constrain(mx, inner, width - inner);
+  my = constrain(my, inner, height - inner);
+  fill(76);
+  rect(edge, edge, width-edge, height-edge);
+  fill(255);  
+  ellipse(mx, my, radius, radius);
+}
+</script>
+
+<h2>"Basics/Input/Mouse2D/Mouse2D.pde"</h2>
+<script type="text/processing" id="Basics/Input/Mouse2D/Mouse2D.pde" debug="transpiled">
+/**
+ * Mouse 2D. 
+ * 
+ * Moving the mouse changes the position and size of each box. 
+ */
+ 
+void setup() {
+  size(640, 360); 
+  noStroke();
+  rectMode(CENTER);
+}
+
+void draw() {
+  background(51); 
+  fill(255, 204);
+  rect(mouseX, height/2, mouseY/2+10, mouseY/2+10);
+  fill(255, 204);
+  int inverseX = width-mouseX;
+  int inverseY = height-mouseY;
+  rect(inverseX, height/2, (inverseY/2)+10, (inverseY/2)+10);
+}</script>
+
+<h2>"Basics/Input/StoringInput/StoringInput.pde"</h2>
+<script type="text/processing" id="Basics/Input/StoringInput/StoringInput.pde" debug="transpiled">
+/**
+ * Storing Input. 
+ * 
+ * Move the mouse across the screen to change the position
+ * of the circles. The positions of the mouse are recorded
+ * into an array and played back every frame. Between each
+ * frame, the newest value are added to the end of each array
+ * and the oldest value is deleted. 
+ */
+ 
+int num = 60;
+float mx[] = new float[num];
+float my[] = new float[num];
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  fill(255, 153); 
+}
+
+void draw() {
+  background(51); 
+  
+  // Cycle through the array, using a different entry on each frame. 
+  // Using modulo (%) like this is faster than moving all the values over.
+  int which = frameCount % num;
+  mx[which] = mouseX;
+  my[which] = mouseY;
+  
+  for (int i = 0; i < num; i++) {
+    // which+1 is the smallest (the oldest in the array)
+    int index = (which+1 + i) % num;
+    ellipse(mx[index], my[index], i, i);
+  }
+}
+</script>
+
+<h2>"Basics/Input/MouseFunctions/MouseFunctions.pde"</h2>
+<script type="text/processing" id="Basics/Input/MouseFunctions/MouseFunctions.pde" debug="transpiled">
+/**
+ * Mouse Functions. 
+ * 
+ * Click on the box and drag it across the screen. 
+ */
+ 
+float bx;
+float by;
+int boxSize = 75;
+boolean overBox = false;
+boolean locked = false;
+float xOffset = 0.0; 
+float yOffset = 0.0; 
+
+void setup() {
+  size(640, 360);
+  bx = width/2.0;
+  by = height/2.0;
+  rectMode(RADIUS);  
+}
+
+void draw() { 
+  background(0);
+  
+  // Test if the cursor is over the box 
+  if (mouseX > bx-boxSize && mouseX < bx+boxSize && 
+      mouseY > by-boxSize && mouseY < by+boxSize) {
+    overBox = true;  
+    if(!locked) { 
+      stroke(255); 
+      fill(153);
+    } 
+  } else {
+    stroke(153);
+    fill(153);
+    overBox = false;
+  }
+  
+  // Draw the box
+  rect(bx, by, boxSize, boxSize);
+}
+
+void mousePressed() {
+  if(overBox) { 
+    locked = true; 
+    fill(255, 255, 255);
+  } else {
+    locked = false;
+  }
+  xOffset = mouseX-bx; 
+  yOffset = mouseY-by; 
+
+}
+
+void mouseDragged() {
+  if(locked) {
+    bx = mouseX-xOffset; 
+    by = mouseY-yOffset; 
+  }
+}
+
+void mouseReleased() {
+  locked = false;
+}</script>
+
+<h2>"Basics/Input/Milliseconds/Milliseconds.pde"</h2>
+<script type="text/processing" id="Basics/Input/Milliseconds/Milliseconds.pde" debug="transpiled">
+/**
+ * Milliseconds. 
+ * 
+ * A millisecond is 1/1000 of a second. 
+ * Processing keeps track of the number of milliseconds a program has run.
+ * By modifying this number with the modulo(%) operator, 
+ * different patterns in time are created.  
+ */
+ 
+float scale;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  scale = width/20;
+}
+
+void draw() { 
+  for (int i = 0; i < scale; i++) {
+    colorMode(RGB, (i+1) * scale * 10);
+    fill(millis()%((i+1) * scale * 10));
+    rect(i*scale, 0, scale, height);
+  }
+}
+</script>
+
+<h2>"Basics/Input/MouseSignals/MouseSignals.pde"</h2>
+<script type="text/processing" id="Basics/Input/MouseSignals/MouseSignals.pde" debug="transpiled">
+/**
+ * Mouse Signals 
+ * 
+ * Move and click the mouse to generate signals. 
+ * The top row is the signal from "mouseX", 
+ * the middle row is the signal from "mouseY",
+ * and the bottom row is the signal from "mousePressed". 
+ */
+ 
+int[] xvals;
+int[] yvals;
+int[] bvals;
+
+void setup() {
+  size(640, 360);
+  noSmooth();
+  xvals = new int[width];
+  yvals = new int[width];
+  bvals = new int[width];
+}
+
+void draw() {
+  background(102);
+  
+  for (int i = 1; i < width; i++) { 
+    xvals[i-1] = xvals[i]; 
+    yvals[i-1] = yvals[i];
+    bvals[i-1] = bvals[i];
+  } 
+  // Add the new values to the end of the array 
+  xvals[width-1] = mouseX; 
+  yvals[width-1] = mouseY;
+  
+  if (mousePressed == true) {
+    bvals[width-1] = 0;
+  } else {
+    bvals[width-1] = height/3;
+  }
+  
+  fill(255);
+  noStroke();
+  rect(0, height/3, width, height/3+1);
+
+  for(int i = 1; i < width; i++) {
+    // Draw the x-values
+    stroke(255);
+    point(i, map(xvals[i], 0, width, 0, height/3-1));
+    
+    // Draw the y-values
+    stroke(0);
+    point(i, height/3+yvals[i]/3);
+    
+    // Draw the mouse presses
+    stroke(255);
+    line(i, (2*height/3) + bvals[i], i, (2*height/3) + bvals[i-1]);
+  }
+}
+</script>
+
+<h2>"Basics/Input/Keyboard/Keyboard.pde"</h2>
+<script type="text/processing" id="Basics/Input/Keyboard/Keyboard.pde" debug="transpiled">
+/**
+ * Keyboard. 
+ * 
+ * Click on the image to give it focus and press the letter keys 
+ * to create forms in time and space. Each key has a unique identifying 
+ * number. These numbers can be used to position shapes in space. 
+ */
+
+int rectWidth;
+   
+void setup() {
+  size(640, 360);
+  noStroke();
+  background(0);
+  rectWidth = width/4;
+}
+
+void draw() { 
+  // keep draw() here to continue looping while waiting for keys
+}
+
+void keyPressed() {
+  int keyIndex = -1;
+  if (key >= 'A' && key <= 'Z') {
+    keyIndex = key - 'A';
+  } else if (key >= 'a' && key <= 'z') {
+    keyIndex = key - 'a';
+  }
+  if (keyIndex == -1) {
+    // If it's not a letter key, clear the screen
+    background(0);
+  } else { 
+    // It's a letter key, fill a rectangle
+    fill(millis() % 255);
+    float x = map(keyIndex, 0, 25, 0, width - rectWidth);
+    rect(x, 0, rectWidth, height);
+  }
+}
+</script>
+
+<h2>"Basics/Input/Clock/Clock.pde"</h2>
+<script type="text/processing" id="Basics/Input/Clock/Clock.pde" debug="transpiled">
+/**
+ * Clock. 
+ * 
+ * The current time can be read with the second(), minute(), 
+ * and hour() functions. In this example, sin() and cos() values
+ * are used to set the position of the hands.
+ */
+
+int cx, cy;
+float secondsRadius;
+float minutesRadius;
+float hoursRadius;
+float clockDiameter;
+
+void setup() {
+  size(640, 360);
+  stroke(255);
+  
+  int radius = min(width, height) / 2;
+  secondsRadius = radius * 0.72;
+  minutesRadius = radius * 0.60;
+  hoursRadius = radius * 0.50;
+  clockDiameter = radius * 1.8;
+  
+  cx = width / 2;
+  cy = height / 2;
+}
+
+void draw() {
+  background(0);
+  
+  // Draw the clock background
+  fill(80);
+  noStroke();
+  ellipse(cx, cy, clockDiameter, clockDiameter);
+  
+  // Angles for sin() and cos() start at 3 o'clock;
+  // subtract HALF_PI to make them start at the top
+  float s = map(second(), 0, 60, 0, TWO_PI) - HALF_PI;
+  float m = map(minute() + norm(second(), 0, 60), 0, 60, 0, TWO_PI) - HALF_PI; 
+  float h = map(hour() + norm(minute(), 0, 60), 0, 24, 0, TWO_PI * 2) - HALF_PI;
+  
+  // Draw the hands of the clock
+  stroke(255);
+  strokeWeight(1);
+  line(cx, cy, cx + cos(s) * secondsRadius, cy + sin(s) * secondsRadius);
+  strokeWeight(2);
+  line(cx, cy, cx + cos(m) * minutesRadius, cy + sin(m) * minutesRadius);
+  strokeWeight(4);
+  line(cx, cy, cx + cos(h) * hoursRadius, cy + sin(h) * hoursRadius);
+  
+  // Draw the minute ticks
+  strokeWeight(2);
+  beginShape(POINTS);
+  for (int a = 0; a < 360; a+=6) {
+    float angle = radians(a);
+    float x = cx + cos(angle) * secondsRadius;
+    float y = cy + sin(angle) * secondsRadius;
+    vertex(x, y);
+  }
+  endShape();
+}
+</script>
+
+<h2>"Basics/Web/EmbeddedLinks/EmbeddedLinks.pde"</h2>
+<script type="text/processing" id="Basics/Web/EmbeddedLinks/EmbeddedLinks.pde" debug="transpiled">
+/**
+ * Loading URLs. 
+ * 
+ * Click on the button to open a URL in a browser.
+ */
+
+boolean overButton = false;
+
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  background(204);
+
+  if (overButton == true) {
+    fill(255);
+  } else {
+    noFill();
+  }
+  rect(105, 60, 75, 75);
+  line(135, 105, 155, 85);
+  line(140, 85, 155, 85);
+  line(155, 85, 155, 100);
+}
+
+void mousePressed() {
+  if (overButton) { 
+    link("http://www.processing.org");
+  }
+}
+
+void mouseMoved() { 
+  checkButtons(); 
+}
+  
+void mouseDragged() {
+  checkButtons(); 
+}
+
+void checkButtons() {
+  if (mouseX > 105 && mouseX < 180 && mouseY > 60 && mouseY <135) {
+    overButton = true;   
+  } else {
+    overButton = false;
+  }
+}
+</script>
+
+<h2>"Basics/Web/LoadingImages/LoadingImages.pde"</h2>
+<script type="text/processing" id="Basics/Web/LoadingImages/LoadingImages.pde" debug="transpiled">
+/**
+ * Loading Images. 
+ * 
+ * Processing applications can load images from the network. 
+ */
+
+PImage img;
+
+void setup() {
+  size(640, 360);
+  img = loadImage("https://processingfoundation.org/content/1-home/processing-web.png");
+  noLoop();
+}
+
+void draw() {
+  background(0);
+  if (img != null) {
+    for (int i = 0; i < 5; i++) {
+      image(img, 0, img.height * i);
+    }
+  }
+}
+
+</script>
+
+<h2>"Basics/Camera/Orthographic/Orthographic.pde"</h2>
+<script type="text/processing" id="Basics/Camera/Orthographic/Orthographic.pde" debug="transpiled">
+/**
+ * Perspective vs. Ortho
+ *
+ * Move the mouse left to right to change the "far" 
+ * parameter for the perspective() and ortho() functions.
+ * This parameter sets the maximum distance from the 
+ * origin away from the viewer and will clip the geometry.
+ * Click a mouse button to switch between the perspective and
+ * orthographic projections.
+ */
+
+
+boolean showPerspective = false;
+
+void setup() {
+  size(600, 360, P3D);
+  noFill();
+  fill(255);
+  noStroke();
+}
+
+void draw() {
+  lights();
+  background(0);
+  float far = map(mouseX, 0, width, 120, 400);
+  if (showPerspective == true) {
+    perspective(PI/3.0, float(width)/float(height), 10, far);
+  } else {
+    ortho(-width/2.0, width/2.0, -height/2.0, height/2.0, 10, far);
+  }
+  translate(width/2, height/2, 0);
+  rotateX(-PI/6);
+  rotateY(PI/3);
+  box(180);
+}
+
+void mousePressed() {
+  showPerspective = !showPerspective;
+}
+
+</script>
+
+<h2>"Basics/Camera/Perspective/Perspective.pde"</h2>
+<script type="text/processing" id="Basics/Camera/Perspective/Perspective.pde" debug="transpiled">
+/**
+ * Perspective. 
+ * 
+ * Move the mouse left and right to change the field of view (fov).
+ * Click to modify the aspect ratio. The perspective() function
+ * sets a perspective projection applying foreshortening, making 
+ * distant objects appear smaller than closer ones. The parameters 
+ * define a viewing volume with the shape of truncated pyramid. 
+ * Objects near to the front of the volume appear their actual size, 
+ * while farther objects appear smaller. This projection simulates 
+ * the perspective of the world more accurately than orthographic projection. 
+ * The version of perspective without parameters sets the default 
+ * perspective and the version with four parameters allows the programmer 
+ * to set the area precisely.
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+}
+
+void draw() {
+  lights();
+  background(0);
+  float cameraY = height/2.0;
+  float fov = mouseX/float(width) * PI/2;
+  float cameraZ = cameraY / tan(fov / 2.0);
+  float aspect = float(width)/float(height);
+  if (mousePressed) {
+    aspect = aspect / 2.0;
+  }
+  perspective(fov, aspect, cameraZ/10.0, cameraZ*10.0);
+  
+  translate(width/2+30, height/2, 0);
+  rotateX(-PI/6);
+  rotateY(PI/3 + mouseY/float(height) * PI);
+  box(45);
+  translate(0, 0, -50);
+  box(30);
+}</script>
+
+<h2>"Basics/Camera/MoveEye/MoveEye.pde"</h2>
+<script type="text/processing" id="Basics/Camera/MoveEye/MoveEye.pde" debug="transpiled">
+/**
+ * Move Eye. 
+ * by Simon Greenwold.
+ * 
+ * The camera lifts up (controlled by mouseY) while looking at the same point.
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  fill(204);
+}
+
+void draw() {
+  lights();
+  background(0);
+  
+  // Change height of the camera with mouseY
+  camera(30.0, mouseY, 220.0, // eyeX, eyeY, eyeZ
+         0.0, 0.0, 0.0, // centerX, centerY, centerZ
+         0.0, 1.0, 0.0); // upX, upY, upZ
+  
+  noStroke();
+  box(90);
+  stroke(255);
+  line(-100, 0, 0, 100, 0, 0);
+  line(0, -100, 0, 0, 100, 0);
+  line(0, 0, -100, 0, 0, 100);
+}
+</script>
+
+<h2>"Basics/Color/RadialGradient/RadialGradient.pde"</h2>
+<script type="text/processing" id="Basics/Color/RadialGradient/RadialGradient.pde" debug="transpiled">
+/**
+ * Radial Gradient. 
+ * 
+ * Draws a series of concentric circles to create a gradient 
+ * from one color to another.
+ */
+
+int dim;
+
+void setup() {
+  size(640, 360);
+  dim = width/2;
+  background(0);
+  colorMode(HSB, 360, 100, 100);
+  noStroke();
+  ellipseMode(RADIUS);
+  frameRate(1);
+}
+
+void draw() {
+  background(0);
+  for (int x = 0; x <= width; x+=dim) {
+    drawGradient(x, height/2);
+  } 
+}
+
+void drawGradient(float x, float y) {
+  int radius = dim/2;
+  float h = random(0, 360);
+  for (int r = radius; r > 0; --r) {
+    fill(h, 90, 90);
+    ellipse(x, y, r, r);
+    h = (h + 1) % 360;
+  }
+}
+
+</script>
+
+<h2>"Basics/Color/Relativity/Relativity.pde"</h2>
+<script type="text/processing" id="Basics/Color/Relativity/Relativity.pde" debug="transpiled">
+/**
+ * Relativity. 
+ * 
+ * Each color is perceived in relation to other colors. The top and bottom 
+ * bars each contain the same component colors, but a different display order 
+ * causes individual colors to appear differently. 
+ */
+ 
+color a, b, c, d, e;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  a = color(165, 167, 20);
+  b = color(77, 86, 59);
+  c = color(42, 106, 105);
+  d = color(165, 89, 20);
+  e = color(146, 150, 127);
+  noLoop();  // Draw only one time
+}
+
+void draw() {
+  drawBand(a, b, c, d, e, 0, width/128);
+  drawBand(c, a, d, b, e, height/2, width/128);
+}
+
+void drawBand(color v, color w, color x, color y, color z, int ypos, int barWidth) {
+  int num = 5;
+  color[] colorOrder = { v, w, x, y, z };
+  for(int i = 0; i < width; i += barWidth*num) {
+    for(int j = 0; j < num; j++) {
+      fill(colorOrder[j]);
+      rect(i+j*barWidth, ypos, barWidth, height/2);
+    }
+  }
+}
+
+
+
+
+
+
+</script>
+
+<h2>"Basics/Color/Brightness/Brightness.pde"</h2>
+<script type="text/processing" id="Basics/Color/Brightness/Brightness.pde" debug="transpiled">
+/**
+ * Brightness 
+ * by Rusty Robison. 
+ * 
+ * Brightness is the relative lightness or darkness of a color.
+ * Move the cursor vertically over each bar to alter its brightness. 
+ */
+ 
+int barWidth = 20;
+int lastBar = -1;
+
+void setup() {
+  size(640, 360);
+  colorMode(HSB, width, 100, height);
+  noStroke();
+  background(0);
+}
+
+void draw() {
+  int whichBar = mouseX / barWidth;
+  if (whichBar != lastBar) {
+    int barX = whichBar * barWidth;
+    fill(barX, 100, mouseY);
+    rect(barX, 0, barWidth, height);
+    lastBar = whichBar;
+  }
+}
+</script>
+
+<h2>"Basics/Color/ColorVariables/ColorVariables.pde"</h2>
+<script type="text/processing" id="Basics/Color/ColorVariables/ColorVariables.pde" debug="transpiled">
+/**
+ * Color Variables (Homage to Albers). 
+ * 
+ * This example creates variables for colors that may be referred to 
+ * in the program by a name, rather than a number. 
+ */
+
+size(640, 360);
+noStroke();
+background(51, 0, 0);
+
+color inside = color(204, 102, 0);
+color middle = color(204, 153, 0);
+color outside = color(153, 51, 0);
+
+// These statements are equivalent to the statements above.
+// Programmers may use the format they prefer.
+//color inside = #CC6600;
+//color middle = #CC9900;
+//color outside = #993300;
+
+pushMatrix();
+translate(80, 80);
+fill(outside);
+rect(0, 0, 200, 200);
+fill(middle);
+rect(40, 60, 120, 120);
+fill(inside);
+rect(60, 90, 80, 80);
+popMatrix();
+
+pushMatrix();
+translate(360, 80);
+fill(inside);
+rect(0, 0, 200, 200);
+fill(outside);
+rect(40, 60, 120, 120);
+fill(middle);
+rect(60, 90, 80, 80);
+popMatrix();
+</script>
+
+<h2>"Basics/Color/WaveGradient/WaveGradient.pde"</h2>
+<script type="text/processing" id="Basics/Color/WaveGradient/WaveGradient.pde" debug="transpiled">
+/**
+ * Wave Gradient 
+ * by Ira Greenberg.  
+ * 
+ * Generate a gradient along a sin() wave.
+ */
+
+float amplitude = 30;
+float fillGap = 2.5;
+
+void setup() {
+  size(640, 360);
+  background(200);
+  
+  // To efficiently set all the pixels on screen, make the set() 
+  // calls on a PImage, then write the result to the screen.
+  PImage gradient = createImage(width, height, RGB);
+  float frequency = 0;
+  
+  for (int i =- 75; i < height+75; i++){
+    // Reset angle to 0, so waves stack properly
+    float angle = 0;
+    // Increasing frequency causes more gaps
+    frequency += 0.002;
+    for (float j = 0; j < width+75; j++){
+      float py = i + sin(radians(angle)) * amplitude;
+      angle += frequency;
+      color c = color(abs(py-i)*255/amplitude, 255-abs(py-i)*255/amplitude, j*(255.0/(width+50)));
+      // Hack to fill gaps. Raise value of fillGap if you increase frequency
+      for (int filler = 0; filler < fillGap; filler++){
+        gradient.set(int(j-filler), int(py)-filler, c);
+        gradient.set(int(j), int(py), c);
+        gradient.set(int(j+filler), int(py)+filler, c);
+      }
+    }
+  }
+  // Draw the image to the screen
+  set(0, 0, gradient);
+  // Another alternative for drawing to the screen
+  //image(gradient, 0, 0);
+}
+</script>
+
+<h2>"Basics/Color/Saturation/Saturation.pde"</h2>
+<script type="text/processing" id="Basics/Color/Saturation/Saturation.pde" debug="transpiled">
+/**
+ * Saturation. 
+ * 
+ * Saturation is the strength or purity of the color and represents the 
+ * amount of gray in proportion to the hue. A "saturated" color is pure 
+ * and an "unsaturated" color has a large percentage of gray. 
+ * Move the cursor vertically over each bar to alter its saturation. 
+ */
+ 
+int barWidth = 20;
+int lastBar = -1;
+
+
+void setup() {
+  size(640, 360);
+  colorMode(HSB, width, height, 100); 
+  noStroke();
+}
+
+
+void draw() {
+  int whichBar = mouseX / barWidth;
+  if (whichBar != lastBar) {
+    int barX = whichBar * barWidth;
+    fill(barX, mouseY, 66);
+    rect(barX, 0, barWidth, height);
+    lastBar = whichBar;
+  }
+}
+</script>
+
+<h2>"Basics/Color/LinearGradient/LinearGradient.pde"</h2>
+<script type="text/processing" id="Basics/Color/LinearGradient/LinearGradient.pde" debug="transpiled">
+/**
+ * Simple Linear Gradient 
+ * 
+ * The lerpColor() function is useful for interpolating
+ * between two colors.
+ */
+
+// Constants
+int Y_AXIS = 1;
+int X_AXIS = 2;
+color b1, b2, c1, c2;
+
+void setup() {
+  size(640, 360);
+
+  // Define colors
+  b1 = color(255);
+  b2 = color(0);
+  c1 = color(204, 102, 0);
+  c2 = color(0, 102, 153);
+
+  noLoop();
+}
+
+void draw() {
+  // Background
+  setGradient(0, 0, width/2, height, b1, b2, X_AXIS);
+  setGradient(width/2, 0, width/2, height, b2, b1, X_AXIS);
+  // Foreground
+  setGradient(50, 90, 540, 80, c1, c2, Y_AXIS);
+  setGradient(50, 190, 540, 80, c2, c1, X_AXIS);
+}
+
+void setGradient(int x, int y, float w, float h, color c1, color c2, int axis ) {
+
+  noFill();
+
+  if (axis == Y_AXIS) {  // Top to bottom gradient
+    for (int i = y; i <= y+h; i++) {
+      float inter = map(i, y, y+h, 0, 1);
+      color c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(x, i, x+w, i);
+    }
+  }  
+  else if (axis == X_AXIS) {  // Left to right gradient
+    for (int i = x; i <= x+w; i++) {
+      float inter = map(i, x, x+w, 0, 1);
+      color c = lerpColor(c1, c2, inter);
+      stroke(c);
+      line(i, y, i, y+h);
+    }
+  }
+}
+
+</script>
+
+<h2>"Basics/Color/Hue/Hue.pde"</h2>
+<script type="text/processing" id="Basics/Color/Hue/Hue.pde" debug="transpiled">
+/**
+ * Hue. 
+ * 
+ * Hue is the color reflected from or transmitted through an object 
+ * and is typically referred to as the name of the color such as 
+ * red, blue, or yellow. In this example, move the cursor vertically 
+ * over each bar to alter its hue. 
+ */
+ 
+int barWidth = 20;
+int lastBar = -1;
+
+void setup() {
+  size(640, 360);
+  colorMode(HSB, height, height, height);  
+  noStroke();
+  background(0);
+}
+
+void draw() {
+  int whichBar = mouseX / barWidth;
+  if (whichBar != lastBar) {
+    int barX = whichBar * barWidth;
+    fill(mouseY, height, height);
+    rect(barX, 0, barWidth, height);
+    lastBar = whichBar;
+  }
+}
+
+</script>
+
+<h2>"Basics/Objects/CompositeObjects/Ring.pde"</h2>
+<script type="text/processing" id="Basics/Objects/CompositeObjects/Ring.pde" debug="transpiled">
+class Ring {
+  
+  float x, y; // X-coordinate, y-coordinate
+  float diameter; // Diameter of the ring
+  boolean on = false; // Turns the display on and off
+  
+  void start(float xpos, float ypos) {
+    x = xpos;
+    y = ypos;
+    on = true;
+    diameter = 1;
+  }
+  
+  void grow() {
+    if (on == true) {
+      diameter += 0.5;
+      if (diameter > width*2) {
+        diameter = 0.0;
+      }
+    }
+  }
+  
+  void display() {
+    if (on == true) {
+      noFill();
+      strokeWeight(4);
+      stroke(155, 153);
+      ellipse(x, y, diameter, diameter);
+    }
+  }
+}
+</script>
+
+<h2>"Basics/Objects/CompositeObjects/Egg.pde"</h2>
+<script type="text/processing" id="Basics/Objects/CompositeObjects/Egg.pde" debug="transpiled">
+class Egg {
+  float x, y; // X-coordinate, y-coordinate
+  float tilt; // Left and right angle offset
+  float angle; // Used to define the tilt
+  float scalar; // Height of the egg
+
+  // Constructor
+  Egg(float xpos, float ypos, float t, float s) {
+    x = xpos;
+    y = ypos;
+    tilt = t;
+    scalar = s / 100.0;
+  }
+
+  void wobble() {
+    tilt = cos(angle) / 8;
+    angle += 0.1;
+  }
+
+  void display() {
+    noStroke();
+    fill(255);
+    pushMatrix();
+    translate(x, y);
+    rotate(tilt);
+    scale(scalar);
+    beginShape();
+    vertex(0, -100);
+    bezierVertex(25, -100, 40, -65, 40, -40);
+    bezierVertex(40, -15, 25, 0, 0, 0);
+    bezierVertex(-25, 0, -40, -15, -40, -40);
+    bezierVertex(-40, -65, -25, -100, 0, -100);
+    endShape();
+    popMatrix();
+  }
+}
+</script>
+
+<h2>"Basics/Objects/CompositeObjects/CompositeObjects.pde"</h2>
+<script type="text/processing" id="Basics/Objects/CompositeObjects/CompositeObjects.pde" debug="transpiled">
+/**
+ * Composite Objects
+ * 
+ * An object can include several other objects. Creating such composite objects 
+ * is a good way to use the principles of modularity and build higher levels of 
+ * abstraction within a program.
+ */
+
+EggRing er1, er2;
+
+
+void setup() {
+  size(640, 360);
+  er1 = new EggRing(width*0.45, height*0.5, 0.1, 120);
+  er2 = new EggRing(width*0.65, height*0.8, 0.05, 180);
+}
+
+
+void draw() {
+  background(0);
+  er1.transmit();
+  er2.transmit();
+}
+</script>
+
+<h2>"Basics/Objects/CompositeObjects/EggRing.pde"</h2>
+<script type="text/processing" id="Basics/Objects/CompositeObjects/EggRing.pde" debug="transpiled">
+class EggRing {
+  Egg ovoid;
+  Ring circle = new Ring();
+
+  EggRing(float x, float y, float t, float sp) {
+    ovoid = new Egg(x, y, t, sp);
+    circle.start(x, y - sp/2);
+  }
+
+  void transmit() {
+    ovoid.wobble();
+    ovoid.display();
+    circle.grow();
+    circle.display();
+    if (circle.on == false) {
+      circle.on = true;
+    }
+  }
+}
+</script>
+
+<h2>"Basics/Objects/MultipleConstructors/MultipleConstructors.pde"</h2>
+<script type="text/processing" id="Basics/Objects/MultipleConstructors/MultipleConstructors.pde" debug="transpiled">
+/**
+ * Multiple constructors
+ * 
+ * A class can have multiple constructors that assign the fields in different ways. 
+ * Sometimes it's beneficial to specify every aspect of an object's data by assigning 
+ * parameters to the fields, but other times it might be appropriate to define only 
+ * one or a few.
+ */
+
+Spot sp1, sp2;
+
+void setup() {
+  size(640, 360);
+  background(204);
+  noLoop();
+  // Run the constructor without parameters
+  sp1 = new Spot();
+  // Run the constructor with three parameters
+  sp2 = new Spot(width*0.5, height*0.5, 120);
+}
+
+void draw() {
+  sp1.display();
+  sp2.display();
+}
+
+class Spot {
+  float x, y, radius;
+  
+  // First version of the Spot constructor;
+  // the fields are assigned default values
+  Spot() {
+    radius = 40;
+    x = width*0.25;
+    y = height*0.5;
+  }
+  
+  // Second version of the Spot constructor;
+  // the fields are assigned with parameters
+  Spot(float xpos, float ypos, float r) {
+    x = xpos;
+    y = ypos;
+    radius = r;
+  }
+  void display() {
+    ellipse(x, y, radius*2, radius*2);
+  }
+  
+}
+</script>
+
+<h2>"Basics/Objects/Objects/Objects.pde"</h2>
+<script type="text/processing" id="Basics/Objects/Objects/Objects.pde" debug="transpiled">
+/**
+ * Objects
+ * by hbarragan. 
+ * 
+ * Move the cursor across the image to change the speed and positions
+ * of the geometry. The class MRect defines a group of lines.
+ */
+
+MRect r1, r2, r3, r4;
+ 
+void setup()
+{
+  size(640, 360);
+  fill(255, 204);
+  noStroke();
+  r1 = new MRect(1, 134.0, 0.532, 0.1*height, 10.0, 60.0);
+  r2 = new MRect(2, 44.0, 0.166, 0.3*height, 5.0, 50.0);
+  r3 = new MRect(2, 58.0, 0.332, 0.4*height, 10.0, 35.0);
+  r4 = new MRect(1, 120.0, 0.0498, 0.9*height, 15.0, 60.0);
+}
+ 
+void draw()
+{
+  background(0);
+  
+  r1.display();
+  r2.display();
+  r3.display();
+  r4.display();
+ 
+  r1.move(mouseX-(width/2), mouseY+(height*0.1), 30);
+  r2.move((mouseX+(width*0.05))%width, mouseY+(height*0.025), 20);
+  r3.move(mouseX/4, mouseY-(height*0.025), 40);
+  r4.move(mouseX-(width/2), (height-mouseY), 50);
+}
+ 
+class MRect 
+{
+  int w; // single bar width
+  float xpos; // rect xposition
+  float h; // rect height
+  float ypos ; // rect yposition
+  float d; // single bar distance
+  float t; // number of bars
+ 
+  MRect(int iw, float ixp, float ih, float iyp, float id, float it) {
+    w = iw;
+    xpos = ixp;
+    h = ih;
+    ypos = iyp;
+    d = id;
+    t = it;
+  }
+ 
+  void move (float posX, float posY, float damping) {
+    float dif = ypos - posY;
+    if (abs(dif) > 1) {
+      ypos -= dif/damping;
+    }
+    dif = xpos - posX;
+    if (abs(dif) > 1) {
+      xpos -= dif/damping;
+    }
+  }
+ 
+  void display() {
+    for (int i=0; i<t; i++) {
+      rect(xpos+(i*(d+w)), ypos, w, height*h);
+    }
+  }
+}
+</script>
+
+<h2>"Basics/Objects/Inheritance/Inheritance.pde"</h2>
+<script type="text/processing" id="Basics/Objects/Inheritance/Inheritance.pde" debug="transpiled">
+/**
+ * Inheritance
+ * 
+ * A class can be defined using another class as a foundation. In object-oriented
+ * programming terminology, one class can inherit fi elds and methods from another. 
+ * An object that inherits from another is called a subclass, and the object it 
+ * inherits from is called a superclass. A subclass extends the superclass.
+ */
+
+SpinSpots spots;
+SpinArm arm;
+
+void setup() {
+  size(640, 360);
+  arm = new SpinArm(width/2, height/2, 0.01);
+  spots = new SpinSpots(width/2, height/2, -0.02, 90.0);
+}
+
+void draw() {
+  background(204);
+  arm.update();
+  arm.display();
+  spots.update();
+  spots.display();
+}
+
+class Spin {
+  float x, y, speed;
+  float angle = 0.0;
+  Spin(float xpos, float ypos, float s) {
+    x = xpos;
+    y = ypos;
+    speed = s;
+  }
+  void update() {
+    angle += speed;
+  }
+}
+
+class SpinArm extends Spin {
+  SpinArm(float x, float y, float s) {
+    super(x, y, s);
+  }
+  void display() {
+    strokeWeight(1);
+    stroke(0);
+    pushMatrix();
+    translate(x, y);
+    angle += speed;
+    rotate(angle);
+    line(0, 0, 165, 0);
+    popMatrix();
+  }
+}
+
+class SpinSpots extends Spin {
+  float dim;
+  SpinSpots(float x, float y, float s, float d) {
+    super(x, y, s);
+    dim = d;
+  }
+  void display() {
+    noStroke();
+    pushMatrix();
+    translate(x, y);
+    angle += speed;
+    rotate(angle);
+    ellipse(-dim/2, 0, dim, dim);
+    ellipse(dim/2, 0, dim, dim);
+    popMatrix();
+  }
+}
+</script>
+
+<h2>"Basics/Math/Arctangent/Arctangent.pde"</h2>
+<script type="text/processing" id="Basics/Math/Arctangent/Arctangent.pde" debug="transpiled">
+/**
+ * Arctangent. 
+ * 
+ * Move the mouse to change the direction of the eyes. 
+ * The atan2() function computes the angle from each eye 
+ * to the cursor. 
+ */
+ 
+Eye e1, e2, e3;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  e1 = new Eye( 250,  16, 120);
+  e2 = new Eye( 164, 185,  80);  
+  e3 = new Eye( 420, 230, 220);
+}
+
+void draw() {
+  background(102);
+  
+  e1.update(mouseX, mouseY);
+  e2.update(mouseX, mouseY);
+  e3.update(mouseX, mouseY);
+
+  e1.display();
+  e2.display();
+  e3.display();
+}
+
+class Eye {
+  int x, y;
+  int size;
+  float angle = 0.0;
+  
+  Eye(int tx, int ty, int ts) {
+    x = tx;
+    y = ty;
+    size = ts;
+ }
+
+  void update(int mx, int my) {
+    angle = atan2(my-y, mx-x);
+  }
+  
+  void display() {
+    pushMatrix();
+    translate(x, y);
+    fill(255);
+    ellipse(0, 0, size, size);
+    rotate(angle);
+    fill(153, 204, 0);
+    ellipse(size/4, 0, size/2, size/2);
+    popMatrix();
+  }
+}
+
+</script>
+
+<h2>"Basics/Math/IncrementDecrement/IncrementDecrement.pde"</h2>
+<script type="text/processing" id="Basics/Math/IncrementDecrement/IncrementDecrement.pde" debug="transpiled">
+/**
+ * Increment Decrement. 
+ * 
+ * Writing "a++" is equivalent to "a = a + 1".  
+ * Writing "a--" is equivalent to "a = a - 1".   
+ */
+ 
+int a;
+int b;
+boolean direction;
+
+void setup() {
+  size(640, 360);
+  colorMode(RGB, width);
+  a = 0;
+  b = width;
+  direction = true;
+  frameRate(30);
+}
+
+void draw() {
+  a++;
+  if(a > width) {
+    a = 0;
+    direction = !direction;
+  }
+  if(direction == true){
+    stroke(a);
+  } else {
+    stroke(width-a);
+  }
+  line(a, 0, a, height/2);
+
+  b--;
+  if(b < 0) {
+    b = width;
+  }
+  if(direction == true) {
+    stroke(width-b);
+  } else {
+    stroke(b);
+  }
+  line(b, height/2+1, b, height);
+}
+</script>
+
+<h2>"Basics/Math/Noise3D/Noise3D.pde"</h2>
+<script type="text/processing" id="Basics/Math/Noise3D/Noise3D.pde" debug="transpiled">
+/**
+ * Noise3D. 
+ * 
+ * Using 3D noise to create simple animated texture. 
+ * Here, the third dimension ('z') is treated as time. 
+ */
+ 
+float increment = 0.01;
+// The noise function's 3rd argument, a global variable that increments once per cycle
+float zoff = 0.0;  
+// We will increment zoff differently than xoff and yoff
+float zincrement = 0.02; 
+
+void setup() {
+  size(640, 360);
+  frameRate(30);
+}
+
+void draw() {
+  
+  // Optional: adjust noise detail here
+  // noiseDetail(8,0.65f);
+  
+  loadPixels();
+
+  float xoff = 0.0; // Start xoff at 0
+  
+  // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
+  for (int x = 0; x < width; x++) {
+    xoff += increment;   // Increment xoff 
+    float yoff = 0.0;   // For every xoff, start yoff at 0
+    for (int y = 0; y < height; y++) {
+      yoff += increment; // Increment yoff
+      
+      // Calculate noise and scale by 255
+      float bright = noise(xoff,yoff,zoff)*255;
+
+      // Try using this line instead
+      //float bright = random(0,255);
+      
+      // Set each pixel onscreen to a grayscale value
+      pixels[x+y*width] = color(bright,bright,bright);
+    }
+  }
+  updatePixels();
+  
+  zoff += zincrement; // Increment zoff
+  
+  
+}
+
+
+
+</script>
+
+<h2>"Basics/Math/NoiseWave/NoiseWave.pde"</h2>
+<script type="text/processing" id="Basics/Math/NoiseWave/NoiseWave.pde" debug="transpiled">
+/**
+ * Noise Wave
+ * by Daniel Shiffman.  
+ * 
+ * Using Perlin Noise to generate a wave-like pattern. 
+ */
+
+float yoff = 0.0;        // 2nd dimension of perlin noise
+
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  background(51);
+
+  fill(255);
+  // We are going to draw a polygon out of the wave points
+  beginShape(); 
+  
+  float xoff = 0;       // Option #1: 2D Noise
+  // float xoff = yoff; // Option #2: 1D Noise
+  
+  // Iterate over horizontal pixels
+  for (float x = 0; x <= width; x += 10) {
+    // Calculate a y value according to noise, map to 
+    float y = map(noise(xoff, yoff), 0, 1, 200,300); // Option #1: 2D Noise
+    // float y = map(noise(xoff), 0, 1, 200,300);    // Option #2: 1D Noise
+    
+    // Set the vertex
+    vertex(x, y); 
+    // Increment x dimension for noise
+    xoff += 0.05;
+  }
+  // increment y dimension for noise
+  yoff += 0.01;
+  vertex(width, height);
+  vertex(0, height);
+  endShape(CLOSE);
+}
+</script>
+
+<h2>"Basics/Math/Sine/Sine.pde"</h2>
+<script type="text/processing" id="Basics/Math/Sine/Sine.pde" debug="transpiled">
+/**
+ * Sine. 
+ * 
+ * Smoothly scaling size with the sin() function. 
+ */
+ 
+float diameter; 
+float angle = 0;
+
+void setup() {
+  size(640, 360);
+  diameter = height - 10;
+  noStroke();
+  fill(255, 204, 0);
+}
+
+void draw() {
+  
+  background(0);
+
+  float d1 = 10 + (sin(angle) * diameter/2) + diameter/2;
+  float d2 = 10 + (sin(angle + PI/2) * diameter/2) + diameter/2;
+  float d3 = 10 + (sin(angle + PI) * diameter/2) + diameter/2;
+  
+  ellipse(0, height/2, d1, d1);
+  ellipse(width/2, height/2, d2, d2);
+  ellipse(width, height/2, d3, d3);
+  
+  angle += 0.02;
+}
+
+</script>
+
+<h2>"Basics/Math/DoubleRandom/DoubleRandom.pde"</h2>
+<script type="text/processing" id="Basics/Math/DoubleRandom/DoubleRandom.pde" debug="transpiled">
+/**
+ * Double Random 
+ * by Ira Greenberg.  
+ * 
+ * Using two random() calls and the point() function 
+ * to create an irregular sawtooth line.
+ */
+
+int totalPts = 300;
+float steps = totalPts + 1;
+  
+void setup() {
+  size(640, 360);
+  stroke(255);
+  frameRate(1);
+} 
+
+void draw() {
+  background(0);
+  float rand = 0;
+  for  (int i = 1; i < steps; i++) {
+    point( (width/steps) * i, (height/2) + random(-rand, rand) );
+    rand += random(-5, 5);
+  }
+}
+
+</script>
+
+<h2>"Basics/Math/SineWave/SineWave.pde"</h2>
+<script type="text/processing" id="Basics/Math/SineWave/SineWave.pde" debug="transpiled">
+/**
+ * Sine Wave
+ * by Daniel Shiffman.  
+ * 
+ * Render a simple sine wave. 
+ */
+ 
+int xspacing = 16;   // How far apart should each horizontal location be spaced
+int w;              // Width of entire wave
+
+float theta = 0.0;  // Start angle at 0
+float amplitude = 75.0;  // Height of wave
+float period = 500.0;  // How many pixels before the wave repeats
+float dx;  // Value for incrementing X, a function of period and xspacing
+float[] yvalues;  // Using an array to store height values for the wave
+
+void setup() {
+  size(640, 360);
+  w = width+16;
+  dx = (TWO_PI / period) * xspacing;
+  yvalues = new float[w/xspacing];
+}
+
+void draw() {
+  background(0);
+  calcWave();
+  renderWave();
+}
+
+void calcWave() {
+  // Increment theta (try different values for 'angular velocity' here
+  theta += 0.02;
+
+  // For every x value, calculate a y value with sine function
+  float x = theta;
+  for (int i = 0; i < yvalues.length; i++) {
+    yvalues[i] = sin(x)*amplitude;
+    x+=dx;
+  }
+}
+
+void renderWave() {
+  noStroke();
+  fill(255);
+  // A simple way to draw the wave with an ellipse at each location
+  for (int x = 0; x < yvalues.length; x++) {
+    ellipse(x*xspacing, height/2+yvalues[x], 16, 16);
+  }
+}
+
+</script>
+
+<h2>"Basics/Math/AdditiveWave/AdditiveWave.pde"</h2>
+<script type="text/processing" id="Basics/Math/AdditiveWave/AdditiveWave.pde" debug="transpiled">
+/**
+ * Additive Wave
+ * by Daniel Shiffman. 
+ * 
+ * Create a more complex wave by adding two waves together. 
+ */
+ 
+int xspacing = 8;   // How far apart should each horizontal location be spaced
+int w;              // Width of entire wave
+int maxwaves = 4;   // total # of waves to add together
+
+float theta = 0.0;
+float[] amplitude = new float[maxwaves];   // Height of wave
+float[] dx = new float[maxwaves];          // Value for incrementing X, to be calculated as a function of period and xspacing
+float[] yvalues;                           // Using an array to store height values for the wave (not entirely necessary)
+
+void setup() {
+  size(640, 360);
+  frameRate(30);
+  colorMode(RGB, 255, 255, 255, 100);
+  w = width + 16;
+
+  for (int i = 0; i < maxwaves; i++) {
+    amplitude[i] = random(10,30);
+    float period = random(100,300); // How many pixels before the wave repeats
+    dx[i] = (TWO_PI / period) * xspacing;
+  }
+
+  yvalues = new float[w/xspacing];
+}
+
+void draw() {
+  background(0);
+  calcWave();
+  renderWave();
+}
+
+void calcWave() {
+  // Increment theta (try different values for 'angular velocity' here
+  theta += 0.02;
+
+  // Set all height values to zero
+  for (int i = 0; i < yvalues.length; i++) {
+    yvalues[i] = 0;
+  }
+ 
+  // Accumulate wave height values
+  for (int j = 0; j < maxwaves; j++) {
+    float x = theta;
+    for (int i = 0; i < yvalues.length; i++) {
+      // Every other wave is cosine instead of sine
+      if (j % 2 == 0)  yvalues[i] += sin(x)*amplitude[j];
+      else yvalues[i] += cos(x)*amplitude[j];
+      x+=dx[j];
+    }
+  }
+}
+
+void renderWave() {
+  // A simple way to draw the wave with an ellipse at each location
+  noStroke();
+  fill(255,50);
+  ellipseMode(CENTER);
+  for (int x = 0; x < yvalues.length; x++) {
+    ellipse(x*xspacing,height/2+yvalues[x],16,16);
+  }
+}
+</script>
+
+<h2>"Basics/Math/Map/Map.pde"</h2>
+<script type="text/processing" id="Basics/Math/Map/Map.pde" debug="transpiled">
+/**
+ * Map.
+ * 
+ * Use the map() function to take any number and scale it to a new number 
+ * that is more useful for the project that you are working on. For example, use the
+ * numbers from the mouse position to control the size or color of a shape. 
+ * In this example, the mouse’s x-coordinate (numbers between 0 and 360) are scaled to
+ * new numbers to define the color and size of a circle.
+ */
+
+void setup() {
+  size(640, 360);
+  noStroke();
+}
+
+void draw() {
+  background(0);
+  // Scale the mouseX value from 0 to 640 to a range between 0 and 175
+  float c = map(mouseX, 0, width, 0, 175);
+  // Scale the mouseX value from 0 to 640 to a range between 40 and 300
+  float d = map(mouseX, 0, width, 40, 300);
+  fill(255, c, 0);
+  ellipse(width/2, height/2, d, d);   
+}
+</script>
+
+<h2>"Basics/Math/Interpolate/Interpolate.pde"</h2>
+<script type="text/processing" id="Basics/Math/Interpolate/Interpolate.pde" debug="transpiled">
+/**
+ * Linear Interpolation. 
+ * 
+ * Move the mouse across the screen and the symbol will follow.  
+ * Between drawing each frame of the animation, the ellipse moves 
+ * part of the distance (0.05) from its current position toward 
+ * the cursor using the lerp() function.
+ */
+ 
+float x;
+float y;
+
+void setup() {
+  size(640, 360); 
+  noStroke();  
+}
+
+void draw() { 
+  background(51);
+  
+  // lerp() calculates a number between two numbers at a specific increment. 
+  // The amt parameter is the amount to interpolate between the two values 
+  // where 0.0 equal to the first point, 0.1 is very near the first point, 0.5 
+  // is half-way in between, etc.  
+  
+  // Here we are moving 5% of the way to the mouse location each frame
+  x = lerp(x, mouseX, 0.05);
+  y = lerp(y, mouseY, 0.05);
+  
+  fill(255);
+  stroke(255);
+  ellipse(x, y, 66, 66);
+}
+</script>
+
+<h2>"Basics/Math/OperatorPrecedence/OperatorPrecedence.pde"</h2>
+<script type="text/processing" id="Basics/Math/OperatorPrecedence/OperatorPrecedence.pde" debug="transpiled">
+/**
+ * Operator Precedence
+ * 
+ * If you don't direction state the order in which an 
+ * expression is evaluated, it is decided by the operator 
+ * precedence. For example, in the expression 4+2*8, the 
+ * 2 will first be multiplied by 8 and then the result will 
+ * be added to 4. This is because multiplication has a higher 
+ * precedence than addition. To avoid ambiguity in reading 
+ * the program, it is recommended to write the expression as 
+ * 4+(2*8). The order of evaluation can be controlled through 
+ * adding parenthesis in the code. 
+ */
+ 
+// The highest precedence is at the top of the list and 
+// the lowest is at the bottom.
+// Multiplicative: * / %
+// Additive: + -
+// Relational: < > <= >=
+// Equality: == !=
+// Logical AND: &&
+// Logical OR: ||
+// Assignment: = += -= *= /= %=
+
+size(640, 360);
+background(51);
+noFill();
+stroke(51);
+
+stroke(204);
+for(int i=0; i< width-20; i+= 4) {
+  // The 30 is added to 70 and then evaluated
+  // if it is greater than the current value of "i"
+  // For clarity, write as "if (i > (30 + 70)) {"
+  if (i > 30 + 70) {
+    line(i, 0, i, 50);
+  }
+}
+
+stroke(255);
+// The 2 is multiplied by the 8 and the result is added to the 4
+// For clarity, write as "rect(5 + (2 * 8), 0, 90, 20);"
+rect(4 + 2 * 8, 52, 290, 48);
+rect((4 + 2) * 8, 100, 290, 49);
+  
+stroke(153);
+for (int i = 0; i < width; i+= 2) {
+  // The relational statements are evaluated 
+  // first, and then the logical AND statements and 
+  // finally the logical OR. For clarity, write as:
+  // "if(((i > 20) && (i < 50)) || ((i > 100) && (i < width-20))) {"
+  if (i > 20 && i < 50 || i > 100 && i < width-20) {
+    line(i, 151, i, height-1);
+  } 
+}
+</script>
+
+<h2>"Basics/Math/RandomGaussian/RandomGaussian.pde"</h2>
+<script type="text/processing" id="Basics/Math/RandomGaussian/RandomGaussian.pde" debug="transpiled">
+/**
+ * Random Gaussian. 
+ * 
+ * This sketch draws ellipses with x and y locations tied to a gaussian distribution of random numbers.
+ */
+
+void setup() {
+  size(640, 360);
+  background(0);
+}
+
+void draw() {
+
+  // Get a gaussian random number w/ mean of 0 and standard deviation of 1.0
+  float val = randomGaussian();
+
+  float sd = 60;                  // Define a standard deviation
+  float mean = width/2;           // Define a mean value (middle of the screen along the x-axis)
+  float x = ( val * sd ) + mean;  // Scale the gaussian random number by standard deviation and mean
+
+  noStroke();
+  fill(255, 10);
+  ellipse(x, height/2, 32, 32);   // Draw an ellipse at our "normal" random location
+}
+
+
+
+</script>
+
+<h2>"Basics/Math/Noise2D/Noise2D.pde"</h2>
+<script type="text/processing" id="Basics/Math/Noise2D/Noise2D.pde" debug="transpiled">
+/**
+ * Noise2D 
+ * by Daniel Shiffman.  
+ * 
+ * Using 2D noise to create simple texture. 
+ */
+ 
+float increment = 0.02;
+
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  
+  loadPixels();
+
+  float xoff = 0.0; // Start xoff at 0
+  float detail = map(mouseX, 0, width, 0.1, 0.6);
+  noiseDetail(8, detail);
+  
+  // For every x,y coordinate in a 2D space, calculate a noise value and produce a brightness value
+  for (int x = 0; x < width; x++) {
+    xoff += increment;   // Increment xoff 
+    float yoff = 0.0;   // For every xoff, start yoff at 0
+    for (int y = 0; y < height; y++) {
+      yoff += increment; // Increment yoff
+      
+      // Calculate noise and scale by 255
+      float bright = noise(xoff, yoff) * 255;
+
+      // Try using this line instead
+      //float bright = random(0,255);
+      
+      // Set each pixel onscreen to a grayscale value
+      pixels[x+y*width] = color(bright);
+    }
+  }
+  
+  updatePixels();
+}
+
+
+
+</script>
+
+<h2>"Basics/Math/Graphing2DEquation/Graphing2DEquation.pde"</h2>
+<script type="text/processing" id="Basics/Math/Graphing2DEquation/Graphing2DEquation.pde" debug="transpiled">
+/**
+ * Graphing 2D Equations
+ * by Daniel Shiffman. 
+ * 
+ * Graphics the following equation: 
+ * sin(n*cos(r) + 5*theta) 
+ * where n is a function of horizontal mouse location.  
+ */
+ 
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  loadPixels();
+  float n = (mouseX * 10.0) / width;
+  float w = 16.0;         // 2D space width
+  float h = 16.0;         // 2D space height
+  float dx = w / width;    // Increment x this amount per pixel
+  float dy = h / height;   // Increment y this amount per pixel
+  float x = -w/2;          // Start x at -1 * width / 2
+  for (int i = 0; i < width; i++) {
+    float y = -h/2;        // Start y at -1 * height / 2
+    for (int j = 0; j < height; j++) {
+      float r = sqrt((x*x) + (y*y));    // Convert cartesian to polar
+      float theta = atan2(y,x);         // Convert cartesian to polar
+      // Compute 2D polar coordinate function
+      float val = sin(n*cos(r) + 5 * theta);           // Results in a value between -1 and 1
+      //float val = cos(r);                            // Another simple function
+      //float val = sin(theta);                        // Another simple function
+      // Map resulting vale to grayscale value
+      pixels[i+j*width] = color((val + 1.0) * 255.0/2.0);     // Scale to between 0 and 255
+      y += dy;                // Increment y
+    }
+    x += dx;                  // Increment x
+  }
+  updatePixels();
+}
+
+</script>
+
+<h2>"Basics/Math/SineCosine/SineCosine.pde"</h2>
+<script type="text/processing" id="Basics/Math/SineCosine/SineCosine.pde" debug="transpiled">
+/**
+ * Sine Cosine. 
+ * 
+ * Linear movement with sin() and cos(). 
+ * Numbers between 0 and PI*2 (TWO_PI which angles roughly 6.28) 
+ * are put into these functions and numbers between -1 and 1 are 
+ * returned. These values are then scaled to produce larger movements. 
+ */
+ 
+float x1, x2, y1, y2;
+float angle1, angle2;
+float scalar = 70;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  rectMode(CENTER);
+}
+
+void draw() {
+  background(0);
+
+  float ang1 = radians(angle1);
+  float ang2 = radians(angle2);
+
+  x1 = width/2 + (scalar * cos(ang1));
+  x2 = width/2 + (scalar * cos(ang2));
+  
+  y1 = height/2 + (scalar * sin(ang1));
+  y2 = height/2 + (scalar * sin(ang2));
+  
+  fill(255);
+  rect(width*0.5, height*0.5, 140, 140);
+
+  fill(0, 102, 153);
+  ellipse(x1, height*0.5 - 120, scalar, scalar);
+  ellipse(x2, height*0.5 + 120, scalar, scalar);
+  
+  fill(255, 204, 0);
+  ellipse(width*0.5 - 120, y1, scalar, scalar);
+  ellipse(width*0.5 + 120, y2, scalar, scalar);
+
+  angle1 += 2;
+  angle2 += 3;
+  
+}
+
+</script>
+
+<h2>"Basics/Math/Random/Random.pde"</h2>
+<script type="text/processing" id="Basics/Math/Random/Random.pde" debug="transpiled">
+/**
+ * Random. 
+ * 
+ * Random numbers create the basis of this image. 
+ * Each time the program is loaded the result is different. 
+ */
+
+void setup() {
+  size(640, 360);
+  background(0);
+  strokeWeight(20);
+  frameRate(2);
+}
+
+void draw() {
+  for (int i = 0; i < width; i++) {
+    float r = random(255);
+    stroke(r);
+    line(i, 0, i, height);
+  }
+}
+
+</script>
+
+<h2>"Basics/Math/Noise1D/Noise1D.pde"</h2>
+<script type="text/processing" id="Basics/Math/Noise1D/Noise1D.pde" debug="transpiled">
+/**
+ * Noise1D. 
+ * 
+ * Using 1D Perlin Noise to assign location. 
+ */
+ 
+float xoff = 0.0;
+float xincrement = 0.01; 
+
+void setup() {
+  size(640, 360);
+  background(0);
+  noStroke();
+}
+
+void draw() {
+  // Create an alpha blended background
+  fill(0, 10);
+  rect(0,0,width,height);
+  
+  //float n = random(0,width);  // Try this line instead of noise
+  
+  // Get a noise value based on xoff and scale it according to the window's width
+  float n = noise(xoff)*width;
+  
+  // With each cycle, increment xoff
+  xoff += xincrement;
+  
+  // Draw the ellipse at the value produced by perlin noise
+  fill(200);
+  ellipse(n,height/2, 64, 64);
+}</script>
+
+<h2>"Basics/Math/Distance1D/Distance1D.pde"</h2>
+<script type="text/processing" id="Basics/Math/Distance1D/Distance1D.pde" debug="transpiled">
+/**
+ * Distance 1D. 
+ * 
+ * Move the mouse left and right to control the 
+ * speed and direction of the moving shapes. 
+ */
+ 
+float xpos1;
+float xpos2;
+float xpos3;
+float xpos4;
+int thin = 8;
+int thick = 36;
+
+void setup() 
+{
+  size(640, 360);
+  noStroke();
+  xpos1 = width/2;
+  xpos2 = width/2;
+  xpos3 = width/2;
+  xpos4 = width/2;
+}
+
+void draw() 
+{
+  background(0);
+  
+  float mx = mouseX * 0.4 - width/5.0;
+  
+  fill(102);
+  rect(xpos2, 0, thick, height/2);
+  fill(204);
+  rect(xpos1, 0, thin, height/2);
+  fill(102);
+  rect(xpos4, height/2, thick, height/2);
+  fill(204);
+  rect(xpos3, height/2, thin, height/2);
+	
+  xpos1 += mx/16;
+  xpos2 += mx/64;
+  xpos3 -= mx/16;
+  xpos4 -= mx/64;
+  
+  if(xpos1 < -thin)  { xpos1 =  width; }
+  if(xpos1 >  width) { xpos1 = -thin; }
+  if(xpos2 < -thick) { xpos2 =  width; }
+  if(xpos2 >  width) { xpos2 = -thick; }
+  if(xpos3 < -thin)  { xpos3 =  width; }
+  if(xpos3 >  width) { xpos3 = -thin; }
+  if(xpos4 < -thick) { xpos4 =  width; }
+  if(xpos4 >  width) { xpos4 = -thick; }
+}
+
+</script>
+
+<h2>"Basics/Math/PolarToCartesian/PolarToCartesian.pde"</h2>
+<script type="text/processing" id="Basics/Math/PolarToCartesian/PolarToCartesian.pde" debug="transpiled">
+/**
+ * Polar to Cartesian
+ * by Daniel Shiffman.  
+ * 
+ * Convert a polar coordinate (r,theta) to cartesian (x,y).
+ * The calculations are x=r*cos(theta) and y=r*sin(theta).  
+ */
+ 
+float r;
+
+// Angle and angular velocity, accleration
+float theta;
+float theta_vel;
+float theta_acc;
+
+void setup() {
+  size(640, 360);
+  
+  // Initialize all values
+  r = height * 0.45;
+  theta = 0;
+  theta_vel = 0;
+  theta_acc = 0.0001;
+}
+
+void draw() {
+  
+  background(0);
+  
+  // Translate the origin point to the center of the screen
+  translate(width/2, height/2);
+  
+  // Convert polar to cartesian
+  float x = r * cos(theta);
+  float y = r * sin(theta);
+  
+  // Draw the ellipse at the cartesian coordinate
+  ellipseMode(CENTER);
+  noStroke();
+  fill(200);
+  ellipse(x, y, 32, 32);
+  
+  // Apply acceleration and velocity to angle 
+  theta_vel += theta_acc;
+  theta += theta_vel;
+
+}
+</script>
+
+<h2>"Basics/Math/Distance2D/Distance2D.pde"</h2>
+<script type="text/processing" id="Basics/Math/Distance2D/Distance2D.pde" debug="transpiled">
+/**
+ * Distance 2D. 
+ * 
+ * Move the mouse across the image to obscure and reveal the matrix.  
+ * Measures the distance from the mouse to each square and sets the
+ * size proportionally. 
+ */
+ 
+float max_distance;
+
+void setup() {
+  size(640, 360); 
+  noStroke();
+  max_distance = dist(0, 0, width, height);
+}
+
+void draw() {
+  background(0);
+
+  for(int i = 0; i <= width; i += 20) {
+    for(int j = 0; j <= height; j += 20) {
+      float size = dist(mouseX, mouseY, i, j);
+      size = size/max_distance * 66;
+      ellipse(i, j, size, size);
+    }
+  }
+}</script>
+
+<h2>"Basics/Image/CreateImage/CreateImage.pde"</h2>
+<script type="text/processing" id="Basics/Image/CreateImage/CreateImage.pde" debug="transpiled">
+/**
+ * Create Image. 
+ * 
+ * The createImage() function provides a fresh buffer of pixels to play with.
+ * This example creates an image gradient.
+ */
+
+PImage img;
+
+void setup() {
+  size(640, 360);
+  img = createImage(230, 230, ARGB);
+  for(int i = 0; i < img.pixels.length; i++) {
+    float a = map(i, 0, img.pixels.length, 255, 0);
+    img.pixels[i] = color(0, 153, 204, a);
+  }
+}
+
+void draw() {
+  background(0);
+  image(img, 90, 80);
+  image(img, mouseX-img.width/2, mouseY-img.height/2);
+}
+</script>
+
+<h2>"Basics/Image/Transparency/Transparency.pde"</h2>
+<script type="text/processing" id="Basics/Image/Transparency/Transparency.pde" debug="transpiled">
+/**
+ * Transparency. 
+ * 
+ * Move the pointer left and right across the image to change
+ * its position. This program overlays one image over another 
+ * by modifying the alpha value of the image with the tint() function. 
+ */
+
+PImage img;
+float offset = 0;
+float easing = 0.05;
+
+void setup() {
+  size(640, 360);
+  img = loadImage("moonwalk.jpg");  // Load an image into the program
+}
+
+void draw() {
+  image(img, 0, 0);  // Display at full opacity
+  float dx = (mouseX-img.width/2) - offset;
+  offset += dx * easing;
+  tint(255, 127);  // Display at half opacity
+  image(img, offset, 0);
+}
+</script>
+
+<h2>"Basics/Image/LoadDisplayImage/LoadDisplayImage.pde"</h2>
+<script type="text/processing" id="Basics/Image/LoadDisplayImage/LoadDisplayImage.pde" debug="transpiled">
+/**
+ * Load and Display 
+ * 
+ * Images can be loaded and displayed to the screen at their actual size
+ * or any other size. 
+ */
+
+PImage img;  // Declare variable "a" of type PImage
+
+void setup() {
+  size(640, 360);
+  // The image file must be in the data folder of the current sketch 
+  // to load successfully
+  img = loadImage("moonwalk.jpg");  // Load the image into the program  
+}
+
+void draw() {
+  // Displays the image at its actual size at point (0,0)
+  image(img, 0, 0);
+  // Displays the image at point (0, height/2) at half of its size
+  image(img, 0, height/2, img.width/2, img.height/2);
+}
+</script>
+
+<h2>"Basics/Image/Alphamask/Alphamask.pde"</h2>
+<script type="text/processing" id="Basics/Image/Alphamask/Alphamask.pde" debug="transpiled">
+/**
+ * Alpha Mask. 
+ * 
+ * Loads a "mask" for an image to specify the transparency 
+ * in different parts of the image. The two images are blended
+ * together using the mask() method of PImage. 
+ */
+
+PImage img;
+PImage imgMask;
+
+void setup() {
+  size(640, 360);
+  img = loadImage("moonwalk.jpg");
+  imgMask = loadImage("mask.jpg");
+  img.mask(imgMask);
+  imageMode(CENTER);
+}
+
+void draw() {
+  background(0, 102, 153);
+  image(img, width/2, height/2);
+  image(img, mouseX, mouseY);
+}
+</script>
+
+<h2>"Basics/Image/RequestImage/RequestImage.pde"</h2>
+<script type="text/processing" id="Basics/Image/RequestImage/RequestImage.pde" debug="transpiled">
+/**
+ * Request Image
+ * by Ira Greenberg 
+ * 
+ * Shows how to use the requestImage() function with preloader animation. 
+ * The requestImage() function loads images on a separate thread so that 
+ * the sketch does not freeze while they load. It's useful when you are 
+ * loading large images. These images are small for a quick download, but 
+ * try it with your own huge images to get the full effect. 
+ */
+
+int imgCount = 12;
+PImage[] imgs = new PImage[imgCount];
+float imgW;
+
+// Keeps track of loaded images (true or false)
+boolean[] loadStates = new boolean[imgCount];
+
+// For loading animation
+float loaderX, loaderY, theta;
+
+void setup() {
+  size(640, 360);
+  imgW = width/imgCount;
+
+  // Load images asynchronously
+  for (int i = 0; i < imgCount; i++){
+    imgs[i] = requestImage("PT_anim"+nf(i, 4)+".gif");
+  }
+}
+
+void draw(){
+  background(0);
+
+  // Start loading animation
+  runLoaderAni();
+
+  for (int i = 0; i < imgs.length; i++){
+    // Check if individual images are fully loaded
+    if ((imgs[i].width != 0) && (imgs[i].width != -1)){
+      // As images are loaded set true in boolean array
+      loadStates[i] = true;
+    }
+  }
+  // When all images are loaded draw them to the screen
+  if (checkLoadStates()){
+    drawImages();
+  }
+}
+
+void drawImages() {
+  int y = (height - imgs[0].height) / 2;
+  for (int i = 0; i < imgs.length; i++){
+    image(imgs[i], width/imgs.length*i, y, imgs[i].height, imgs[i].height);
+  }
+}
+
+// Loading animation
+void runLoaderAni(){
+  // Only run when images are loading
+  if (!checkLoadStates()){
+    ellipse(loaderX, loaderY, 10, 10);
+    loaderX += 2;
+    loaderY = height/2 + sin(theta) * (height/8);
+    theta += PI/22;
+    // Reposition ellipse if it goes off the screen
+    if (loaderX > width + 5){
+      loaderX = -5;
+    }
+  }
+}
+
+// Return true when all images are loaded - no false values left in array
+boolean checkLoadStates(){
+  for (int i = 0; i < imgs.length; i++){
+    if (loadStates[i] == false){
+      return false;
+    }
+  }
+  return true;
+}
+</script>
+
+<h2>"Basics/Image/BackgroundImage/BackgroundImage.pde"</h2>
+<script type="text/processing" id="Basics/Image/BackgroundImage/BackgroundImage.pde" debug="transpiled">
+/**
+ * Background Image. 
+ * 
+ * This example presents the fastest way to load a background image
+ * into Processing. To load an image as the background, it must be
+ * the same width and height as the program.
+ */
+
+PImage bg;
+int y;
+
+void setup() {
+  size(640, 360);
+  // The background image must be the same size as the parameters
+  // into the size() method. In this program, the size of the image
+  // is 640 x 360 pixels.
+  bg = loadImage("moonwalk.jpg");
+}
+
+void draw() {
+  background(bg);
+
+  stroke(226, 204, 0);
+  line(0, y, width, y);
+
+  y++;
+  if (y > height) {
+    y = 0;
+  }
+}
+</script>
+
+<h2>"Basics/Image/Pointillism/Pointillism.pde"</h2>
+<script type="text/processing" id="Basics/Image/Pointillism/Pointillism.pde" debug="transpiled">
+/**
+ * Pointillism
+ * by Daniel Shiffman. 
+ * 
+ * Mouse horizontal location controls size of dots. 
+ * Creates a simple pointillist effect using ellipses colored
+ * according to pixels in an image. 
+ */
+
+PImage img;
+int smallPoint, largePoint;
+
+void setup() {
+  size(640, 360);
+  img = loadImage("moonwalk.jpg");
+  smallPoint = 4;
+  largePoint = 40;
+  imageMode(CENTER);
+  noStroke();
+  background(255);
+}
+
+void draw() {
+  float pointillize = map(mouseX, 0, width, smallPoint, largePoint);
+  int x = int(random(img.width));
+  int y = int(random(img.height));
+  color pix = img.get(x, y);
+  fill(pix, 128);
+  ellipse(x, y, pointillize, pointillize);
+}
+</script>
+
+<h2>"Basics/Arrays/ArrayObjects/Module.pde"</h2>
+<script type="text/processing" id="Basics/Arrays/ArrayObjects/Module.pde" debug="transpiled">
+class Module {
+  int xOffset;
+  int yOffset;
+  float x, y;
+  int unit;
+  int xDirection = 1;
+  int yDirection = 1;
+  float speed; 
+  
+  // Contructor
+  Module(int xOffsetTemp, int yOffsetTemp, int xTemp, int yTemp, float speedTemp, int tempUnit) {
+    xOffset = xOffsetTemp;
+    yOffset = yOffsetTemp;
+    x = xTemp;
+    y = yTemp;
+    speed = speedTemp;
+    unit = tempUnit;
+  }
+  
+  // Custom method for updating the variables
+  void update() {
+    x = x + (speed * xDirection);
+    if (x >= unit || x <= 0) {
+      xDirection *= -1;
+      x = x + (1 * xDirection);
+      y = y + (1 * yDirection);
+    }
+    if (y >= unit || y <= 0) {
+      yDirection *= -1;
+      y = y + (1 * yDirection);
+    }
+  }
+  
+  // Custom method for drawing the object
+  void display() {
+    fill(255);
+    ellipse(xOffset + x, yOffset + y, 6, 6);
+  }
+}</script>
+
+<h2>"Basics/Arrays/ArrayObjects/ArrayObjects.pde"</h2>
+<script type="text/processing" id="Basics/Arrays/ArrayObjects/ArrayObjects.pde" debug="transpiled">
+/**
+ * Array Objects. 
+ * 
+ * Demonstrates the syntax for creating an array of custom objects. 
+ */
+
+int unit = 40;
+int count;
+Module[] mods;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  int wideCount = width / unit;
+  int highCount = height / unit;
+  count = wideCount * highCount;
+  mods = new Module[count];
+
+  int index = 0;
+  for (int y = 0; y < highCount; y++) {
+    for (int x = 0; x < wideCount; x++) {
+      mods[index++] = new Module(x*unit, y*unit, unit/2, unit/2, random(0.05, 0.8), unit);
+    }
+  }
+}
+
+void draw() {
+  background(0);
+  for (Module mod : mods) {
+    mod.update();
+    mod.display();
+  }
+}</script>
+
+<h2>"Basics/Arrays/Array/Array.pde"</h2>
+<script type="text/processing" id="Basics/Arrays/Array/Array.pde" debug="transpiled">
+/**
+ * Array. 
+ * 
+ * An array is a list of data. Each piece of data in an array 
+ * is identified by an index number representing its position in 
+ * the array. Arrays are zero based, which means that the first 
+ * element in the array is [0], the second element is [1], and so on. 
+ * In this example, an array named "coswave" is created and
+ * filled with the cosine values. This data is displayed three 
+ * separate ways on the screen.  
+ */
+
+
+float[] coswave; 
+
+void setup() {
+  size(640, 360);
+  coswave = new float[width];
+  for (int i = 0; i < width; i++) {
+    float amount = map(i, 0, width, 0, PI);
+    coswave[i] = abs(cos(amount));
+  }
+  background(255);
+  noLoop();
+}
+
+void draw() {
+
+  int y1 = 0;
+  int y2 = height/3;
+  for (int i = 0; i < width; i++) {
+    stroke(coswave[i]*255);
+    line(i, y1, i, y2);
+  }
+
+  y1 = y2;
+  y2 = y1 + y1;
+  for (int i = 0; i < width; i++) {
+    stroke(coswave[i]*255 / 4);
+    line(i, y1, i, y2);
+  }
+  
+  y1 = y2;
+  y2 = height;
+  for (int i = 0; i < width; i++) {
+    stroke(255 - coswave[i]*255);
+    line(i, y1, i, y2);
+  }
+  
+}
+</script>
+
+<h2>"Basics/Arrays/Array2D/Array2D.pde"</h2>
+<script type="text/processing" id="Basics/Arrays/Array2D/Array2D.pde" debug="transpiled">
+/**
+ * Array 2D. 
+ * 
+ * Demonstrates the syntax for creating a two-dimensional (2D) array.
+ * Values in a 2D array are accessed through two index values.  
+ * 2D arrays are useful for storing images. In this example, each dot 
+ * is colored in relation to its distance from the center of the image. 
+ */
+
+float[][] distances;
+float maxDistance;
+int spacer;
+
+void setup() {
+  size(640, 360);
+  maxDistance = dist(width/2, height/2, width, height);
+  distances = new float[width][height];
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width; x++) {
+      float distance = dist(width/2, height/2, x, y);
+      distances[x][y] = distance/maxDistance * 255;
+    }
+  }
+  spacer = 10;
+  strokeWeight(6);
+  noLoop();  // Run once and stop
+}
+
+void draw() {
+  background(0);
+  // This embedded loop skips over values in the arrays based on
+  // the spacer variable, so there are more values in the array
+  // than are drawn here. Change the value of the spacer variable
+  // to change the density of the points
+  for (int y = 0; y < height; y += spacer) {
+    for (int x = 0; x < width; x += spacer) {
+      stroke(distances[x][y]);
+      point(x + spacer/2, y + spacer/2);
+    }
+  }
+}</script>
+
+<h2>"Basics/Typography/Words/Words.pde"</h2>
+<script type="text/processing" id="Basics/Typography/Words/Words.pde" debug="transpiled">
+/**
+ * Words. 
+ * 
+ * The text() function is used for writing words to the screen.
+ * The letters can be aligned left, center, or right with the 
+ * textAlign() function. 
+ */
+  
+PFont f;
+  
+void setup() {
+  size(640, 360);
+  
+  // Create the font
+  printArray(PFont.list());
+  f = createFont("SpaceMono-Regular.ttf", 18);
+  textFont(f);
+}
+
+void draw() {
+  background(102);
+  textAlign(RIGHT);
+  drawType(width * 0.25);
+  textAlign(CENTER);
+  drawType(width * 0.5);
+  textAlign(LEFT);
+  drawType(width * 0.75);
+}
+
+void drawType(float x) {
+  line(x, 0, x, 65);
+  line(x, 220, x, height);
+  fill(0);
+  text("ichi", x, 95);
+  fill(51);
+  text("ni", x, 130);
+  fill(204);
+  text("san", x, 165);
+  fill(255);
+  text("shi", x, 210);
+}
+</script>
+
+<h2>"Basics/Typography/TextRotation/TextRotation.pde"</h2>
+<script type="text/processing" id="Basics/Typography/TextRotation/TextRotation.pde" debug="transpiled">
+/**
+ * Text Rotation. 
+ * 
+ * Draws letters to the screen and rotates them at different angles.
+ */
+
+PFont f;
+float angleRotate = 0.0;
+
+void setup() {
+  size(640, 360);
+  background(0);
+
+  // Create the font from the .ttf file in the data folder
+  f = createFont("SourceCodePro-Regular.ttf", 18);
+  textFont(f);
+} 
+
+void draw() {
+  background(0);
+
+  strokeWeight(1);
+  stroke(153);
+
+  pushMatrix();
+  float angle1 = radians(45);
+  translate(100, 180);
+  rotate(angle1);
+  text("45 DEGREES", 0, 0);
+  line(0, 0, 150, 0);
+  popMatrix();
+
+  pushMatrix();
+  float angle2 = radians(270);
+  translate(200, 180);
+  rotate(angle2);
+  text("270 DEGREES", 0, 0);
+  line(0, 0, 150, 0);
+  popMatrix();
+  
+  pushMatrix();
+  translate(440, 180);
+  rotate(radians(angleRotate));
+  text(int(angleRotate) % 360 + " DEGREES", 0, 0);
+  line(0, 0, 150, 0);
+  popMatrix();
+  
+  angleRotate += 0.25;
+
+  stroke(255, 0, 0);
+  strokeWeight(4);
+  point(100, 180);
+  point(200, 180);
+  point(440, 180);
+}
+</script>
+
+<h2>"Basics/Typography/Letters/Letters.pde"</h2>
+<script type="text/processing" id="Basics/Typography/Letters/Letters.pde" debug="transpiled">
+/**
+ * Letters. 
+ * 
+ * Draws letters to the screen. This requires loading a font, 
+ * setting the font, and then drawing the letters.
+ */
+
+PFont f;
+
+void setup() {
+  size(640, 360);
+  background(0);
+
+  // Create the font
+  printArray(PFont.list());
+  f = createFont("SourceCodePro-Regular.ttf", 24);
+  textFont(f);
+  textAlign(CENTER, CENTER);
+} 
+
+void draw() {
+  background(0);
+
+  // Set the left and top margin
+  int margin = 10;
+  translate(margin*4, margin*4);
+
+  int gap = 46;
+  int counter = 35;
+  
+  for (int y = 0; y < height-gap; y += gap) {
+    for (int x = 0; x < width-gap; x += gap) {
+
+      char letter = char(counter);
+      
+      if (letter == 'A' || letter == 'E' || letter == 'I' || letter == 'O' || letter == 'U') {
+        fill(255, 204, 0);
+      } 
+      else {
+        fill(255);
+      }
+
+      // Draw the letter to the screen
+      text(letter, x, y);
+
+      // Increment the counter
+      counter++;
+    }
+  }
+}</script>
+
+<h2>"Basics/Data/IntegersFloats/IntegersFloats.pde"</h2>
+<script type="text/processing" id="Basics/Data/IntegersFloats/IntegersFloats.pde" debug="transpiled">
+/**
+ * Integers Floats. 
+ * 
+ * Integers and floats are two different kinds of numerical data. 
+ * An integer (more commonly called an int) is a number without 
+ * a decimal point. A float is a floating-point number, which means 
+ * it is a number that has a decimal place. Floats are used when
+ * more precision is needed. 
+ */
+ 
+int a = 0;      // Create a variable "a" of the datatype "int"
+float b = 0.0;  // Create a variable "b" of the datatype "float"
+
+void setup() {
+  size(640, 360);
+  stroke(255);
+}
+
+void draw() {
+  background(0);
+  
+  a = a + 1;
+  b = b + 0.2; 
+  line(a, 0, a, height/2);
+  line(b, height/2, b, height);
+  
+  if(a > width) {
+    a = 0;
+  }
+  if(b > width) {
+    b = 0;
+  }
+}</script>
+
+<h2>"Basics/Data/CharactersStrings/CharactersStrings.pde"</h2>
+<script type="text/processing" id="Basics/Data/CharactersStrings/CharactersStrings.pde" debug="transpiled">
+/**
+ * Characters Strings. 
+ *  
+ * The character datatype, abbreviated as char, stores letters and 
+ * symbols in the Unicode format, a coding system developed to support 
+ * a variety of world languages. Characters are distinguished from other
+ * symbols by putting them between single quotes ('P').<br />
+ * <br />
+ * A string is a sequence of characters. A string is noted by surrounding 
+ * a group of letters with double quotes ("Processing"). 
+ * Chars and strings are most often used with the keyboard methods, 
+ * to display text to the screen, and to load images or files.<br />
+ * <br />
+ * The String datatype must be capitalized because it is a complex datatype.
+ * A String is actually a class with its own methods, some of which are
+ * featured below. 
+ */
+
+char letter;
+String words = "Begin...";
+
+void setup() {
+  size(640, 360);
+  // Create the font
+  textFont(createFont("SourceCodePro-Regular.ttf", 36));
+}
+
+void draw() {
+  background(0); // Set background to black
+
+  // Draw the letter to the center of the screen
+  textSize(14);
+  text("Click on the program, then type to add to the String", 50, 50);
+  text("Current key: " + letter, 50, 70);
+  text("The String is " + words.length() +  " characters long", 50, 90);
+  
+  textSize(36);
+  text(words, 50, 120, 540, 300);
+}
+
+void keyTyped() {
+  // The variable "key" always contains the value 
+  // of the most recent key pressed.
+  if ((key >= 'A' && key <= 'z') || key == ' ') {
+    letter = key;
+    words = words + key;
+    // Write the letter to the console
+    println(key);
+  }
+}</script>
+
+<h2>"Basics/Data/TrueFalse/TrueFalse.pde"</h2>
+<script type="text/processing" id="Basics/Data/TrueFalse/TrueFalse.pde" debug="transpiled">
+/**
+ * True/False. 
+ * 
+ * A Boolean variable has only two possible values: true or false. 
+ * It is common to use Booleans with control statements to 
+ * determine the flow of a program. In this example, when the
+ * boolean value "x" is true, vertical black lines are drawn and when
+ * the boolean value "x" is false, horizontal gray lines are drawn. 
+ */
+ 
+boolean b = false;
+
+size(640, 360);
+background(0);
+stroke(255);
+
+int d = 20;
+int middle = width/2;
+
+for (int i = d; i <= width; i += d) {
+  
+  if (i < middle) {
+    b = true;
+  } else {
+    b = false;
+  }
+  
+  if (b == true) {
+    // Vertical line
+    line(i, d, i, height-d);
+  }
+  
+  if (b == false) {
+    // Horizontal line
+    line(middle, i - middle + d, width-d, i - middle + d);
+  }
+}</script>
+
+<h2>"Basics/Data/Variables/Variables.pde"</h2>
+<script type="text/processing" id="Basics/Data/Variables/Variables.pde" debug="transpiled">
+/**
+ * Variables. 
+ * 
+ * Variables are used for storing values. In this example, change 
+ * the values of variables to affect the composition. 
+ */
+ 
+size(640, 360);
+background(0);
+stroke(153);
+strokeWeight(4);
+strokeCap(SQUARE);
+
+int a = 50;
+int b = 120;
+int c = 180;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+
+a = a + c;
+b = height-b;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+
+a = a + c;
+b = height-b;
+
+line(a, b, a+c, b);
+line(a, b+10, a+c, b+10);
+line(a, b+20, a+c, b+20);
+line(a, b+30, a+c, b+30);
+
+
+
+</script>
+
+<h2>"Basics/Data/VariableScope/VariableScope.pde"</h2>
+<script type="text/processing" id="Basics/Data/VariableScope/VariableScope.pde" debug="transpiled">
+/**
+ * Variable Scope. 
+ * 
+ * Variables have a global or local "scope". 
+ * For example, variables declared within either the
+ * setup() or draw() functions may be only used in these
+ * functions. Global variables, variables declared outside
+ * of setup() and draw(), may be used anywhere within the program.
+ * If a local variable is declared with the same name as a
+ * global variable, the program will use the local variable to make 
+ * its calculations within the current scope. Variables are localized
+ * within each block, the space between a { and }. 
+ */
+ 
+int a = 80;  // Create a global variable "a"
+
+void setup() {
+  size(640, 360);
+  background(0);
+  stroke(255);
+  noLoop();
+}
+
+void draw() {
+  // Draw a line using the global variable "a"
+  line(a, 0, a, height);
+  
+  // Create a new variable "a" local to the for() statement 
+  for (int a = 120; a < 200; a += 2) {
+    line(a, 0, a, height);
+  }
+  
+  // Create a new variable "a" local to the draw() function
+  int a = 300;
+  // Draw a line using the new local variable "a"
+  line(a, 0, a, height);  
+  
+  // Make a call to the custom function drawAnotherLine()
+  drawAnotherLine();
+  
+  // Make a call to the custom function setYetAnotherLine()
+  drawYetAnotherLine();
+}
+
+void drawAnotherLine() {
+  // Create a new variable "a" local to this method
+  int a = 320;
+  // Draw a line using the local variable "a"
+  line(a, 0, a, height);
+}
+
+void drawYetAnotherLine() {
+  // Because no new local variable "a" is set, 
+  // this line draws using the original global
+  // variable "a", which is set to the value 80.
+  line(a+2, 0, a+2, height);
+}
+</script>
+
+<h2>"Basics/Data/DatatypeConversion/DatatypeConversion.pde"</h2>
+<script type="text/processing" id="Basics/Data/DatatypeConversion/DatatypeConversion.pde" debug="transpiled">
+/**
+ * Datatype Conversion. 
+ * 
+ * It is sometimes beneficial to convert a value from one type of 
+ * data to another. Each of the conversion functions converts its parameter 
+ * to an equivalent representation within its datatype. 
+ * The conversion functions include int(), float(), char(), byte(), and others. 
+ */
+
+size(640, 360);
+background(0);
+noStroke();
+
+textFont(createFont("SourceCodePro-Regular.ttf",24));
+
+char c;    // Chars are used for storing alphanumeric symbols
+float f;   // Floats are decimal numbers
+int i;     // Integers are values between 2,147,483,647 and -2147483648
+byte b;    // Bytes are values between -128 and 127
+
+c = 'A';
+f = float(c);      // Sets f = 65.0
+i = int(f * 1.4);  // Sets i to 91
+b = byte(c / 2);   // Sets b to 32
+
+//println(f);
+//println(i);
+//println(b);
+
+text("The value of variable c is " + c, 50, 100);
+text("The value of variable f is " + f, 50, 150);
+text("The value of variable i is " + i, 50, 200);
+text("The value of variable b is " + b, 50, 250);</script>
+
+<h2>"Basics/Structure/StatementsComments/StatementsComments.pde"</h2>
+<script type="text/processing" id="Basics/Structure/StatementsComments/StatementsComments.pde" debug="transpiled">
+/**
+ * Statements and Comments. 
+ * 
+ * Statements are the elements that make up programs. 
+ * The ";" (semi-colon) symbol is used to end statements.  
+ * It is called the "statement terminator." 
+ * Comments are used for making notes to help people better understand programs. 
+ * A comment begins with two forward slashes ("//"). 
+ */
+
+// The size function is a statement that tells the computer 
+// how large to make the window.
+// Each function statement has zero or more parameters. 
+// Parameters are data passed into the function
+// and are used as values for telling the computer what to do.
+size(640, 360);
+
+// The background function is a statement that tells the computer
+// which color (or gray value) to make the background of the display window 
+background(204, 153, 0);
+</script>
+
+<h2>"Basics/Structure/SetupDraw/SetupDraw.pde"</h2>
+<script type="text/processing" id="Basics/Structure/SetupDraw/SetupDraw.pde" debug="transpiled">
+/**
+ * Setup and Draw. 
+ * 
+ * The code inside the draw() function runs continuously
+ * from top to bottom until the program is stopped. The
+ * code in setup() is run once when the program starts.
+ */
+
+int y = 180;
+
+// The statements in the setup() block run once 
+// when the program begins
+void setup() {
+  size(640, 360);  // Size must be the first statement
+  stroke(255);  // Set line drawing color to white
+}
+
+// The statements in draw() are run until the program 
+// is stopped. Each statement is run in sequence from top 
+// to bottom and after the last line is read, the 
+// first line is run again.
+void draw() { 
+  background(0);  // Clear the screen with a black background
+  line(0, y, width, y); 
+  y = y - 1; 
+  if (y < 0) { 
+    y = height;
+  }
+} 
+</script>
+
+<h2>"Basics/Structure/CreateGraphics/CreateGraphics.pde"</h2>
+<script type="text/processing" id="Basics/Structure/CreateGraphics/CreateGraphics.pde" debug="transpiled">
+/**
+ * Create Graphics. 
+ * 
+ * The createGraphics() function creates an object from 
+ * the PGraphics class. PGraphics is the main graphics and 
+ * rendering context for Processing. The beginDraw() method 
+ * is necessary to prepare for drawing and endDraw() is
+ * necessary to finish. Use this class if you need to draw 
+ * into an off-screen graphics buffer or to maintain two 
+ * drawing surfaces with different properties.
+ */
+
+PGraphics pg;
+
+void setup() {
+  size(640, 360);
+  pg = createGraphics(400, 200);
+}
+
+void draw() {
+  fill(0, 12);
+  rect(0, 0, width, height);
+  fill(255);
+  noStroke();
+  ellipse(mouseX, mouseY, 60, 60);
+  
+  pg.beginDraw();
+  pg.background(51);
+  pg.noFill();
+  pg.stroke(255);
+  pg.ellipse(mouseX-120, mouseY-60, 60, 60);
+  pg.endDraw();
+  
+  // Draw the offscreen buffer to the screen with image() 
+  image(pg, 120, 60); 
+}
+</script>
+
+<h2>"Basics/Structure/WidthHeight/WidthHeight.pde"</h2>
+<script type="text/processing" id="Basics/Structure/WidthHeight/WidthHeight.pde" debug="transpiled">
+/**
+ * Width and Height. 
+ * 
+ * The 'width' and 'height' variables contain the width and height 
+ * of the display window as defined in the size() function. 
+ */
+
+void setup() {
+  size(640, 360);
+}
+
+void draw() {
+  background(127);
+  noStroke();
+  for (int i = 0; i < height; i += 20) {
+    fill(129, 206, 15);
+    rect(0, i, width, 10);
+    fill(255);
+    rect(i, 0, 10, height);
+  }
+}
+
+</script>
+
+<h2>"Basics/Structure/Coordinates/Coordinates.pde"</h2>
+<script type="text/processing" id="Basics/Structure/Coordinates/Coordinates.pde" debug="transpiled">
+/**
+ * Coordinates. 
+ * 
+ * All shapes drawn to the screen have a position that is 
+ * specified as a coordinate. All coordinates are measured 
+ * as the distance from the origin in units of pixels.
+ * The origin (0, 0) is the coordinate is in the upper left 
+ * of the window and the coordinate in the lower right is 
+ * (width-1, height-1).  
+ */
+
+// Sets the screen to be 640 pixels wide and 360 pixels high
+size(640, 360);
+
+// Set the background to black and turn off the fill color
+background(0);
+noFill();
+
+// The two parameters of the point() function define its location.
+// The first parameter is the x-coordinate and the second is the y-coordinate 
+stroke(255);
+point(320, 180);
+point(320, 90); 
+
+// Coordinates are used for drawing all shapes, not just points.
+// Parameters for different functions are used for different purposes.
+// For example, the first two parameters to line() specify 
+// the coordinates of the first endpoint and the second two parameters 
+// specify the second endpoint
+stroke(0, 153, 255);
+line(0, 120, 640, 120);
+
+// The first two parameters to rect() are the coordinates of the 
+// upper-left corner and the second pair is the width and height 
+// of the rectangle
+stroke(255, 153, 0);
+rect(160, 36, 320, 288);
+</script>
+
+<h2>"Basics/Structure/Recursion/Recursion.pde"</h2>
+<script type="text/processing" id="Basics/Structure/Recursion/Recursion.pde" debug="transpiled">
+/**
+ * Recursion. 
+ * 
+ * A demonstration of recursion, which means functions call themselves. 
+ * Notice how the drawCircle() function calls itself at the end of its block. 
+ * It continues to do this until the variable "level" is equal to 1. 
+ */
+ 
+void setup() {
+  size(640, 360);
+  noStroke();
+  noLoop();
+}
+
+void draw() {
+  drawCircle(width/2, 280, 6);
+}
+
+void drawCircle(int x, int radius, int level) {                    
+  float tt = 126 * level/4.0;
+  fill(tt);
+  ellipse(x, height/2, radius*2, radius*2);      
+  if(level > 1) {
+    level = level - 1;
+    drawCircle(x - radius/2, radius/2, level);
+    drawCircle(x + radius/2, radius/2, level);
+  }
+}
+</script>
+
+<h2>"Basics/Structure/NoLoop/NoLoop.pde"</h2>
+<script type="text/processing" id="Basics/Structure/NoLoop/NoLoop.pde" debug="transpiled">
+/**
+ * No Loop. 
+ * 
+ * The noLoop() function causes draw() to only run once. 
+ * Without calling noLoop(), the code inside draw() is 
+ * run continually. 
+ */
+
+float y = 180;
+
+// The statements in the setup() block 
+// run once when the program begins
+void setup() {
+  size(640, 360);  // Size should be the first statement
+  stroke(255);  // Set line drawing color to white
+  noLoop();
+}
+
+// In this example, the code in the draw() block 
+// runs only once because of the noLoop() in setup()
+void draw() { 
+  background(0);   // Set the background to black
+  line(0, y, width, y);  
+  y = y - 1; 
+  if (y < 0) { y = height; } 
+} 
+</script>
+
+<h2>"Basics/Structure/Functions/Functions.pde"</h2>
+<script type="text/processing" id="Basics/Structure/Functions/Functions.pde" debug="transpiled">
+/**
+ * Functions. 
+ * 
+ * The drawTarget() function makes it easy to draw many distinct targets. 
+ * Each call to drawTarget() specifies the position, size, and number of 
+ * rings for each target. 
+ */
+
+void setup() {
+  size(640, 360);
+  background(51);
+  noStroke();
+  noLoop();
+}
+
+void draw() {
+  drawTarget(width*0.25, height*0.4, 200, 4);
+  drawTarget(width*0.5, height*0.5, 300, 10);
+  drawTarget(width*0.75, height*0.3, 120, 6);
+}
+
+void drawTarget(float xloc, float yloc, int size, int num) {
+  float grayvalues = 255/num;
+  float steps = size/num;
+  for (int i = 0; i < num; i++) {
+    fill(i*grayvalues);
+    ellipse(xloc, yloc, size - i*steps, size - i*steps);
+  }
+}
+</script>
+
+<h2>"Basics/Structure/Loop/Loop.pde"</h2>
+<script type="text/processing" id="Basics/Structure/Loop/Loop.pde" debug="transpiled">
+/**
+ * Loop. 
+ * 
+ * If noLoop() is run in setup(), the code in draw() 
+ * is only run once. In this example, click the mouse 
+ * to run the loop() function to cause the draw() the 
+ * run continuously. 
+ */
+
+float y = 180;
+ 
+// The statements in the setup() function 
+// run once when the program begins
+void setup() {
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set stroke color to white
+  noLoop();
+}
+
+void draw() { 
+  background(0);  // Set the background to black
+  line(0, y, width, y);  
+  y = y - 1; 
+  if (y < 0) { 
+    y = height; 
+  } 
+} 
+
+void mousePressed() {
+  loop();
+}
+</script>
+
+<h2>"Basics/Structure/Redraw/Redraw.pde"</h2>
+<script type="text/processing" id="Basics/Structure/Redraw/Redraw.pde" debug="transpiled">
+/**
+ * Redraw. 
+ * 
+ * The redraw() function makes draw() execute once.  
+ * In this example, draw() is executed once every time 
+ * the mouse is clicked. 
+ */
+ 
+float y;
+ 
+// The statements in the setup() function 
+// execute once when the program begins
+void setup() {
+  size(640, 360);  // Size should be the first statement
+  stroke(255);     // Set line drawing color to white
+  noLoop();
+  y = height * 0.5;
+}
+
+// The code in draw() is run until the program 
+// is stopped. Each statement is executed in
+// sequence and after the last line is read, 
+// the first line is run again.
+void draw() { 
+  background(0);   // Set the background to black
+  y = y - 4; 
+  if (y < 0) { y = height; } 
+  line(0, y, width, y);  
+} 
+
+void mousePressed() {
+  redraw();
+}
+
+
+</script>
+
+<h2>"Basics/Transform/Rotate/Rotate.pde"</h2>
+<script type="text/processing" id="Basics/Transform/Rotate/Rotate.pde" debug="transpiled">
+/**
+ * Rotate. 
+ * 
+ * Rotating a square around the Z axis. To get the results
+ * you expect, send the rotate function angle parameters that are
+ * values between 0 and PI*2 (TWO_PI which is roughly 6.28). If you prefer to 
+ * think about angles as degrees (0-360), you can use the radians() 
+ * method to convert your values. For example: scale(radians(90))
+ * is identical to the statement scale(PI/2). 
+ */
+
+float angle;
+float jitter;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  fill(255);
+  rectMode(CENTER);
+}
+
+void draw() {
+  background(51);
+
+  // during even-numbered seconds (0, 2, 4, 6...)
+  if (second() % 2 == 0) {  
+    jitter = random(-0.1, 0.1);
+  }
+  angle = angle + jitter;
+  float c = cos(angle);
+  translate(width/2, height/2);
+  rotate(c);
+  rect(0, 0, 180, 180);   
+}
+</script>
+
+<h2>"Basics/Transform/Scale/Scale.pde"</h2>
+<script type="text/processing" id="Basics/Transform/Scale/Scale.pde" debug="transpiled">
+/**
+ * Scale 
+ * by Denis Grutze. 
+ * 
+ * Paramenters for the scale() function are values specified 
+ * as decimal percentages. For example, the method call scale(2.0) 
+ * will increase the dimension of the shape by 200 percent. 
+ * Objects always scale from the origin. 
+ */
+ 
+float a = 0.0;
+float s = 0.0;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+  rectMode(CENTER);
+  frameRate(30);
+}
+
+void draw() {
+  
+  background(102);
+  
+  a = a + 0.04;
+  s = cos(a)*2;
+  
+  translate(width/2, height/2);
+  scale(s); 
+  fill(51);
+  rect(0, 0, 50, 50); 
+  
+  translate(75, 0);
+  fill(255);
+  scale(s);
+  rect(0, 0, 50, 50);       
+}
+</script>
+
+<h2>"Basics/Transform/Translate/Translate.pde"</h2>
+<script type="text/processing" id="Basics/Transform/Translate/Translate.pde" debug="transpiled">
+/**
+ * Translate. 
+ * 
+ * The translate() function allows objects to be moved
+ * to any location within the window. The first parameter
+ * sets the x-axis offset and the second parameter sets the
+ * y-axis offset. 
+ */
+ 
+float x, y;
+float dim = 80.0;
+
+void setup() {
+  size(640, 360);
+  noStroke();
+}
+
+void draw() {
+  background(102);
+  
+  x = x + 0.8;
+  
+  if (x > width + dim) {
+    x = -dim;
+  } 
+  
+  translate(x, height/2-dim/2);
+  fill(255);
+  rect(-dim/2, -dim/2, dim, dim);
+  
+  // Transforms accumulate. Notice how this rect moves 
+  // twice as fast as the other, but it has the same 
+  // parameter for the x-axis value
+  translate(x, dim);
+  fill(0);
+  rect(-dim/2, -dim/2, dim, dim);
+}
+</script>
+
+<h2>"Basics/Transform/RotatePushPop/RotatePushPop.pde"</h2>
+<script type="text/processing" id="Basics/Transform/RotatePushPop/RotatePushPop.pde" debug="transpiled">
+/**
+ * Rotate Push Pop. 
+ * 
+ * The push() and pop() functions allow for more control over transformations.
+ * The push function saves the current coordinate system to the stack 
+ * and pop() restores the prior coordinate system. 
+ */
+ 
+float a;                 // Angle of rotation
+float offset = PI/24.0;  // Angle offset between boxes
+int num = 12;            // Number of boxes
+
+void setup() { 
+  size(640, 360, P3D);
+  noStroke();  
+} 
+ 
+
+void draw() {
+  
+  lights();
+  
+  background(0, 0, 26);
+  translate(width/2, height/2); 
+  
+  for(int i = 0; i < num; i++) {
+    float gray = map(i, 0, num-1, 0, 255);
+    pushMatrix();
+    fill(gray);
+    rotateY(a + offset*i);
+    rotateX(a/2 + offset*i);
+    box(200);
+    popMatrix();
+  }
+  
+  a += 0.01;    
+} 
+</script>
+
+<h2>"Basics/Transform/RotateXY/RotateXY.pde"</h2>
+<script type="text/processing" id="Basics/Transform/RotateXY/RotateXY.pde" debug="transpiled">
+/**
+ * Rotate 1. 
+ * 
+ * Rotating simultaneously in the X and Y axis. 
+ * Transformation functions such as rotate() are additive.
+ * Successively calling rotate(1.0) and rotate(2.0)
+ * is equivalent to calling rotate(3.0). 
+ */
+ 
+float a = 0.0;
+float rSize;  // rectangle size
+
+void setup() {
+  size(640, 360, P3D);
+  rSize = width / 6;  
+  noStroke();
+  fill(204, 204);
+}
+
+void draw() {  
+  background(126);
+  
+  a += 0.005;
+  if(a > TWO_PI) { 
+    a = 0.0; 
+  }
+  
+  translate(width/2, height/2);
+  
+  rotateX(a);
+  rotateY(a * 2.0);
+  fill(255);
+  rect(-rSize, -rSize, rSize*2, rSize*2);
+  
+  rotateX(a * 1.001);
+  rotateY(a * 2.002);
+  fill(0);
+  rect(-rSize, -rSize, rSize*2, rSize*2);
+
+}
+</script>
+
+<h2>"Basics/Transform/Arm/Arm.pde"</h2>
+<script type="text/processing" id="Basics/Transform/Arm/Arm.pde" debug="transpiled">
+/**
+ * Arm. 
+ * 
+ * The angle of each segment is controlled with the mouseX and
+ * mouseY position. The transformations applied to the first segment
+ * are also applied to the second segment because they are inside
+ * the same pushMatrix() and popMatrix() group.
+*/
+
+float x, y;
+float angle1 = 0.0;
+float angle2 = 0.0;
+float segLength = 100;
+
+void setup() {
+  size(640, 360);
+  strokeWeight(30);
+  stroke(255, 160);
+  
+  x = width * 0.3;
+  y = height * 0.5;
+}
+
+void draw() {
+  background(0);
+  
+  angle1 = (mouseX/float(width) - 0.5) * -PI;
+  angle2 = (mouseY/float(height) - 0.5) * PI;
+  
+  pushMatrix();
+  segment(x, y, angle1); 
+  segment(segLength, 0, angle2);
+  popMatrix();
+}
+
+void segment(float x, float y, float a) {
+  translate(x, y);
+  rotate(a);
+  line(0, 0, segLength, 0);
+}
+</script>
+
+<h2>"Basics/Lights/MixtureGrid/MixtureGrid.pde"</h2>
+<script type="text/processing" id="Basics/Lights/MixtureGrid/MixtureGrid.pde" debug="transpiled">
+/**
+ * Mixture Grid  
+ * modified from an example by Simon Greenwold. 
+ * 
+ * Display a 2D grid of boxes with three different kinds of lights. 
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+}
+
+void draw() {
+  defineLights();
+  background(0);
+  
+  for (int x = 0; x <= width; x += 60) {
+    for (int y = 0; y <= height; y += 60) {
+      pushMatrix();
+      translate(x, y);
+      rotateY(map(mouseX, 0, width, 0, PI));
+      rotateX(map(mouseY, 0, height, 0, PI));
+      box(90);
+      popMatrix();
+    }
+  }
+}
+
+void defineLights() {
+  // Orange point light on the right
+  pointLight(150, 100, 0,   // Color
+             200, -150, 0); // Position
+
+  // Blue directional light from the left
+  directionalLight(0, 102, 255, // Color
+                   1, 0, 0);    // The x-, y-, z-axis direction
+
+  // Yellow spotlight from the front
+  spotLight(255, 255, 109,  // Color
+            0, 40, 200,     // Position
+            0, -0.5, -0.5,  // Direction
+            PI / 2, 2);     // Angle, concentration
+}
+</script>
+
+<h2>"Basics/Lights/Directional/Directional.pde"</h2>
+<script type="text/processing" id="Basics/Lights/Directional/Directional.pde" debug="transpiled">
+/**
+ * Directional. 
+ * 
+ * Move the mouse the change the direction of the light.
+ * Directional light comes from one direction and is stronger 
+ * when hitting a surface squarely and weaker if it hits at a 
+ * a gentle angle. After hitting a surface, a directional lights 
+ * scatters in all directions. 
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+  fill(204);
+}
+
+void draw() {
+  noStroke(); 
+  background(0); 
+  float dirY = (mouseY / float(height) - 0.5) * 2;
+  float dirX = (mouseX / float(width) - 0.5) * 2;
+  directionalLight(204, 204, 204, -dirX, -dirY, -1); 
+  translate(width/2 - 100, height/2, 0); 
+  sphere(80); 
+  translate(200, 0, 0); 
+  sphere(80); 
+}
+
+</script>
+
+<h2>"Basics/Lights/Mixture/Mixture.pde"</h2>
+<script type="text/processing" id="Basics/Lights/Mixture/Mixture.pde" debug="transpiled">
+/**
+ * Mixture
+ * by Simon Greenwold. 
+ * 
+ * Display a box with three different kinds of lights. 
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+}
+
+void draw() {
+  background(0);
+  translate(width / 2, height / 2);
+  
+  // Orange point light on the right
+  pointLight(150, 100, 0, // Color
+             200, -150, 0); // Position
+
+  // Blue directional light from the left
+  directionalLight(0, 102, 255, // Color
+                   1, 0, 0); // The x-, y-, z-axis direction
+
+  // Yellow spotlight from the front
+  spotLight(255, 255, 109, // Color
+            0, 40, 200, // Position
+            0, -0.5, -0.5, // Direction
+            PI / 2, 2); // Angle, concentration
+  
+  rotateY(map(mouseX, 0, width, 0, PI));
+  rotateX(map(mouseY, 0, height, 0, PI));
+  box(150);
+}
+</script>
+
+<h2>"Basics/Lights/OnOff/OnOff.pde"</h2>
+<script type="text/processing" id="Basics/Lights/OnOff/OnOff.pde" debug="transpiled">
+/**
+ * On/Off.  
+ * 
+ * Uses the default lights to show a simple box. The lights() function
+ * is used to turn on the default lighting. Click the mouse to turn the
+ * lights off.
+ */
+ 
+float spin = 0.0;
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+}
+
+void draw() {
+  background(51);
+  
+  if (!mousePressed) {
+    lights();
+  }
+  
+  spin += 0.01;
+  
+  pushMatrix();
+  translate(width/2, height/2, 0);
+  rotateX(PI/9);
+  rotateY(PI/5 + spin);
+  box(150);
+  popMatrix();
+}
+</script>
+
+<h2>"Basics/Lights/Reflection/Reflection.pde"</h2>
+<script type="text/processing" id="Basics/Lights/Reflection/Reflection.pde" debug="transpiled">
+/**
+ * Reflection 
+ * by Simon Greenwold. 
+ * 
+ * Vary the specular reflection component of a material
+ * with the horizontal position of the mouse. 
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+  colorMode(RGB, 1);
+  fill(0.4);
+}
+
+void draw() {
+  background(0);
+  translate(width / 2, height / 2);
+  // Set the specular color of lights that follow
+  lightSpecular(1, 1, 1);
+  directionalLight(0.8, 0.8, 0.8, 0, 0, -1);
+  float s = mouseX / float(width);
+  specular(s, s, s);
+  sphere(120);
+}
+</script>
+
+<h2>"Basics/Lights/Spot/Spot.pde"</h2>
+<script type="text/processing" id="Basics/Lights/Spot/Spot.pde" debug="transpiled">
+/**
+ * Spot. 
+ * 
+ * Move the mouse the change the position and concentation
+ * of a blue spot light. 
+ */
+
+void setup() {
+  size(640, 360, P3D);
+  noStroke();
+  fill(204);
+  sphereDetail(60);
+}
+
+void draw() {
+  background(0); 
+  
+  // Light the bottom of the sphere
+  directionalLight(51, 102, 126, 0, -1, 0);
+  
+  // Orange light on the upper-right of the sphere
+  spotLight(204, 153, 0, 360, 160, 600, 0, 0, -1, PI/2, 600); 
+  
+  // Moving spotlight that follows the mouse
+  spotLight(102, 153, 204, 360, mouseY, 600, 0, 0, -1, PI/2, 600);
+
+  translate(width/2, height/2, 0);
+  sphere(120);
+}
+</script>
+
+<h2>"Basics/Control/EmbeddedIteration/EmbeddedIteration.pde"</h2>
+<script type="text/processing" id="Basics/Control/EmbeddedIteration/EmbeddedIteration.pde" debug="transpiled">
+/**
+ * Embedding Iteration. 
+ * 
+ * Embedding "for" structures allows repetition in two dimensions. 
+ *
+ */
+
+
+size(640, 360); 
+background(0); 
+
+int gridSize = 40;
+
+for (int x = gridSize; x <= width - gridSize; x += gridSize) {
+  for (int y = gridSize; y <= height - gridSize; y += gridSize) {
+    noStroke();
+    fill(255);
+    rect(x-1, y-1, 3, 3);
+    stroke(255, 100);
+    line(x, y, width/2, height/2);
+  }
+}</script>
+
+<h2>"Basics/Control/LogicalOperators/LogicalOperators.pde"</h2>
+<script type="text/processing" id="Basics/Control/LogicalOperators/LogicalOperators.pde" debug="transpiled">
+/**
+ * Logical Operators. 
+ * 
+ * The logical operators for AND (&&) and OR (||) are used to 
+ * combine simple relational statements into more complex expressions.
+ * The NOT (!) operator is used to negate a boolean statement. 
+ */
+ 
+size(640, 360);
+background(126);
+
+boolean test = false;
+
+for (int i = 5; i <= height; i += 5) {
+  // Logical AND
+  stroke(0);
+  if((i > 35) && (i < 100)) {
+    line(width/4, i, width/2, i);
+    test = false;
+  }
+  
+  // Logical OR
+  stroke(76);
+  if ((i <= 35) || (i >= 100)) {
+    line(width/2, i, width, i);
+    test = true;
+  }
+  
+  // Testing if a boolean value is "true"
+  // The expression "if(test)" is equivalent to "if(test == true)"
+  if (test) {
+    stroke(0);
+    point(width/3, i);
+  }
+    
+  // Testing if a boolean value is "false"
+  // The expression "if(!test)" is equivalent to "if(test == false)"
+  if (!test) {
+    stroke(255);
+    point(width/4, i);
+  }
+}
+
+
+
+</script>
+
+<h2>"Basics/Control/Conditionals1/Conditionals1.pde"</h2>
+<script type="text/processing" id="Basics/Control/Conditionals1/Conditionals1.pde" debug="transpiled">
+/**
+ * Conditionals 1. 
+ * 
+ * Conditions are like questions. 
+ * They allow a program to decide to take one action if 
+ * the answer to a question is "true" or to do another action
+ * if the answer to the question is "false."<br /> 
+ * The questions asked within a program are always logical
+ * or relational statements. For example, if the variable 'i' is 
+ * equal to zero then draw a line. 
+ */
+ 
+size(640, 360);
+background(0);
+
+for(int i = 10; i < width; i += 10) {
+  // If 'i' divides by 20 with no remainder draw 
+  // the first line, else draw the second line
+  if((i % 20) == 0) {
+    stroke(255);
+    line(i, 80, i, height/2);
+  } else {
+    stroke(153);
+    line(i, 20, i, 180); 
+  }
+}</script>
+
+<h2>"Basics/Control/Iteration/Iteration.pde"</h2>
+<script type="text/processing" id="Basics/Control/Iteration/Iteration.pde" debug="transpiled">
+/**
+ * Iteration. 
+ * 
+ * Iteration with a "for" structure to construct repetitive forms. 
+ */
+ 
+int y;
+int num = 14;
+
+size(640, 360);
+background(102);
+noStroke();
+ 
+// White bars 
+fill(255);
+y = 60;
+for(int i = 0; i < num/3; i++) {
+  rect(50, y, 475, 10);
+  y+=20;
+}
+
+// Gray bars
+fill(51);
+y = 40;
+for(int i = 0; i < num; i++) {
+  rect(405, y, 30, 10);
+  y += 20;
+}
+y = 50;
+for(int i = 0; i < num; i++) {
+  rect(425, y, 30, 10);
+  y += 20;
+}
+  
+// Thin lines
+y = 45;
+fill(0);
+for(int i = 0; i < num-1; i++) {
+  rect(120, y, 40, 1);
+  y+= 20;
+}</script>
+
+<h2>"Basics/Control/Conditionals2/Conditionals2.pde"</h2>
+<script type="text/processing" id="Basics/Control/Conditionals2/Conditionals2.pde" debug="transpiled">
+/**
+ * Conditionals 2. 
+ * 
+ * We extend the language of conditionals from the previous
+ * example by adding the keyword "else". This allows conditionals 
+ * to ask two or more sequential questions, each with a different
+ * action. 
+ */
+
+size(640, 360);
+background(0);
+
+for (int i = 2; i < width-2; i += 2) {
+  // If 'i' divides by 20 with no remainder
+  if ((i % 20) == 0) {
+    stroke(255);
+    line(i, 80, i, height/2);
+    // If 'i' divides by 10 with no remainder
+  } else if ((i % 10) == 0) {
+    stroke(153);
+    line(i, 20, i, 180); 
+    // If neither of the above two conditions are met
+    // then draw this line
+  } else {  
+    stroke(102);
+    line(i, height/2, i, height-20);
+  }
+}</script>
+
+<!-- P9asJ9.js should be placed in the last of the document -->
+<script type="text/javascript" src="P9asJ9.js"></script>
+</body>
+</html>
